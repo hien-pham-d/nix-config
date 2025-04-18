@@ -1,0 +1,27 @@
+* DOING: organize init.el into multiple dirs
+
+DONE: First-try with my key bindings
+init.el
+lisp/keymaps/<aspect>.el
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+DONE: package manager
+lisp/init-packages.el
+
+DONE: move customized keymaps out from the 'init-packages
+- [x] me-master-map
+- [x] me/keymap-set-with-desc
+
+
+* TODO: optimize us-package lazy loading
+
+TODO: separate package configuration into multiple files for easier management
+
+Note:
+
+- config automation with `with-eval-after-load` in mind
+
+- config lazy loading with use-package :bind, :command, :hook, ...
+
+* TODO: auto-enable eglot on prog-mode
+

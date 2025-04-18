@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+LATEST_VERSION="v1.97.1"
+
+# Debug adapter download URL
+DAP_URL="https://github.com/microsoft/vscode-js-debug/releases/download/${LATEST_VERSION}/js-debug-dap-${LATEST_VERSION}.tar.gz"
+
+# Target directory (create if missing)
+TARGET_DIR="$HOME/.emacs.d/debug-adapters/"
+mkdir -p "$TARGET_DIR"
+
+# Download and extract
+echo "Downloading js-debug ${LATEST_VERSION}..."
+curl -L "$DAP_URL" -o js-debug-dap.tar.gz
+tar -xzf js-debug-dap.tar.gz -C "$TARGET_DIR"
+rm js-debug-dap.tar.gz
+
+echo "Installed JavaScript debug adapter to: $TARGET_DIR"
