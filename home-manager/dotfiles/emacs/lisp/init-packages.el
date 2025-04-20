@@ -111,8 +111,7 @@
   (keymap-set corfu-map "C-y" 'corfu-complete)
   (keymap-set corfu-map "C-n" 'corfu-next)
   (keymap-set corfu-map "C-p" 'corfu-previous)
-  (keymap-set corfu-map "SPC" 'corfu-insert-separator)
-
+  (keymap-set corfu-map "M-SPC" 'corfu-insert-separator)
   (keymap-set corfu-map "TAB" #'indent-for-tab-command)
   (keymap-set corfu-map "RET" #'newline)
   )
