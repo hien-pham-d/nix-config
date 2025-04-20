@@ -15,6 +15,8 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+  nixpkgs.config.allowUnfree = true;
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -22,9 +24,28 @@
     # # "Hello, world!" when run.
     # pkgs.hello
 
+    emacs
+    vim
+    neovim
+    git
+    ripgrep
+    fd
+    wget
+    curl
+    rsync
+    cmake
+    gnumake
+    openssl
+
     brave
-    # logseq
-    
+    # flatpak
+    # gnome.gnome-software
+    vscode
+
+    sqlite
+
+    # logseq # does not available for aarch64-linux
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -77,6 +98,8 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
+
+  programs.info.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

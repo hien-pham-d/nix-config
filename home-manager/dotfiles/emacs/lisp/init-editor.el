@@ -4,4 +4,10 @@
 ;; https://emacsdocs.org/docs/emacs/Long-Lines
 (global-so-long-mode t)
 
+(setq custom-file (expand-file-name "custom-file.el" user-emacs-directory))
+(load custom-file 'noerror)
+
+(setq make-backup-files nil)
+
+
 (provide 'init-editor)

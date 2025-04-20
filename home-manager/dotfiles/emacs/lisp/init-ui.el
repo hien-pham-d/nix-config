@@ -8,6 +8,7 @@
 ;; hide some UI components
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(menu-bar-mode -1)
 
 (setq tab-bar-show 1) ;; show if the number of tab bars execced 1
 

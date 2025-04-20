@@ -1,3 +1,15 @@
+;; POST INSTALLATION
+
+;; (copilot-install-server)
+
+(nerd-icons-install-fonts)
+
+(dolist (item treesit-language-source-alist)
+  (message "read: %s" (car item))
+  (treesit-install-language-grammar (car item))
+  )
+
+;; Note
 (use-package evil-collection
   :custom (evil-collection-setup-minibuffer t)
   :init (evil-collection-init))
@@ -13,12 +25,3 @@
                                         ; See the Configuration section below
   (aidermacs-use-architect-mode t)
   (aidermacs-default-model "sonnet"))
-
-;; POST INSTALLATION
-
-(copilot-install-server)
-
-(dolist (item treesit-language-source-alist)
-  (message "read: %s" (car item))
-  (treesit-install-language-grammar (car item))
-  )

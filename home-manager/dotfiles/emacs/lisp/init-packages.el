@@ -81,11 +81,11 @@
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
 
   ;; Enable Corfu only for certain modes.
-  :hook (
-         (prog-mode . corfu-mode)
-         ;; (shell-mode . corfu-mode)
-         ;; (eshell-mode . corfu-mode)
-         )
+  ;; :hook (
+  ;;        ;; (prog-mode . corfu-mode)
+  ;;        ;; (shell-mode . corfu-mode)
+  ;;        ;; (eshell-mode . corfu-mode)
+  ;;        )
 
   ;; Recommended: Enable Corfu globally.
   ;; This is recommended since Dabbrev can be used globally (M-/).
@@ -104,9 +104,17 @@
                   corfu-popupinfo-delay nil)
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+  ;; (add-hook 'eshell-mode-hook (lambda ()
+  ;;                               (setq-local corfu-auto nil)
+  ;;                               (corfu-mode)))
+
   (keymap-set corfu-map "C-y" 'corfu-complete)
   (keymap-set corfu-map "C-n" 'corfu-next)
   (keymap-set corfu-map "C-p" 'corfu-previous)
+  (keymap-set corfu-map "SPC" 'corfu-insert-separator)
+
+  (keymap-set corfu-map "TAB" #'indent-for-tab-command)
+  (keymap-set corfu-map "RET" #'newline)
   )
 
 ;; Emacs minibuffer configurations.
@@ -673,5 +681,13 @@
               ))
   (setq vterm-keymap-exceptions nil)
   )
+
+(use-package helm)
+(use-package helm-dash
+  :init
+  (setq dash-docs-enable-debugging nil))
+
+;; after downloading, run this: nerd-icons-install-fonts
+(use-package nerd-icons)
 
 (provide 'init-packages)
