@@ -7,9 +7,9 @@ hm-switch:
 os-rebuild:
 	sudo nixos-rebuild switch --flake .#nixos
 
-# delete both nixos and home-manager generations
+# delete both inactive nixos and home-manager generations
 # update the boot loader
-hm-tidy:
+tidy:
 	nix-collect-garbage --delete-older-than 30d
 	sudo nixos-rebuild boot --flake .#nixos
 
