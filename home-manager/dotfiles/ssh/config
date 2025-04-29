@@ -1,0 +1,11 @@
+# automatically add ssh key to ssh-agent and key-chain
+Host *
+	IgnoreUnknown UseKeychain
+	AddKeysToAgent yes
+	UseKeychain yes
+
+# config for a specific host
+Host github.com
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/mbavm2github

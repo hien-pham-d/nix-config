@@ -30,6 +30,7 @@
     cmake
     gnumake
     openssl
+    openssh
 
     brave
     # flatpak
@@ -80,6 +81,9 @@
 
     ".tmux.conf".source = ./dotfiles/tmux.conf;
     ".wezterm.lua".source = ./dotfiles/wezterm.lua;
+
+    ".ssh/config".source = ./dotfiles/ssh/config;
+    ".gitconfig".source = ./dotfiles/gitconfig;
 
   };
 
