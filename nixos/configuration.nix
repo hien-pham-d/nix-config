@@ -49,6 +49,10 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # Disable getty on tty1 to prevent the TTY login from briefly appearing
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
