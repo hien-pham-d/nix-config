@@ -62,11 +62,13 @@ of the form (KEY COMMAND DESC)."
 ;; ensure some default behaviors of the terminal
 (keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
 (keymap-set vterm-mode-map "C-r" #'vterm--self-insert)
+(keymap-set vterm-mode-map "C-w" #'vterm--self-insert)
 
 ;; prevent some unexpected behaviors from evil-insert-state-map
 (keymap-unset evil-insert-state-map "C-k")
 (keymap-unset evil-insert-state-map "C-e")
 (keymap-unset evil-insert-state-map "C-r")
+(keymap-unset evil-insert-state-map "C-w")
 
 (me/keymap-set-with-desc global-map "M-j" #'harpoon-go-to-1 "goto-1")
 (me/keymap-set-with-desc global-map "M-k" #'harpoon-go-to-2 "goto-2")
