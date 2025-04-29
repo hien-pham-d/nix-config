@@ -52,6 +52,22 @@ of the form (KEY COMMAND DESC)."
 (me/keymap-set-with-desc global-map "C-k" 'windmove-up "windmove-up")
 (me/keymap-set-with-desc global-map "C-l" 'windmove-right "windmove-right")
 
+;; vterm keybinding customizations
+;; allow window nagivation through C-<h,j,k,l>
+(keymap-unset vterm-mode-map "C-h")
+(keymap-unset vterm-mode-map "C-j")
+(keymap-unset vterm-mode-map "C-k")
+(keymap-unset vterm-mode-map "C-l")
+
+;; ensure some default behaviors of the terminal
+(keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
+(keymap-set vterm-mode-map "C-r" #'vterm--self-insert)
+
+;; prevent some unexpected behaviors from evil-insert-state-map
+(keymap-unset evil-insert-state-map "C-k")
+(keymap-unset evil-insert-state-map "C-e")
+(keymap-unset evil-insert-state-map "C-r")
+
 (me/keymap-set-with-desc global-map "M-j" #'harpoon-go-to-1 "goto-1")
 (me/keymap-set-with-desc global-map "M-k" #'harpoon-go-to-2 "goto-2")
 (me/keymap-set-with-desc global-map "M-l" #'harpoon-go-to-3 "goto-3")

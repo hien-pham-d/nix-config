@@ -661,7 +661,6 @@
   )
 
 (use-package vterm
-  :disabled
   :config
   (add-hook 'vterm-mode-hook
             (lambda ()

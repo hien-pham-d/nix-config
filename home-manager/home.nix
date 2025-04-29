@@ -53,6 +53,9 @@
     tmux
     wezterm
 
+    libtool
+    libvterm
+
     # logseq # does not available for aarch64-linux
 
     # # You can also create simple shell scripts directly inside your
@@ -83,6 +86,7 @@
 
   home.sessionVariables = {
     # EDITOR = "emacs";
+    NIX_SHELL_PRESERVE_PROMPT = "1";
   };
 
   programs.info.enable = true;
