@@ -234,10 +234,15 @@
         xref-show-definitions-function #'consult-xref)
 
   (setq consult-fd-args '("fd"
-                          "--full-path --color=never --hidden"))
+                          "--full-path --color=never --hidden"
+                          "--exclude" ".git"
+                          "--exclude" "node_modules"
+                          ))
 
   (setq consult-ripgrep-args '("rg"
                                "--hidden"
+                               "--glob !.git"
+                               "--glob !node_modules"
                                "--null --line-buffered --color=never --max-columns=1000 --path-separator /   --smart-case --no-heading --with-filename --line-number --search-zip"))
   ;; Configure other variables and modes in the :config section,
   ;; after lazily loading the package.
