@@ -482,16 +482,6 @@
 (use-package tree-sitter-langs
   :disabled)
 
-;; go
-;; FIXME: install if not existed
-;; (treesit-install-language-grammar 'go)
-
-;; typescript
-;; (treesit-install-language-grammar 'typescript)
-
-(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.ts[x]?\\'" . typescript-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-ts-mode))
 
 ;; FIXME: automate the 'tree-sitter-langs-install-grammars
 (setq treesit-language-source-alist
@@ -694,5 +684,12 @@
 (use-package nerd-icons)
 
 (use-package direnv)
+
+(use-package nix-mode)
+
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.ts[x]?\\'" . typescript-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 
 (provide 'init-packages)
