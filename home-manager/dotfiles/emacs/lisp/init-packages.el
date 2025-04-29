@@ -693,4 +693,6 @@
 ;; after downloading, run this: nerd-icons-install-fonts
 (use-package nerd-icons)
 
+(use-package direnv)
+
 (provide 'init-packages)
