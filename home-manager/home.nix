@@ -44,13 +44,16 @@
 
     sqlite
 
-    # logseq # does not available for aarch64-linux
+    autojump
+    fzf
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    zsh-powerlevel10k
+    # nerdfonts
+    tmux
+    wezterm
 
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    # logseq # does not available for aarch64-linux
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -71,30 +74,13 @@
     ".emacs.d/early-init.el".source = ./dotfiles/emacs/early-init.el;
     ".emacs.d/init.el".source = ./dotfiles/emacs/init.el;
     ".emacs.d/lisp".source = ./dotfiles/emacs/lisp;
+    ".p10k.zsh".source = ./dotfiles/zsh/p10k.zsh;
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+    ".tmux.conf".source = ./dotfiles/tmux.conf;
+    ".wezterm.lua".source = ./dotfiles/wezterm.lua;
+
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/hienphamduc/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
@@ -103,4 +89,44 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs = {
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+
+      shellAliases = {
+        ls = "ls --color=auto";
+        v = "nvim";
+        gau = "git add -u";
+        gaa = "git add -A";
+        gb = "git branch";
+        gci = "git commit";
+        gpl = "git pull origin $(git branch --show-current)";
+        gps = "git push origin $(git branch --show-current)";
+        gsw = "git switch";
+        gl = "git log --oneline --graph";
+        glh = "git log --pretty=oneline --graph";
+        gs = "git status";
+      };
+
+      initExtra = ''
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+        [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+        export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
+      '';
+
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "autojump"
+          "vi-mode"
+          "fzf"
+        ];
+      };
+    };
+  };
 }

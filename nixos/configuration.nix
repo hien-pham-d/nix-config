@@ -83,12 +83,16 @@
     description = "hien-phamduc";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  thunderbird
+
     ];
+    shell = pkgs.zsh;
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  programs = {
+    zsh = {
+      enable = true;
+    };
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -106,6 +110,7 @@
     curl
     rsync
     cmake
+    gcc
     gnumake
     openssl
   ];
