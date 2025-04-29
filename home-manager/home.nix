@@ -44,17 +44,27 @@
 
     sqlite
 
+    # nerdfonts
+    tmux
+    wezterm
+
+    # dependencies for emacs vterm
+    libtool
+    libvterm
+
+    # dependencies for zsh cfg
     autojump
     fzf
     zsh-autosuggestions
     zsh-syntax-highlighting
     zsh-powerlevel10k
-    # nerdfonts
-    tmux
-    wezterm
 
-    libtool
-    libvterm
+
+    # wip: dependencies for bash cfg
+    # shell prompt configuration
+    starship
+    # line editor for bash
+    blesh
 
     # logseq # does not available for aarch64-linux
 
@@ -69,11 +79,6 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
     ".emacs.d/early-init.el".source = ./dotfiles/emacs/early-init.el;
     ".emacs.d/init.el".source = ./dotfiles/emacs/init.el;
     ".emacs.d/lisp".source = ./dotfiles/emacs/lisp;
@@ -131,6 +136,36 @@
           "fzf"
         ];
       };
+    };
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
+
+    # wip
+    bash = {
+      enable = true;
+      shellAliases = {
+        ls = "ls --color=auto";
+        v = "nvim";
+        gau = "git add -u";
+        gaa = "git add -A";
+        gb = "git branch";
+        gci = "git commit";
+        gpl = "git pull origin $(git branch --show-current)";
+        gps = "git push origin $(git branch --show-current)";
+        gsw = "git switch";
+        gl = "git log --oneline --graph";
+        glh = "git log --pretty=oneline --graph";
+        gs = "git status";
+      };
+      initExtra = ''
+        export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
+        # eval "$(starship init bash)"
+        source ${pkgs.blesh}/share/blesh/ble.sh
+      '';
     };
   };
 }
