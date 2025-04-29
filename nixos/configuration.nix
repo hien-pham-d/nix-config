@@ -81,7 +81,7 @@
   users.users.hienphamduc = {
     isNormalUser = true;
     description = "hien-phamduc";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
 
     ];
@@ -114,6 +114,8 @@
     gnumake
     openssl
   ];
+
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
