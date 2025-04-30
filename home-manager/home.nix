@@ -32,6 +32,8 @@
     openssl
     openssh
 
+    nodejs_22
+
     brave
     # flatpak
     # gnome.gnome-software

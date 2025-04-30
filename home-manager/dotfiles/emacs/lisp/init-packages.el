@@ -643,17 +643,19 @@
   )
 
 (use-package copilot
-  :disabled
   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
   :init
   (setq copilot-indent-offset-warning-disable t)
   ;; prefer using AI's completion mannually in normal mode
-  (setq copilot-disable-display-predicates '(evil-insert-state-p))
+  ;; (setq copilot-disable-display-predicates '(evil-insert-state-p))
+
   :hook (
          (prog-mode . copilot-mode)
          (org-mode . copilot-mode)
          (markdown-ts-mode . copilot-mode)
          )
+  :config
+  (keymap-set copilot-completion-map "C-y" 'copilot-accept-completion)
   )
 
 (use-package vterm
@@ -695,6 +697,89 @@
   ;; auto map file extensions to appropriate treesitter language
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
+
+(with-eval-after-load 'org
+  (setq org-directory "~/workspace/repos/second-brain/para/")
+
+  (setq org-agenda-files '("projects.org"))
+
+  (setq org-todo-keywords '((sequence
+                             "TODO(t)"
+                             "BLOCKED(b@)"
+                             "IN-PROGRESS(i!)"
+                             "PAUSED(p)"
+                             "UNDER-REVIEW(r!)"
+                             "|"
+                             "DONE(d!)"
+                             "DELEGATED(D@)"
+                             "CANCELED(c@)"
+                             )))
+
+  (setq org-todo-keyword-faces '(("TODO" . "#ea76cb")
+                                 ("UNDER-REVIEW" . "#ea76cb")
+                                 ("BLOCKED" . "#d20f39")
+                                 ("IN-PROGRESS" . "#04a5e5")
+                                 ("PAUSED" . "#ea76cb")
+                                 ("DONE" . "#40a02b")
+                                 ("DELEGATED" . "#8c8fa1")
+                                 ("CANCELED" . "#4c4f69")))
+
+  (setq org-tag-alist '((:startgroup)
+                        ("Locations")
+                        (:grouptags)
+                        ("@personal" . ?P)
+                        ("@work" . ?W)
+                        (:endgrouptag)
+                        (:endgroup)
+                        ;;
+                        (:startgroup)
+                        ("Priorities")
+                        (:grouptags)
+                        ("@high" . ?H)
+                        ("@medium" . ?M)
+                        ("@low" . ?L)
+                        (:endgrouptag)
+                        (:endgroup)))
+
+
+  (setq org-default-notes-file (concat org-directory "notes.org"))
+
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline (lambda ()(concat org-directory "projects.org")) "Inbox")
+           "* TODO %?\n  %i\n  %a")
+          ("j" "Journal" entry (file+datetree (lambda () (concat org-directory "journal.org")))
+           "* %?\nEntered on %U\n  %i\n  %a")))
+  ;; auto-clock when working on an item
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
+
+  ;; Resolving idle time
+  (setq org-clock-idle-time 25)
+
+
+  ;; disable underline in org link
+  (custom-set-faces
+   '(org-link ((t (:foreground "royal blue" :underline nil :italic t)))))
+
+  ;; auto-clock-out when idle
+  ;; (setq clock-auto-clockout-timer 1200)
+  ;; (org-clock-auto-clockout-insinuate)
+
+  ;; auto clock-in/out based on task state
+  (add-hook 'org-after-todo-state-change-hook (lambda()
+                                                (if (and (member org-state '("IN-PROGRESS"))
+                                                         (not (org-clock-is-active)))
+                                                    (org-clock-in)
+                                                  (org-clock-out))))
+
+  (add-hook 'org-mode-hook #'org-indent-mode)
+  ;; (setq display-fill-column-indicator-column 80)
+  ;; (add-hook 'org-mode-hook #'display-fill-column-indicator-mode)
+  ;; (add-hook 'org-mode-hook #'auto-fill-mode)
+  )
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;; (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.ts[x]?\\'" . typescript-ts-mode))

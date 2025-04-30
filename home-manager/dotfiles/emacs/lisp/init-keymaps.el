@@ -87,6 +87,8 @@ of the form (KEY COMMAND DESC)."
   (evil-define-key '(normal visual) global-map (kbd "g t") #'eglot-find-typeDefinition)
   (evil-define-key '(normal visual) global-map (kbd "g r") #'xref-find-references)
   (evil-define-key '(normal visual) global-map (kbd "g i") #'eglot-find-implementation)
+
+  (evil-define-key '(normal visual) global-map (kbd "C-i") #'evil-jump-forward)
   )
 
 ;; Quick-Access
@@ -217,6 +219,21 @@ of the form (KEY COMMAND DESC)."
                            ("C-y" copilot-accept-completion "accept-complete")
                            )
                          ))
+
+(setq me-note-map
+      (me/gen-sub-keymap me-master-map "n" "note"
+                         '(
+                           ("t" org-todo "todo-change-status")
+                           ("l" org-todo-list "todo-list")
+                           ("a" org-agenda "agenda")
+                           ("f" org-toggle-narrow-to-subtree "focus-toggle")
+                           ("c" org-capture "Capture")
+                           ("s" org-schedule "set-schedule")
+                           ("d" org-deadline "set-deadline")
+                           ("T" org-set-tags-command "set-tags")
+                           ("L" org-store-link "store-link")
+                           ("l" org-insert-link "insert-link")
+                           )))
 
 ;; git-gutter
 (with-eval-after-load 'evil

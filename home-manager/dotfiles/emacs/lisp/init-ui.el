@@ -1,6 +1,11 @@
 ;; background color
 (set-background-color "#1e1e2e")
 (set-face-attribute 'line-number nil :background "#1e1e2e")
+
+;; fontsize
+;; (set-face-attribute 'default nil :height 120)
+(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 120)
+
 (with-eval-after-load 'hl-line
   (set-face-attribute 'hl-line nil :background "#2a2b3c")
   )
@@ -25,10 +30,6 @@
 ;; Recommended way to enable line wrapping.
 ;; This automatically set world-wrap = t.
 (global-visual-line-mode)
-
-;; set font
-;; (add-to-list 'default-frame-alist
-;; 	           '(font . "Hack Nerd Font Mono-16"))
 
 ;; flash the mode-line instead of ring a bell when unexpected actions occur
 (setq ring-bell-function
