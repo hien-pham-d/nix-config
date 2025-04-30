@@ -39,7 +39,6 @@
     (exec-path-from-shell-initialize))
   )
 
-
 ;; Enable Vertico for minibuffer fuzzy search
 (use-package vertico
   :custom
@@ -198,6 +197,7 @@
 
 (use-package key-chord
   :config
+  (setq key-chord-two-keys-delay 0.3)
   (key-chord-mode 1)
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
   )

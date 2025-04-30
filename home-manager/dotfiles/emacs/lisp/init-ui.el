@@ -41,7 +41,10 @@
 (setq-default indent-tabs-mode nil)
 (setq-default evil-shift-width 2)
 
-(setq-default whitespace-style '(face tabs tab-mark spaces space-mark trailing newline newline-mark))
+;; (setq-default whitespace-style '(face tabs tab-mark spaces space-mark trailing newline newline-mark))
+;; when using copilot, we have to remove the newline-mark in whitespace-style.
+(setq-default whitespace-style '(face tabs tab-mark spaces space-mark trailing newline))
+
 (setq-default whitespace-display-mappings
               '((tab-mark ?\t [?» ?\t])
 	              ;;(space-mark ?\s [?·])
