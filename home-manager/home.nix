@@ -79,6 +79,7 @@
     ".emacs.d/early-init.el".source = ./dotfiles/emacs/early-init.el;
     ".emacs.d/init.el".source = ./dotfiles/emacs/init.el;
     ".emacs.d/lisp".source = ./dotfiles/emacs/lisp;
+    ".emacs.d/straight/versions/default.el".source = ./dotfiles/emacs/straight.lock.el;
     ".p10k.zsh".source = ./dotfiles/zsh/p10k.zsh;
 
     ".tmux.conf".source = ./dotfiles/tmux.conf;

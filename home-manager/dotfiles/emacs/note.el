@@ -1,13 +1,8 @@
 ;; POST INSTALLATION
 
-;; (copilot-install-server)
+(copilot-install-server)
 
 (nerd-icons-install-fonts)
-
-(dolist (item treesit-language-source-alist)
-  (message "read: %s" (car item))
-  (treesit-install-language-grammar (car item))
-  )
 
 ;; Note
 (use-package evil-collection
