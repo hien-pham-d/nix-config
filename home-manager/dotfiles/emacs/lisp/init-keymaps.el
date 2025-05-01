@@ -53,33 +53,22 @@ of the form (KEY COMMAND DESC)."
 (me/keymap-set-with-desc global-map "C-l" 'windmove-right "windmove-right")
 
 ;; vterm keybinding customizations
-;; allow window nagivation through C-<h,j,k,l>
-(keymap-unset vterm-mode-map "C-h")
-(keymap-unset vterm-mode-map "C-j")
-(keymap-unset vterm-mode-map "C-k")
-(keymap-unset vterm-mode-map "C-l")
-
-;; ensure some default behaviors of the terminal
-(keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
-(keymap-set vterm-mode-map "C-r" #'vterm--self-insert)
-(keymap-set vterm-mode-map "C-w" #'vterm--self-insert)
-
-;; prevent some unexpected behaviors from evil-insert-state-map
-(keymap-unset evil-insert-state-map "C-k")
-(keymap-unset evil-insert-state-map "C-e")
-(keymap-unset evil-insert-state-map "C-r")
-(keymap-unset evil-insert-state-map "C-w")
-
 (me/keymap-set-with-desc global-map "M-j" #'harpoon-go-to-1 "goto-1")
 (me/keymap-set-with-desc global-map "M-k" #'harpoon-go-to-2 "goto-2")
 (me/keymap-set-with-desc global-map "M-l" #'harpoon-go-to-3 "goto-3")
 (me/keymap-set-with-desc global-map "M-;" #'harpoon-go-to-4 "goto-4")
 
+;; Quick Accesss
+(keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
+
 (setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 
-(with-eval-after-load 'evil
+(with-eval-after-load 'magit
   ;; make "SPC" available in magit-status-mode-map
   (keymap-set magit-status-mode-map "SPC" me-master-map)
+  )
+
+(with-eval-after-load 'evil
   ;; make "SPC" available in global-map in normal and visual mode.
   (evil-define-key '(normal visual) global-map (kbd "SPC") me-master-map)
 

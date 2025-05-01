@@ -189,6 +189,14 @@
   (keymap-set global-map "C-u" 'evil-scroll-up)
   (keymap-set global-map "C-d" 'evil-scroll-down)
   (keymap-set evil-insert-state-map "C-b" 'completion-at-point)
+  ;; unset some conflicting keybindings.
+  (keymap-unset evil-insert-state-map "C-k")
+  (keymap-unset evil-insert-state-map "C-e")
+  (keymap-unset evil-insert-state-map "C-r")
+  (keymap-unset evil-insert-state-map "C-w")
+
+  (keymap-unset evil-motion-state-map "SPC")
+
   ;; unset conflict keys to corfu-map
   (keymap-unset evil-insert-state-map "C-y")
   (keymap-unset evil-insert-state-map "C-n")
@@ -672,13 +680,20 @@
               ;; (setq mode-line-format default-mode-line-format)
               ;; (vterm-reset-cursor-point)  ;; Refresh terminal display
               ;; (vterm-clear-scrollback)    ;; Clear and re-render
-              ;; (vterm-send-key "C-l")
-              (local-unset-key (kbd "C-h"))
-              (local-unset-key (kbd "C-j"))
-              (local-unset-key (kbd "C-k"))
-              (local-unset-key (kbd "C-l"))
               ))
   (setq vterm-keymap-exceptions nil)
+  ;; allow window nagivation through C-<h,j,k,l>
+  (keymap-unset vterm-mode-map "C-h")
+  (keymap-unset vterm-mode-map "C-j")
+  (keymap-unset vterm-mode-map "C-k")
+  (keymap-unset vterm-mode-map "C-l")
+
+  (keymap-unset vterm-mode-map "M-p")
+
+  ;; ensure some default behaviors of the terminal
+  (keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
+  (keymap-set vterm-mode-map "C-r" #'vterm--self-insert)
+  (keymap-set vterm-mode-map "C-w" #'vterm--self-insert)
   )
 
 (use-package helm)
