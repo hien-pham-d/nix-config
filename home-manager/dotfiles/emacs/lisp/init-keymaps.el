@@ -78,6 +78,12 @@ of the form (KEY COMMAND DESC)."
   (evil-define-key '(normal visual) global-map (kbd "g i") #'eglot-find-implementation)
 
   (evil-define-key '(normal visual) global-map (kbd "C-i") #'evil-jump-forward)
+  (evil-define-key '(normal visual) global-map (kbd "C-o") #'evil-jump-backward)
+
+  (with-eval-after-load 'git-gutter
+    (evil-define-key '(normal) global-map "]h" 'git-gutter:next-hunk)
+    (evil-define-key '(normal) global-map "[h" 'git-gutter:previous-hunk)
+    )
   )
 
 ;; Quick-Access
@@ -136,6 +142,7 @@ of the form (KEY COMMAND DESC)."
                            ("g" me/magit-status "git-status")
                            ("v" evil-mode "vim-motion")
                            ("a" corfu-mode "auto-completion")
+                           ("t" projectile-run-vterm "terminal")
                            ("T" treemacs "explorer")
                            ("o" imenu-list-smart-toggle "outline")
                            ("l" comment-or-uncomment-region "comment-selected")
@@ -225,17 +232,14 @@ of the form (KEY COMMAND DESC)."
                            ("l" org-insert-link "insert-link")
                            )))
 
-;; git-gutter
-(with-eval-after-load 'evil
-  (with-eval-after-load 'git-gutter
-    (evil-define-key '(normal) global-map "]h" 'git-gutter:next-hunk)
-    (evil-define-key '(normal) global-map "[h" 'git-gutter:previous-hunk)
-    )
-  )
-
 ;; lisp-interaction-mode
-(add-hook 'lisp-interaction-mode-hook (lambda()
-                                        (keymap-set lisp-interaction-mode-map "C-j" 'windmove-down)
-                                        ))
+(add-hook 'lisp-interaction-mode-hook
+          (lambda()
+            (keymap-set lisp-interaction-mode-map "C-j" 'windmove-down)
+            ))
+
+(with-eval-after-load 'message
+  (keymap-set messages-buffer-mode-map "SPC" me-master-map)
+  )
 
 (provide 'init-keymaps)

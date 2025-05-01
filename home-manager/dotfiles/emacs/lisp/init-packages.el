@@ -665,8 +665,13 @@
          (org-mode . copilot-mode)
          (markdown-ts-mode . copilot-mode)
          )
+  :bind
+  (:map copilot-completion-map
+        ("C-i" . copilot-accept-completion)
+        )
   :config
-  (keymap-set copilot-completion-map "C-y" 'copilot-accept-completion)
+  ;; (keymap-set copilot-completion-map "C-i" #'copilot-accept-completion)
+  (keymap-unset copilot-completion-map "TAB")
   )
 
 (use-package vterm
