@@ -327,11 +327,14 @@
   :config
   (persp-mode)
   ;; (add-hook 'kill-emacs-hook #'persp-state-save)
+  ;; (add-hook 'kill-emacs-hook (lambda()
+  ;;                              (interactive)
+  ;;                              (when (yes-or-no-p "Save session before exiting? ")
+  ;;                                (persp-state-save (expand-file-name ".persp/last" user-emacs-directory)))
+  ;;                              ))
   (add-hook 'kill-emacs-hook (lambda()
-                               (interactive)
-                               (when (yes-or-no-p "Save session before exiting? ")
-                                 (persp-state-save (expand-file-name ".persp/current" user-emacs-directory)))
-                               ))
+                               (message "Saving session to ~/.emacs.d/.persp/last before exiting...")
+                               (persp-state-save (expand-file-name ".persp/last" user-emacs-directory))))
   )
 
 (use-package rainbow-delimiters

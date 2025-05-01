@@ -162,6 +162,7 @@ of the form (KEY COMMAND DESC)."
 (setq me-utils-map
       (me/gen-sub-keymap me-master-map "u" "utils"
                          '(
+                           ("s" persp-state-save "session-save")
                            ("r" persp-state-load "session-restore")
                            ("x" eval-region "eval-selected")
                            ("X" eval-buffer "eval-file")
