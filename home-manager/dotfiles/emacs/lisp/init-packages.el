@@ -699,6 +699,12 @@
   (keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
   (keymap-set vterm-mode-map "C-r" #'vterm--self-insert)
   (keymap-set vterm-mode-map "C-w" #'vterm--self-insert)
+
+  ;; switch exwm workspace
+  (keymap-unset vterm-mode-map "M-1")
+  (keymap-unset vterm-mode-map "M-2")
+  (keymap-unset vterm-mode-map "M-3")
+  (keymap-unset vterm-mode-map "M-4")
   )
 
 (use-package helm)
@@ -809,5 +815,44 @@
 ;; (add-to-list 'auto-mode-alist '("\\.ts[x]?\\'" . typescript-ts-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-ts-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
+(use-package exwm
+  :init
+  (defun me/exwm-refresh-screen ()
+    (interactive)
+    (start-process-shell-command
+     "xrandr" nil "xrandr --output Virtual-1 --primary --mode 1920x1080 --rate 75 --pos 0x0 --rotate normal")
+    (exwm-randr-refresh)
+    )
+
+  (require 'exwm)
+  (setq exwm-workspace-number 5)
+  (add-hook 'exwm-update-class-hook
+            (lambda ()
+              (exwm-workspace-rename-buffer exwm-class-name)))
+  (setq exwm-input-global-keys
+        `(
+          (,(kbd "C-'") . evil-switch-to-windows-last-buffer)
+          (,(kbd "M-r") . exwm-reset)
+          (,(kbd "M-s") . exwm-workspace-switch)
+          (,(kbd "M-&") . (lambda (cmd)
+                            (interactive (list (read-shell-command "$ ")))
+                            (start-process-shell-command cmd nil cmd)))
+          ,@(mapcar (lambda (i)
+                      `(,(kbd (format "M-%d" i)) . (lambda ()
+                                                     (interactive)
+                                                     (exwm-workspace-switch-create ,i))))
+                    (number-sequence 0 4))
+          ))
+  (require 'exwm-randr)
+  (setq exwm-randr-workspace-output-plist '(0 "Virtual-1"))
+  (add-hook 'exwm-randr-screen-change-hook
+            (lambda()
+              (me/exwm-refresh-screen)
+              ))
+  (exwm-randr-mode 1)
+  (exwm-enable)
+
+  ;; (me/exwm-refresh-screen)
+  )
 
 (provide 'init-packages)

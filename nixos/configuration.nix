@@ -49,6 +49,40 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  services.xserver.windowManager.exwm = {
+    enable = true;
+    # loadScript = ''
+    #   (require 'exwm)
+    #   (setq exwm-workspace-number 4)
+    #   (add-hook 'exwm-update-class-hook
+    #             (lambda ()
+    #               (exwm-workspace-rename-buffer exwm-class-name)))
+    #   (setq exwm-input-global-keys
+    #         `(
+    #           ([?\m-r] . exwm-reset)
+    #           ([?\m-s] . exwm-workspace-switch)
+    #           ([?\m-&] . (lambda (cmd)
+    #                       (interactive (list (read-shell-command "$ ")))
+    #                       (start-process-shell-command cmd nil cmd)))
+    #           ,@(mapcar (lambda (i)
+    #                       `(,(kbd (format "s-%d" i)) . (lambda ()
+    #                                                     (interactive)
+    #                                                     (exwm-workspace-switch-create ,i))))
+    #                     (number-sequence 0 9))
+    #           ))
+    #   (require 'exwm-randr)
+    #   (setq exwm-randr-workspace-output-plist '(0 "Virtual-1"))
+    #   (add-hook 'exwm-randr-screen-change-hook
+    #             (lambda()
+    #               (start-process-shell-command
+    #               "xrandr" nil "xrandr --output Virtual-1 --scale-from 1920x1080 --rotate normal")
+    #               (exwm-randr-refresh)
+    #               ))
+    #   (exwm-randr-enable)
+    #   (exwm-enable)
+    # '';
+  };
+
   # Disable getty on tty1 to prevent the TTY login from briefly appearing
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
