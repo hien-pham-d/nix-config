@@ -4,7 +4,7 @@
 
 ;; fontsize
 ;; (set-face-attribute 'default nil :height 120)
-(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 140)
+(set-face-attribute 'default nil :family "Source Code Pro" :height 140 :weight 'normal)
 
 (with-eval-after-load 'hl-line
   (set-face-attribute 'hl-line nil :background "#2a2b3c")
