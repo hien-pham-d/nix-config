@@ -724,7 +724,7 @@
 (with-eval-after-load 'org
   (setq org-directory "~/workspace/repos/second-brain/para/")
 
-  (setq org-agenda-files '("projects.org"))
+  (setq org-agenda-files '("projects/projects.org" "projects/journal.org"))
 
   (setq org-todo-keywords '((sequence
                              "TODO(t)"
@@ -768,9 +768,9 @@
   (setq org-default-notes-file (concat org-directory "notes.org"))
 
   (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline (lambda ()(concat org-directory "projects.org")) "Inbox")
+        '(("t" "Todo" entry (file+headline (lambda ()(concat org-directory "projects/projects.org")) "Inbox")
            "* TODO %?\n  %i\n  %a")
-          ("j" "Journal" entry (file+datetree (lambda () (concat org-directory "journal.org")))
+          ("j" "Journal" entry (file+datetree (lambda () (concat org-directory "projects/journal.org")))
            "* %?\nEntered on %U\n  %i\n  %a")))
   ;; auto-clock when working on an item
   (setq org-clock-persist 'history)
@@ -799,6 +799,7 @@
   ;; (setq display-fill-column-indicator-column 80)
   ;; (add-hook 'org-mode-hook #'display-fill-column-indicator-mode)
   ;; (add-hook 'org-mode-hook #'auto-fill-mode)
+  (keymap-unset org-mode-map "C-'")
   )
 (use-package org-bullets
   :config
