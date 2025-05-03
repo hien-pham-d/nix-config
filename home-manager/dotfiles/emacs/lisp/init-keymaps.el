@@ -58,10 +58,6 @@ of the form (KEY COMMAND DESC)."
 (me/keymap-set-with-desc global-map "M-l" #'harpoon-go-to-3 "goto-3")
 (me/keymap-set-with-desc global-map "M-;" #'harpoon-go-to-4 "goto-4")
 
-;; scroll style
-(keymap-set global-map "<wheel-up>" #'scroll-up-command)
-(keymap-set global-map "<wheel-down>" #'scroll-down-command)
-
 ;; Quick Accesss
 (keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
 
