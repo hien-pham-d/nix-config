@@ -169,4 +169,10 @@
       '';
     };
   };
+
+  services = {
+    copyq = {
+      enable = true;
+    };
+  };
 }

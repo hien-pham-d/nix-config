@@ -693,7 +693,15 @@
   (keymap-unset vterm-mode-map "C-k")
   (keymap-unset vterm-mode-map "C-l")
 
-  (keymap-unset vterm-mode-map "M-p")
+  ;; exwm global keys
+  (keymap-unset vterm-mode-map "C-'")
+  (keymap-unset vterm-mode-map "M-b")
+  (keymap-unset vterm-mode-map "M-r")
+  (keymap-unset vterm-mode-map "M-s")
+  (keymap-unset vterm-mode-map "M-1")
+  (keymap-unset vterm-mode-map "M-2")
+  (keymap-unset vterm-mode-map "M-3")
+  (keymap-unset vterm-mode-map "M-4")
 
   ;; ensure some default behaviors of the terminal
   (keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
@@ -832,6 +840,7 @@
   (setq exwm-input-global-keys
         `(
           (,(kbd "C-'") . evil-switch-to-windows-last-buffer)
+          (,(kbd "M-b") . consult-buffer)
           (,(kbd "M-r") . exwm-reset)
           (,(kbd "M-s") . exwm-workspace-switch)
           (,(kbd "M-&") . (lambda (cmd)

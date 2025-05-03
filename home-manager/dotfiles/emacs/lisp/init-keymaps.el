@@ -60,6 +60,7 @@ of the form (KEY COMMAND DESC)."
 
 ;; Quick Accesss
 (keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
+(keymap-set global-map "M-b" #'consult-buffer)
 
 (setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 
@@ -113,7 +114,7 @@ of the form (KEY COMMAND DESC)."
                            ("d" find-file "file-in-dir")
                            ("F" consult-fd "file-in-project")
                            ("t" consult-line "text-in-file")
-                           ("b" persp-switch-to-buffer "buffer")
+                           ("b" consult-buffer "buffer")
                            ("s" consult-imenu "symbol-in-file")
                            ("S" xref-find-apropos "symbol-in-project")
                            )))
