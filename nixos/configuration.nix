@@ -112,6 +112,9 @@
     zsh = {
       enable = true;
     };
+    ssh = {
+      startAgent = true;
+    };
   };
 
   # Allow unfree packages
