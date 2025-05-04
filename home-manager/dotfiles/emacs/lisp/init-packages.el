@@ -201,13 +201,19 @@
   (keymap-unset evil-insert-state-map "C-y")
   (keymap-unset evil-insert-state-map "C-n")
   (keymap-unset evil-insert-state-map "C-p")
+
+  (keymap-unset evil-normal-state-map "C-.")
+  (keymap-unset evil-insert-state-map "C-.")
+
+  (keymap-unset evil-normal-state-map "M-.")
+
   )
 
 (use-package key-chord
   :config
   (setq key-chord-two-keys-delay 0.3)
   (key-chord-mode 1)
-  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+  ;; (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
   )
 
 ;; became default from Emacs 30
@@ -716,6 +722,8 @@
   (keymap-unset vterm-mode-map "M-3")
   (keymap-unset vterm-mode-map "M-4")
 
+  (keymap-unset vterm-mode-map "C-SPC")
+
   ;; ensure some default behaviors of the terminal
   (keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
   (keymap-set vterm-mode-map "C-r" #'vterm--self-insert)
@@ -726,6 +734,11 @@
   (keymap-unset vterm-mode-map "M-2")
   (keymap-unset vterm-mode-map "M-3")
   (keymap-unset vterm-mode-map "M-4")
+
+  (keymap-unset vterm-mode-map "M-,")
+  (keymap-unset vterm-mode-map "M-.")
+  (keymap-unset vterm-mode-map "M-/")
+
   )
 
 (use-package helm)
@@ -862,7 +875,7 @@
   (setq exwm-input-global-keys
         `(
           (,(kbd "C-'") . evil-switch-to-windows-last-buffer)
-          (,(kbd "M-b") . consult-buffer)
+          (,(kbd "C-SPC") . consult-buffer)
           (,(kbd "M-r") . exwm-reset)
           (,(kbd "M-s") . exwm-workspace-switch)
           (,(kbd "M-&") . (lambda (cmd)

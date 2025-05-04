@@ -52,15 +52,34 @@ of the form (KEY COMMAND DESC)."
 (me/keymap-set-with-desc global-map "C-k" 'windmove-up "windmove-up")
 (me/keymap-set-with-desc global-map "C-l" 'windmove-right "windmove-right")
 
-;; vterm keybinding customizations
+;; harpoon
 (me/keymap-set-with-desc global-map "M-j" #'harpoon-go-to-1 "goto-1")
 (me/keymap-set-with-desc global-map "M-k" #'harpoon-go-to-2 "goto-2")
 (me/keymap-set-with-desc global-map "M-l" #'harpoon-go-to-3 "goto-3")
 (me/keymap-set-with-desc global-map "M-;" #'harpoon-go-to-4 "goto-4")
 
 ;; Quick Accesss
-(keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
-(keymap-set global-map "M-b" #'consult-buffer)
+
+;; global-level
+(keymap-set global-map "C-SPC" #'consult-buffer)
+(keymap-set global-map "C-;" #'consult-line) ;; OK
+(keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer) ;; OK
+
+;; project-level
+(keymap-set global-map "C-," #'magit-status) ;; OK
+(keymap-set global-map "C-." #'treemacs) ;; OK
+(keymap-set global-map "C-/" #'projectile-run-vterm) ;; OK
+(keymap-set global-map "M-," #'xref-find-apropos) ;; OK
+(keymap-set global-map "M-." #'project-switch-to-buffer) ;; OK
+(keymap-set global-map "M-/" #'consult-ripgrep);; OK
+;; (keymap-set global-map "C-8" #'treemacs) ;; OK
+;; (keymap-set global-map "C-7" #'consult-ripgrep) ;; OK
+
+;; others
+(keymap-set global-map "M-[" #'git-gutter:previous-hunk)
+(keymap-set global-map "M-]" #'git-gutter:next-hunk)
+;; (keymap-set global-map "C-9" #'git-gutter:previous-hunk) ;; OK
+;; (keymap-set global-map "C-0" #'git-gutter:next-hunk) ;; OK
 
 (setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 
