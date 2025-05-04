@@ -59,6 +59,21 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
+  systemd.user.services.spice-vdagent = {
+    description = "Spice guest session agent";
+    documentation = [ "man:spice-vdagent(1)" ];
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "graphical-session-pre.target" ];
+    partOf = [ "graphical-session.target" ];
+    unitConfig = {
+      ConditionVirtualization = "vm";
+    };
+    serviceConfig = {
+      ExecStart = "${pkgs.spice-vdagent}/bin/spice-vdagent -x";
+      Restart = "on-failure";
+    };
+  };
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
