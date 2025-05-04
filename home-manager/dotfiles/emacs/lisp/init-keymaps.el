@@ -154,6 +154,10 @@ of the form (KEY COMMAND DESC)."
                            ("v" me/window-vsplit "vsplit")
                            ("x" me/window-split "xsplit")
                            ("c" delete-window "close")
+                           ("C-h" windmove-left "windmove-left")
+                           ("C-j" windmove-down "windmove-down")
+                           ("C-k" windmove-up "windmove-up")
+                           ("C-l" windmove-right "windmove-right")
                            )))
 
 (setq me-utils-map
