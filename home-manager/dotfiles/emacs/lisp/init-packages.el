@@ -341,8 +341,20 @@
   ;;                                (persp-state-save (expand-file-name ".persp/last" user-emacs-directory)))
   ;;                              ))
   (add-hook 'kill-emacs-hook (lambda()
-                               (message "Saving session to ~/.emacs.d/.persp/last before exiting...")
-                               (persp-state-save (expand-file-name ".persp/last" user-emacs-directory))))
+                               (interactive)
+                               (when (yes-or-no-p "Save session before exiting? ")
+                                 (persp-state-save (expand-file-name ".persp/last" user-emacs-directory))
+                                 (message "Session saved to ~/.emacs.d/.persp/last" user-emacs-directory)
+                                 )
+                               ))
+
+  ;; (with-eval-after-load 'dashboard
+  ;;   (add-hook 'dashboard-after-initialize-hook (lambda()
+  ;;                                                (interactive)
+  ;;                                                (when (yes-or-no-p "Restore the last session? ")
+  ;;                                                  (persp-state-load (expand-file-name ".persp/last" user-emacs-directory))
+  ;;                                                  (message "Session restored."))))
+  ;;   )
   )
 
 (use-package rainbow-delimiters
@@ -860,8 +872,12 @@
               ))
   (exwm-randr-mode 1)
   (exwm-enable)
-
-  ;; (me/exwm-refresh-screen)
   )
+
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-center-content t))
 
 (provide 'init-packages)
