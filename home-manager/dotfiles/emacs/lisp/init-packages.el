@@ -710,6 +710,7 @@
   (keymap-unset vterm-mode-map "M-b")
   (keymap-unset vterm-mode-map "M-r")
   (keymap-unset vterm-mode-map "M-s")
+  (keymap-unset vterm-mode-map "M-&")
   (keymap-unset vterm-mode-map "M-1")
   (keymap-unset vterm-mode-map "M-2")
   (keymap-unset vterm-mode-map "M-3")
