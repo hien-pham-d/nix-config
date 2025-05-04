@@ -82,3 +82,13 @@
 
 (setq eshell-funcs (list esh-dir esh-git esh-python esh-clock))
 (setq eshell-prompt-function 'esh-prompt-func)
+
+;; NOT WORKING CODE
+(use-package dashboard
+  :init
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-center-content t)
+  :config
+  ;; exwm can not show the dashboardd as expected. I also confirmed that it works on GNOME.
+  (dashboard-setup-startup-hook)
+  )

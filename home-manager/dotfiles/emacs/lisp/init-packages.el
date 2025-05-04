@@ -884,10 +884,4 @@
   (exwm-enable)
   )
 
-(use-package dashboard
-  :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner 'logo)
-  (setq dashboard-center-content t))
-
 (provide 'init-packages)
