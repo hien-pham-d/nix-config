@@ -64,14 +64,14 @@ of the form (KEY COMMAND DESC)."
 
 (setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 
-(with-eval-after-load 'magit
-  ;; make "SPC" available in magit-status-mode-map
-  (keymap-set magit-status-mode-map "SPC" me-master-map)
-  )
+;; (with-eval-after-load 'magit
+;;   ;; make "SPC" available in magit-status-mode-map
+;;   (keymap-set magit-status-mode-map "SPC" me-master-map)
+;;   )
 
 (with-eval-after-load 'evil
   ;; make "SPC" available in global-map in normal and visual mode.
-  (evil-define-key '(normal visual) global-map (kbd "SPC") me-master-map)
+  ;; (evil-define-key '(normal visual) global-map (kbd "SPC") me-master-map)
 
   (evil-define-key '(normal visual) global-map (kbd "g d") #'xref-find-definitions)
   (evil-define-key '(normal visual) global-map (kbd "g t") #'eglot-find-typeDefinition)
@@ -239,8 +239,8 @@ of the form (KEY COMMAND DESC)."
             (keymap-set lisp-interaction-mode-map "C-j" 'windmove-down)
             ))
 
-(with-eval-after-load 'message
-  (keymap-set messages-buffer-mode-map "SPC" me-master-map)
-  )
+;; (with-eval-after-load 'message
+;;   (keymap-set messages-buffer-mode-map "SPC" me-master-map)
+;;   )
 
 (provide 'init-keymaps)

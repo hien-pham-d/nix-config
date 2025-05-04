@@ -33,6 +33,7 @@
     openssh
 
     nodejs_22
+    shellcheck
 
     brave
     # flatpak
