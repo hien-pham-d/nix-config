@@ -830,7 +830,12 @@
   ;; (setq display-fill-column-indicator-column 80)
   ;; (add-hook 'org-mode-hook #'display-fill-column-indicator-mode)
   ;; (add-hook 'org-mode-hook #'auto-fill-mode)
+
   (keymap-unset org-mode-map "C-'")
+  (keymap-unset org-mode-map "C-h")
+  (keymap-unset org-mode-map "C-j")
+  (keymap-unset org-mode-map "C-k")
+  (keymap-unset org-mode-map "C-l")
   )
 (use-package org-bullets
   :config
@@ -850,7 +855,7 @@
     )
 
   (require 'exwm)
-  (setq exwm-workspace-number 5)
+  (setq exwm-workspace-number 1)
   (add-hook 'exwm-update-class-hook
             (lambda ()
               (exwm-workspace-rename-buffer exwm-class-name)))
