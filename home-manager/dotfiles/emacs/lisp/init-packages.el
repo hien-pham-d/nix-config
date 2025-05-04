@@ -736,7 +736,11 @@
 ;; after downloading, run this: nerd-icons-install-fonts
 (use-package nerd-icons)
 
-(use-package direnv)
+(use-package direnv
+  :init
+  (setq direnv-show-paths-in-summary t)
+  :config
+  (direnv-mode))
 
 (use-package nix-mode)
 
