@@ -175,4 +175,22 @@
       enable = true;
     };
   };
+
+  systemd.user.services = {
+    spice-vdagent = {
+      Unit = {
+        Description = "Spice guest session agent";
+        After = [ "graphical-session-pre.target" ];
+        PartOf = [ "graphical-session.target" ];
+        ConditionVirtual = "vm";
+      };
+      Service = {
+        ExecStart = "${pkgs.spice-vdagent}/bin/spice-vdagent -x";
+        Restart = "on-failure";
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
+  };
 }
