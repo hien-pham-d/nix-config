@@ -57,6 +57,8 @@
     zsh-syntax-highlighting
     zsh-powerlevel10k
 
+    htop
+
 
     # wip: dependencies for bash cfg
     # shell prompt configuration
