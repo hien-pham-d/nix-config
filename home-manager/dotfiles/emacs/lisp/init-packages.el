@@ -740,6 +740,7 @@
   (keymap-unset vterm-mode-map "M-,")
   (keymap-unset vterm-mode-map "M-.")
   (keymap-unset vterm-mode-map "M-/")
+  (keymap-unset vterm-mode-map "M-;")
 
   )
 
@@ -877,13 +878,13 @@
               (exwm-workspace-rename-buffer exwm-class-name)))
   (setq exwm-input-global-keys
         `(
-          (,(kbd "C-'") . evil-switch-to-windows-last-buffer)
-          (,(kbd "C-SPC") . consult-buffer)
-          (,(kbd "M-r") . exwm-reset)
-          (,(kbd "M-s") . exwm-workspace-switch)
-          (,(kbd "M-&") . (lambda (cmd)
-                            (interactive (list (read-shell-command "$ ")))
-                            (start-process-shell-command cmd nil cmd)))
+          (,(kbd "C-M-;") . exwm-workspace-switch)
+          (,(kbd "C-M-'") . evil-switch-to-windows-last-buffer)
+          (,(kbd "C-M-SPC") . exwm-workspace-switch-to-buffer)
+          (,(kbd "C-M-r") . exwm-reset)
+          (,(kbd "C-M-/") . (lambda (cmd)
+                              (interactive (list (read-shell-command "$ ")))
+                              (start-process-shell-command cmd nil cmd)))
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "M-%d" i)) . (lambda ()
                                                      (interactive)

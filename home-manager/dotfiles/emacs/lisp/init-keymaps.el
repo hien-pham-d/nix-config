@@ -43,7 +43,6 @@ of the form (KEY COMMAND DESC)."
 ;; Change prefix key for help commands.
 ;; We're going to use the "C-h" for windmove-left.
 (keymap-unset global-map "C-h")
-(keymap-set global-map "M-h" help-map)
 
 (me/keymap-set-with-desc global-map "C-s" 'me/save-buffer "save-buffer")
 
@@ -53,33 +52,39 @@ of the form (KEY COMMAND DESC)."
 (me/keymap-set-with-desc global-map "C-l" 'windmove-right "windmove-right")
 
 ;; harpoon
-(me/keymap-set-with-desc global-map "M-j" #'harpoon-go-to-1 "goto-1")
-(me/keymap-set-with-desc global-map "M-k" #'harpoon-go-to-2 "goto-2")
-(me/keymap-set-with-desc global-map "M-l" #'harpoon-go-to-3 "goto-3")
-(me/keymap-set-with-desc global-map "M-;" #'harpoon-go-to-4 "goto-4")
+(me/keymap-set-with-desc global-map "M-h" #'harpoon-go-to-1 "goto-1")
+(me/keymap-set-with-desc global-map "M-j" #'harpoon-go-to-2 "goto-2")
+(me/keymap-set-with-desc global-map "M-k" #'harpoon-go-to-3 "goto-3")
+(me/keymap-set-with-desc global-map "M-l" #'harpoon-go-to-4 "goto-4")
 
 ;; Quick Accesss
 
-;; global-level
-(keymap-set global-map "C-SPC" #'consult-buffer)
-(keymap-set global-map "C-;" #'consult-line) ;; OK
-(keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer) ;; OK
+;; cross-workspace level (C-M-prefix)
+;; DONE: switch to workspace (C-M-;)
+;; TODO: switch to last workspace (C-M-')
+;; DONE: switch to buffer (C-M-SPC)
 
-;; project-level
-(keymap-set global-map "C-," #'magit-status) ;; OK
-(keymap-set global-map "C-." #'treemacs) ;; OK
-(keymap-set global-map "C-/" #'projectile-run-vterm) ;; OK
-(keymap-set global-map "M-," #'xref-find-apropos) ;; OK
-(keymap-set global-map "M-." #'project-switch-to-buffer) ;; OK
-(keymap-set global-map "M-/" #'consult-ripgrep);; OK
-;; (keymap-set global-map "C-8" #'treemacs) ;; OK
-;; (keymap-set global-map "C-7" #'consult-ripgrep) ;; OK
+;; per-workspace level (C-previx)
+;; DONE: switch to bookmark (C-;)
+(keymap-set global-map "C-;" #'harpoon-toggle-file)
+;; DONE: switch to last buffer (C-')
+(keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
+;; DONE: switch to buffer (C-SPC)
+(keymap-set global-map "C-SPC" #'project-switch-to-buffer)
+;; DONE: term (C-,)
+(keymap-set global-map "C-," #'projectile-run-vterm)
+;; DONE: git (C-.)
+(keymap-set global-map "C-." #'magit-status)
+;; DONE: explorer (C-/)
+(keymap-set global-map "C-/" #'treemacs)
 
-;; others
+;; per-buffer level (M-prefix)
+;; grep (M-;)
+(keymap-set global-map "M-;" #'consult-line)
+;; prev-hunk (M-[)
 (keymap-set global-map "M-[" #'git-gutter:previous-hunk)
+;; next-hunk (M-])
 (keymap-set global-map "M-]" #'git-gutter:next-hunk)
-;; (keymap-set global-map "C-9" #'git-gutter:previous-hunk) ;; OK
-;; (keymap-set global-map "C-0" #'git-gutter:next-hunk) ;; OK
 
 (setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 
