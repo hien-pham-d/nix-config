@@ -43,7 +43,7 @@
     sqlite
 
     # nerdfonts
-    tmux
+
     wezterm
 
     # dependencies for emacs vterm
@@ -169,6 +169,22 @@
         source ${pkgs.blesh}/share/blesh/ble.sh
       '';
     };
+
+    tmux = {
+      enable = true;
+      plugins = with pkgs.tmuxPlugins; [
+        sensible
+        {
+          plugin = resurrect;
+          extraConfig = ''
+            set -g @resurrect-save 'S'
+            set -g @resurrect-restore 'R'
+          '';
+        }
+        prefix-highlight
+      ];
+    };
+
   };
 
   services = {

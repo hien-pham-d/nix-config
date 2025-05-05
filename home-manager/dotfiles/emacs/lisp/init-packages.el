@@ -207,6 +207,8 @@
 
   (keymap-unset evil-normal-state-map "M-.")
 
+  ;; tmux prefix binding
+  (keymap-unset evil-insert-state-map "C-b")
   )
 
 (use-package key-chord
