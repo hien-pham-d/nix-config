@@ -667,10 +667,11 @@
   (repeat-mode))
 
 (use-package harpoon
-  :after (evil)
   :straight (:host github :repo "otavioschwanck/harpoon.el" :branch "master")
   :config
-  (evil-define-key '(normal visual) harpoon-mode-map "q" #'kill-buffer)
+  (with-eval-after-load 'evil
+    (evil-define-key '(normal visual) harpoon-mode-map "q" #'kill-this-buffer)
+    )
   )
 
 (use-package copilot
@@ -713,8 +714,9 @@
   (keymap-unset vterm-mode-map "C-k")
   (keymap-unset vterm-mode-map "C-l")
 
-  ;; exwm global keys
+  ;; global keys
   (keymap-unset vterm-mode-map "C-'")
+  (keymap-unset vterm-mode-map "C-]")
   (keymap-unset vterm-mode-map "M-b")
   (keymap-unset vterm-mode-map "M-r")
   (keymap-unset vterm-mode-map "M-s")
@@ -879,7 +881,10 @@
   (setq exwm-input-global-keys
         `(
           (,(kbd "C-M-;") . exwm-workspace-switch)
-          (,(kbd "C-M-'") . evil-switch-to-windows-last-buffer)
+          ;; TODO: add a func to switch to the last workspace instead
+          ;; (,(kbd "C-M-'") . evil-switch-to-windows-last-buffer)
+          (,(kbd "C-'") . evil-switch-to-windows-last-buffer)
+          (,(kbd "C-SPC") . consult-buffer)
           (,(kbd "C-M-SPC") . exwm-workspace-switch-to-buffer)
           (,(kbd "C-M-r") . exwm-reset)
           (,(kbd "C-M-/") . (lambda (cmd)
