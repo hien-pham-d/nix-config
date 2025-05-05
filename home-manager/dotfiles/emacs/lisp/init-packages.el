@@ -753,6 +753,7 @@
 
 (use-package direnv
   :init
+  (setq direnv-always-show-summary nil)
   (setq direnv-show-paths-in-summary t)
   :config
   (direnv-mode))
