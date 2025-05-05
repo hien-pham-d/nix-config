@@ -4,6 +4,16 @@
 
 (nerd-icons-install-fonts)
 
+;; NOT WORKING CODE
+(use-package dashboard
+  :init
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-center-content t)
+  :config
+  ;; exwm can not show the dashboardd as expected. I also confirmed that it works on GNOME.
+  (dashboard-setup-startup-hook)
+  )
+
 ;; Note
 (use-package evil-collection
   :custom (evil-collection-setup-minibuffer t)
@@ -82,13 +92,3 @@
 
 (setq eshell-funcs (list esh-dir esh-git esh-python esh-clock))
 (setq eshell-prompt-function 'esh-prompt-func)
-
-;; NOT WORKING CODE
-(use-package dashboard
-  :init
-  (setq dashboard-startup-banner 'logo)
-  (setq dashboard-center-content t)
-  :config
-  ;; exwm can not show the dashboardd as expected. I also confirmed that it works on GNOME.
-  (dashboard-setup-startup-hook)
-  )
