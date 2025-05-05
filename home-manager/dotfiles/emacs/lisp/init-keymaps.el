@@ -83,9 +83,9 @@ of the form (KEY COMMAND DESC)."
 ;; grep (M-;)
 (keymap-set global-map "M-;" #'consult-line)
 ;; prev-hunk (M-[)
-(keymap-set global-map "M-[" #'git-gutter:previous-hunk)
+(keymap-set global-map "M-[" #'diff-hl-previous-hunk)
 ;; next-hunk (M-])
-(keymap-set global-map "M-]" #'git-gutter:next-hunk)
+(keymap-set global-map "M-]" #'diff-hl-next-hunk)
 
 (setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 
@@ -105,11 +105,6 @@ of the form (KEY COMMAND DESC)."
 
   (evil-define-key '(normal visual) global-map (kbd "C-i") #'evil-jump-forward)
   (evil-define-key '(normal visual) global-map (kbd "C-o") #'evil-jump-backward)
-
-  (with-eval-after-load 'git-gutter
-    (evil-define-key '(normal) global-map "]h" 'git-gutter:next-hunk)
-    (evil-define-key '(normal) global-map "[h" 'git-gutter:previous-hunk)
-    )
   )
 
 ;; Quick-Access
@@ -207,8 +202,8 @@ of the form (KEY COMMAND DESC)."
 (setq me-git-map
       (me/gen-sub-keymap me-master-map "g" "git"
                          '(
-                           ("p" git-gutter:popup-hunk "hunk-preview")
-                           ("r" git-gutter:revert-hunk "hunk-revert")
+                           ("p" diff-hl-show-hunk "hunk-preview")
+                           ("r" diff-hl-revert-hunk "hunk-revert")
                            )))
 
 (setq me-bookmark-map
@@ -225,7 +220,7 @@ of the form (KEY COMMAND DESC)."
 (setq me-file-map
       (me/gen-sub-keymap me-master-map "f" "file"
                          '(
-                           ("q" kill-buffer "quit")
+                           ("q" me/kill-this-buffer "quit")
                            )))
 
 (setq me-quickfix-map

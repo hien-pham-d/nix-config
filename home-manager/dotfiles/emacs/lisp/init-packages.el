@@ -39,6 +39,11 @@
     (exec-path-from-shell-initialize))
   )
 
+(defun me/kill-this-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (kill-buffer (current-buffer)))
+
 ;; Enable Vertico for minibuffer fuzzy search
 (use-package vertico
   :custom
@@ -323,6 +328,7 @@
   )
 
 (use-package git-gutter
+  :disabled
   :after (evil)
   :init
   ;; If you enable global minor mode
@@ -670,8 +676,7 @@
   :straight (:host github :repo "otavioschwanck/harpoon.el" :branch "master")
   :config
   (with-eval-after-load 'evil
-    (evil-define-key '(normal visual) harpoon-mode-map "q" #'kill-this-buffer)
-    )
+    (evil-define-key '(normal visual) harpoon-mode-map "q" #'me/kill-this-buffer))
   )
 
 (use-package copilot
@@ -905,5 +910,12 @@
   (exwm-randr-mode 1)
   (exwm-enable)
   )
+
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode)
+  (diff-hl-flydiff-mode)
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (provide 'init-packages)
