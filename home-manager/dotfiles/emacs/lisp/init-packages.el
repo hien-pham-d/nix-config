@@ -210,6 +210,8 @@
   (keymap-unset evil-normal-state-map "C-.")
   (keymap-unset evil-insert-state-map "C-.")
 
+  (keymap-unset evil-motion-state-map "C-]")
+
   (keymap-unset evil-normal-state-map "M-.")
 
   ;; tmux prefix binding
@@ -877,6 +879,9 @@
      "xrandr" nil "xrandr --output Virtual-1 --primary --auto --pos 0x0 --rotate normal")
     (exwm-randr-refresh)
     )
+
+  ;; (setq mouse-autoselect-window t)
+  ;; (setq focus-follows-mouse 'auto-raise)
 
   (require 'exwm)
   (setq exwm-workspace-number 1)

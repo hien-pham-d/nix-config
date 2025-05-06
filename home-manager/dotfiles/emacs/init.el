@@ -5,3 +5,4 @@
 (require 'init-ui)
 (require 'init-packages)
 (require 'init-keymaps)
+(require 'init-config)
