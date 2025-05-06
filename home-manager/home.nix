@@ -59,7 +59,12 @@
 
     htop
 
+    arandr
     pavucontrol
+    # ? networkmanagerapplet
+    # ? blueman
+    xfce.xfce4-power-manager
+    lxappearance
 
     # wip: dependencies for bash cfg
     # shell prompt configuration
