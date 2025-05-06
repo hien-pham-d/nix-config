@@ -68,9 +68,9 @@
 
     # wip: dependencies for bash cfg
     # shell prompt configuration
-    starship
+    # starship
     # line editor for bash
-    blesh
+    # blesh
 
     # logseq # does not available for aarch64-linux
 
@@ -155,28 +155,28 @@
     };
 
     # wip
-    bash = {
-      enable = true;
-      shellAliases = {
-        ls = "ls --color=auto";
-        v = "nvim";
-        gau = "git add -u";
-        gaa = "git add -A";
-        gb = "git branch";
-        gci = "git commit";
-        gpl = "git pull origin $(git branch --show-current)";
-        gps = "git push origin $(git branch --show-current)";
-        gsw = "git switch";
-        gl = "git log --oneline --graph";
-        glh = "git log --pretty=oneline --graph";
-        gs = "git status";
-      };
-      initExtra = ''
-        export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
-        # eval "$(starship init bash)"
-        source ${pkgs.blesh}/share/blesh/ble.sh
-      '';
-    };
+    # bash = {
+    #   enable = true;
+    #   shellAliases = {
+    #     ls = "ls --color=auto";
+    #     v = "nvim";
+    #     gau = "git add -u";
+    #     gaa = "git add -A";
+    #     gb = "git branch";
+    #     gci = "git commit";
+    #     gpl = "git pull origin $(git branch --show-current)";
+    #     gps = "git push origin $(git branch --show-current)";
+    #     gsw = "git switch";
+    #     gl = "git log --oneline --graph";
+    #     glh = "git log --pretty=oneline --graph";
+    #     gs = "git status";
+    #   };
+    #   initExtra = ''
+    #     export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
+    #     # eval "$(starship init bash)"
+    #     source ${pkgs.blesh}/share/blesh/ble.sh
+    #   '';
+    # };
 
     tmux = {
       enable = true;
