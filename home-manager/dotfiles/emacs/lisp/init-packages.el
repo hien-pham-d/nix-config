@@ -874,7 +874,7 @@
   (defun me/exwm-refresh-screen ()
     (interactive)
     (start-process-shell-command
-     "xrandr" nil "xrandr --output Virtual-1 --primary --mode 1920x1080 --rate 75 --pos 0x0 --rotate normal")
+     "xrandr" nil "xrandr --output Virtual-1 --primary --auto --pos 0x0 --rotate normal")
     (exwm-randr-refresh)
     )
 
