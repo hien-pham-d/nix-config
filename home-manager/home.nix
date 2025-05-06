@@ -59,6 +59,7 @@
 
     htop
 
+    pavucontrol
 
     # wip: dependencies for bash cfg
     # shell prompt configuration
