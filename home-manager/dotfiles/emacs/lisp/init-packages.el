@@ -858,10 +858,16 @@
   ;; (add-hook 'org-mode-hook #'auto-fill-mode)
 
   (keymap-unset org-mode-map "C-'")
+  (keymap-unset org-mode-map "C-,")
   (keymap-unset org-mode-map "C-h")
   (keymap-unset org-mode-map "C-j")
   (keymap-unset org-mode-map "C-k")
   (keymap-unset org-mode-map "C-l")
+
+  (keymap-unset org-mode-map "M-h")
+  (keymap-unset org-mode-map "M-j")
+  (keymap-unset org-mode-map "M-k")
+  (keymap-unset org-mode-map "M-l")
   )
 (use-package org-bullets
   :config
