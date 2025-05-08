@@ -695,11 +695,9 @@
          )
   :bind
   (:map copilot-completion-map
-        ("C-i" . copilot-accept-completion)
+        ("M-i" . copilot-accept-completion)
+        ("TAB" . #'indent-for-tab-command)
         )
-  :config
-  ;; (keymap-set copilot-completion-map "C-i" #'copilot-accept-completion)
-  (keymap-unset copilot-completion-map "TAB")
   )
 
 (use-package vterm

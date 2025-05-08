@@ -1,0 +1,17 @@
+#+TITLE: Main Context
+
+Overview: This is a nix configuration for my NixOS and home-manager.
+
+** TODO how to adapt hardwar-configuration.nix from multiple machines
+
+*** Context
+
+I installed NixOS on my work machine by pulling the nix-config repo and install the OS based on that.
+However, during nixos-rebuild. I got an error when applying the hardware-configuration.nix.
+The error is caused by the fact that the hardware-configuration.nix is not compatible with my work machine because the disk partition UUID number is different.
+So I need a way to configure multiple devices with different hardware-configuration.nix.
+
+*** Solution
+
+Use per-machine hardware-configuration.nix. Reference to the right hardware configuration in the `configuration.nix` by ${hostname}.
+E.g. hardware-configuration-${hostname}.nix
