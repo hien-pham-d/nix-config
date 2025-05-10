@@ -101,7 +101,11 @@
 
   home.sessionVariables = {
     # EDITOR = "emacs";
-    NIX_SHELL_PRESERVE_PROMPT = "1";
+
+    # Set environment variables for input method integration
+    # GTK_IM_MODULE = "ibus";
+    # QT_IM_MODULE = "ibus";
+    # XMODIFIERS = "@im=ibus";
   };
 
   programs.info.enable = true;
@@ -136,6 +140,7 @@
         [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
         export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
+        export NIX_SHELL_PRESERVE_PROMPT="1";
       '';
 
       oh-my-zsh = {

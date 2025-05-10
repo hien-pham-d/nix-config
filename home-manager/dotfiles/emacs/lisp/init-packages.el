@@ -876,6 +876,7 @@
 ;; (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-ts-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 (use-package exwm
+  :disabled
   :init
   (defun me/exwm-refresh-screen ()
     (interactive)

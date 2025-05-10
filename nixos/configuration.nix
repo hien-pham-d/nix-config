@@ -30,6 +30,22 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+    # Enable ibus as the input method framework
+  i18n.inputMethod = {
+    enable = true;
+    type = "ibus";
+    ibus.engines = [
+      pkgs.ibus-engines.mozc    # Japanese input (Mozc)
+      pkgs.ibus-engines.bamboo          # Vietnamese input (Bamboo)
+    ];
+  };
+
+  fonts = {
+    fontconfig.antialias = true;
+    packages = with pkgs; [
+      dejavu_fonts
+    ];
+  };
   # i18n.extraLocaleSettings = {
   #   LC_ADDRESS = "ja_JP.UTF-8";
   #   LC_IDENTIFICATION = "ja_JP.UTF-8";

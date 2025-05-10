@@ -87,6 +87,8 @@ of the form (KEY COMMAND DESC)."
 ;; next-hunk (M-])
 (keymap-set global-map "M-]" #'diff-hl-next-hunk)
 
+(keymap-set global-map "M-SPC" #'consult-line)
+
 (setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 
 ;; (with-eval-after-load 'magit
