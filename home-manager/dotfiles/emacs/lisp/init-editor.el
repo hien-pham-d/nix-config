@@ -5,6 +5,8 @@
 ;; https://emacsdocs.org/docs/emacs/Long-Lines
 (global-so-long-mode t)
 
+(global-auto-revert-mode t)
+
 (editorconfig-mode t)
 
 (recentf-mode t)
