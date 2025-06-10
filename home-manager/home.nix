@@ -66,6 +66,8 @@
     xfce.xfce4-power-manager
     lxappearance
 
+    multimarkdown
+
     # wip: dependencies for bash cfg
     # shell prompt configuration
     # starship

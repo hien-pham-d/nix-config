@@ -691,7 +691,7 @@
   :hook (
          (prog-mode . copilot-mode)
          (org-mode . copilot-mode)
-         (markdown-ts-mode . copilot-mode)
+         (markdown-mode . copilot-mode)
          )
   :bind
   (:map copilot-completion-map
@@ -927,5 +927,9 @@
   (diff-hl-flydiff-mode)
   (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+
+(use-package markdown-mode
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
 
 (provide 'init-packages)
