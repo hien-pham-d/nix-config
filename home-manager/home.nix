@@ -56,6 +56,7 @@
     zsh-autosuggestions
     zsh-syntax-highlighting
     zsh-powerlevel10k
+    zsh-autocomplete
 
     htop
 
@@ -118,7 +119,7 @@
   programs = {
     zsh = {
       enable = true;
-      enableCompletion = true;
+      enableCompletion = false;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
@@ -140,6 +141,8 @@
       initExtra = ''
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
         [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+        source ${pkgs.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
         export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
         export NIX_SHELL_PRESERVE_PROMPT="1";
