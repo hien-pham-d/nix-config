@@ -69,6 +69,8 @@
 
     multimarkdown
 
+    ghostty
+
     # wip: dependencies for bash cfg
     # shell prompt configuration
     # starship
