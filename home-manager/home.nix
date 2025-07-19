@@ -48,6 +48,8 @@
     wezterm
     ghostty
 
+    fastfetch
+
     # dependencies for emacs vterm
     libtool
     libvterm
