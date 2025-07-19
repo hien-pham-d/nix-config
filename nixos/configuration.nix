@@ -69,6 +69,8 @@
     enable = true;
   };
 
+  services.xserver.windowManager.i3.enable = true;
+
   services.flatpak.enable = true;
 
   # Disable getty on tty1 to prevent the TTY login from briefly appearing

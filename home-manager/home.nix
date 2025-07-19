@@ -44,7 +44,9 @@
 
     # nerdfonts
 
+    # terminal
     wezterm
+    ghostty
 
     # dependencies for emacs vterm
     libtool
@@ -69,7 +71,9 @@
 
     multimarkdown
 
-    ghostty
+    #i3
+    rofi
+    polybar
 
     # wip: dependencies for bash cfg
     # shell prompt configuration
@@ -101,6 +105,9 @@
 
     ".ssh/config".source = ./dotfiles/ssh/config;
     ".gitconfig".source = ./dotfiles/gitconfig;
+    ".config/i3/config".source = ./dotfiles/i3/config;
+    ".config/ghostty/config".source = ./dotfiles/ghostty/config;
+    ".config/polybar/config.ini".source = ./dotfiles/polybar/config.ini;
 
   };
 
