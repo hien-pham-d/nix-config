@@ -1,5 +1,7 @@
 # default target must be the first target in this file.
-default: hm-switch
+default: rebuild-all
+
+rebuild-all: os-rebuild hm-switch
 
 hm-switch:
 	home-manager switch --flake .#hienphamduc@nixos
