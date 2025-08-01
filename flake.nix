@@ -25,6 +25,12 @@
         specialArgs = {inherit inputs outputs;};
         modules = [./nixos/hosts/personal-laptop-vm];
       };
+
+      work-laptop-vm = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [./nixos/hosts/work-laptop-vm];
+      };
+
     };
 
     # Standalone home-manager configuration entrypoint
