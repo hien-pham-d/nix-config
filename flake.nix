@@ -26,6 +26,11 @@
         modules = [./nixos/hosts/personal-laptop-vm];
       };
 
+      personal-workstation = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [./nixos/hosts/personal-workstation];
+      };
+
       work-laptop-vm = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [./nixos/hosts/work-laptop-vm];

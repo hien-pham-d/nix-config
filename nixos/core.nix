@@ -149,6 +149,9 @@
     gcc
     gnumake
     openssl
+
+    wofi
+    kitty
   ];
 
   virtualisation.docker.enable = true;
