@@ -129,7 +129,7 @@ of the form (KEY COMMAND DESC)."
 (setq me-search-map
       (me/gen-sub-keymap me-master-map "s" "search"
                          '(
-                           ("w" persp-switch "workspace")
+                           ;; ("w" persp-switch "workspace")
                            ("p" project-switch-project "project")
                            ("T" consult-ripgrep "text-in-project")
                            ("f" project-switch-to-buffer "active-file-in-project")
@@ -185,8 +185,10 @@ of the form (KEY COMMAND DESC)."
 (setq me-utils-map
       (me/gen-sub-keymap me-master-map "u" "utils"
                          '(
-                           ("s" persp-state-save "session-save")
-                           ("r" persp-state-load "session-restore")
+                           ;; ("s" persp-state-save "session-save")
+                           ("s" desktop-save "session-save")
+                           ;; ("r" persp-state-load "session-restore")
+                           ("r" desktop-read "session-restore")
                            ("x" eval-region "eval-selected")
                            ("X" eval-buffer "eval-file")
                            (":" eval-expression "eval-expression")

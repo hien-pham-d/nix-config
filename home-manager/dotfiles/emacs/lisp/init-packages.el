@@ -340,38 +340,38 @@
   (evil-define-key '(normal visual) diff-mode-map "q" #'kill-buffer)
   )
 
-(use-package perspective
-  ;; :bind
-  ;; ("C-x C-b" . persp-list-buffers)
-  :custom
-  (persp-mode-prefix-key (kbd "C-c u s"))
-  :init
-  (setq persp-state-default-file (expand-file-name ".persp/master" user-emacs-directory))
-  (setq persp-modestring-short t)
-  :config
-  (persp-mode)
-  ;; (add-hook 'kill-emacs-hook #'persp-state-save)
-  ;; (add-hook 'kill-emacs-hook (lambda()
-  ;;                              (interactive)
-  ;;                              (when (yes-or-no-p "Save session before exiting? ")
-  ;;                                (persp-state-save (expand-file-name ".persp/last" user-emacs-directory)))
-  ;;                              ))
-  (add-hook 'kill-emacs-hook (lambda()
-                               (interactive)
-                               (when (yes-or-no-p "Save session before exiting? ")
-                                 (persp-state-save (expand-file-name ".persp/last" user-emacs-directory))
-                                 (message "Session saved to ~/.emacs.d/.persp/last" user-emacs-directory)
-                                 )
-                               ))
+;; (use-package perspective
+;;   ;; :bind
+;;   ;; ("C-x C-b" . persp-list-buffers)
+;;   :custom
+;;   (persp-mode-prefix-key (kbd "C-c u s"))
+;;   :init
+;;   (setq persp-state-default-file (expand-file-name ".persp/master" user-emacs-directory))
+;;   (setq persp-modestring-short t)
+;;   :config
+;;   (persp-mode)
+;;   ;; (add-hook 'kill-emacs-hook #'persp-state-save)
+;;   ;; (add-hook 'kill-emacs-hook (lambda()
+;;   ;;                              (interactive)
+;;   ;;                              (when (yes-or-no-p "Save session before exiting? ")
+;;   ;;                                (persp-state-save (expand-file-name ".persp/last" user-emacs-directory)))
+;;   ;;                              ))
+;;   (add-hook 'kill-emacs-hook (lambda()
+;;                                (interactive)
+;;                                (when (yes-or-no-p "Save session before exiting? ")
+;;                                  (persp-state-save (expand-file-name ".persp/last" user-emacs-directory))
+;;                                  (message "Session saved to ~/.emacs.d/.persp/last" user-emacs-directory)
+;;                                  )
+;;                                ))
 
-  ;; (with-eval-after-load 'dashboard
-  ;;   (add-hook 'dashboard-after-initialize-hook (lambda()
-  ;;                                                (interactive)
-  ;;                                                (when (yes-or-no-p "Restore the last session? ")
-  ;;                                                  (persp-state-load (expand-file-name ".persp/last" user-emacs-directory))
-  ;;                                                  (message "Session restored."))))
-  ;;   )
-  )
+;;   ;; (with-eval-after-load 'dashboard
+;;   ;;   (add-hook 'dashboard-after-initialize-hook (lambda()
+;;   ;;                                                (interactive)
+;;   ;;                                                (when (yes-or-no-p "Restore the last session? ")
+;;   ;;                                                  (persp-state-load (expand-file-name ".persp/last" user-emacs-directory))
+;;   ;;                                                  (message "Session restored."))))
+;;   ;;   )
+;;   )
 
 (use-package rainbow-delimiters
   :hook (prog-mode text-mode))
@@ -470,10 +470,10 @@
   :after (treemacs magit)
   :ensure t)
 
-(use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
-  :after (treemacs persp-mode) ;;or perspective vs. persp-mode
-  :ensure t
-  :config (treemacs-set-scope-type 'Perspectives))
+;; (use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
+;;   :after (treemacs persp-mode) ;;or perspective vs. persp-mode
+;;   :ensure t
+;;   :config (treemacs-set-scope-type 'Perspectives))
 
 ;; (treemacs-start-on-boot)
 
