@@ -1,6 +1,6 @@
 {host, ...}: {
   imports = [
-    ../../configuration.nix
+    ../../core.nix
     ./hardware-configuration.nix
   ];
 }
