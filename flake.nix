@@ -21,10 +21,9 @@
     # NixOS configuration entrypoint
     # To rebuild, run: 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      personal-laptop-vm = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        # > Our main nixos configuration file <
-        modules = [./nixos/configuration.nix];
+        modules = [./nixos/hosts/personal-laptop-vm];
       };
     };
 
