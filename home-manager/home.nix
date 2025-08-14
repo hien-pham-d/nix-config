@@ -35,6 +35,8 @@
     nodejs_22
     shellcheck
 
+    nodePackages.prettier
+
     brave
     # flatpak
     # gnome.gnome-software
@@ -77,6 +79,32 @@
     rofi
     polybar
 
+    # hyprland
+
+    # Terminal
+    kitty
+
+    # Applicaiton Launcher
+    wofi
+
+    # File Manager
+    dolphin
+
+    # Status Bar
+    waybar
+
+    # wallpaper
+    hyprpaper
+
+    # Bluetooth Manager
+    blueman
+
+    # Screen Lock
+    hyprlock
+
+    # key custom
+    keyd
+
     # wip: dependencies for bash cfg
     # shell prompt configuration
     # starship
@@ -110,6 +138,14 @@
     ".config/i3/config".source = ./dotfiles/i3/config;
     ".config/ghostty/config".source = ./dotfiles/ghostty/config;
     ".config/polybar/config.ini".source = ./dotfiles/polybar/config.ini;
+
+    ".config/waybar/config.jsonc".source = ./dotfiles/waybar/config.jsonc;
+    ".config/waybar/style.css".source = ./dotfiles/waybar/style.css;
+
+    ".config/hypr/hyprland.conf".source = ./dotfiles/hyprland/hyprland.conf;
+    ".config/hypr/hyprpaper.conf".source = ./dotfiles/hyprland/hyprpaper.conf;
+    ".config/hypr/wallpapers/fedora36-1-cut.png".source = ./dotfiles/hyprland/wallpapers/fedora36-1-cut.png;
+    ".config/hypr/hyprlock.conf".source = ./dotfiles/hyprland/hyprlock.conf;
 
   };
 
@@ -217,7 +253,13 @@
   };
 
   services = {
+    # Clipboard Manager
     copyq = {
+      enable = true;
+    };
+
+    # Clipboard Manager
+    cliphist = {
       enable = true;
     };
   };

@@ -18,12 +18,17 @@
   } @ inputs: let
     inherit (self) outputs;
   in {
-    # NixOS configuration entrypoint
+
     # To rebuild, run: 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       personal-laptop-vm = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [./nixos/hosts/personal-laptop-vm];
+      };
+
+      personal-workstation = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [./nixos/hosts/personal-workstation];
       };
 
       work-laptop-vm = nixpkgs.lib.nixosSystem {

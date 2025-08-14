@@ -681,24 +681,24 @@
     (evil-define-key '(normal visual) harpoon-mode-map "q" #'me/kill-this-buffer))
   )
 
-(use-package copilot
-  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
-  :init
-  (setq copilot-indent-offset-warning-disable t)
-  ;; prefer using AI's completion mannually in normal mode
-  ;; (setq copilot-disable-display-predicates '(evil-insert-state-p))
+;; (use-package copilot
+;;   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+;;   :init
+;;   (setq copilot-indent-offset-warning-disable t)
+;;   ;; prefer using AI's completion mannually in normal mode
+;;   ;; (setq copilot-disable-display-predicates '(evil-insert-state-p))
 
-  :hook (
-         (prog-mode . copilot-mode)
-         (org-mode . copilot-mode)
-         (markdown-mode . copilot-mode)
-         )
-  :bind
-  (:map copilot-completion-map
-        ("M-i" . copilot-accept-completion)
-        ("TAB" . #'indent-for-tab-command)
-        )
-  )
+;;   :hook (
+;;          (prog-mode . copilot-mode)
+;;          (org-mode . copilot-mode)
+;;          (markdown-mode . copilot-mode)
+;;          )
+;;   :bind
+;;   (:map copilot-completion-map
+;;         ("M-i" . copilot-accept-completion)
+;;         ("TAB" . #'indent-for-tab-command)
+;;         )
+;;   )
 
 (use-package vterm
   :config

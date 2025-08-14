@@ -107,6 +107,24 @@
     #media-session.enable = true;
   };
 
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = [ "*" ];
+        # settings = {
+        #   main = {
+        #     capslock = "layer(control)";
+        #   };
+        # };
+        extraConfig = ''
+          [main]
+          capslock = layer(control)
+        '';
+      };
+    };
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -114,7 +132,7 @@
   users.users.hienphamduc = {
     isNormalUser = true;
     description = "hien-phamduc";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "input" ];
     packages = with pkgs; [
 
     ];
@@ -127,6 +145,9 @@
     };
     ssh = {
       startAgent = true;
+    };
+    hyprland = {
+      enable = true;
     };
   };
 
