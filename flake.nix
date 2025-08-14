@@ -40,6 +40,7 @@
 
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
+    home-manager.backupFileExtension = "backup";
     homeConfigurations = {
       "hienphamduc@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."aarch64-linux";

@@ -89,6 +89,7 @@
 
     # File Manager
     dolphin
+    yazi
 
     # Status Bar
     waybar
