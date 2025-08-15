@@ -29,6 +29,8 @@ exec --no-startup-id systemctl start --user spice-vdagent.service
 
 exec --no-startup-id polybar
 
+exec --no-startup-id picom
+
 # automatically be opened at startup.
 exec --no-startup-id ghostty
 exec --no-startup-id emacs
