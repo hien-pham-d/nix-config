@@ -73,10 +73,10 @@ floating_modifier $mod
 bindsym $mod+Return exec --no-startup-id ghostty
 
 # kill focused window
-bindsym $mod+Shift+y kill
+bindsym $mod+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec "rofi -combi-modi window,drun,run,ssh -theme solarized -font \\"hack 10\\" -show combi -icon-theme \\"Papirus\\" -show-icons -fixed-num-lines"
+bindsym $mod+r exec "rofi -combi-modi window,drun,run,ssh -theme solarized -font \\"hack 10\\" -show combi -icon-theme \\"Papirus\\" -show-icons -fixed-num-lines"
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
@@ -98,12 +98,12 @@ bindsym $mod+i split horizontal
 bindsym $mod+v split vertical
 
 # enter fullscreen mode for the focused container
-bindsym $mod+m fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+Shift+s layout stacking
+bindsym $mod+Shift+w layout tabbed
+bindsym $mod+Shift+t layout toggle split
 
 # toggle tiling / floating
 # bindsym $mod+Shift+space floating toggle
@@ -133,9 +133,9 @@ bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+w exec "cd ~/workspace/repos/nix-config/ && make hm-switch && pkill polybar; polybar; i3-msg restart"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+# bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
@@ -154,7 +154,7 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+Shift+r mode "resize"
 
 # screen locking
 # bindsym $mod+Escape exec i3lock --color=181717

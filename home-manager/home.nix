@@ -259,11 +259,6 @@
     copyq = {
       enable = true;
     };
-
-    # Clipboard Manager
-    cliphist = {
-      enable = true;
-    };
   };
 
   systemd.user.services = {
