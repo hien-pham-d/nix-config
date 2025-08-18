@@ -5,9 +5,6 @@ rebuild-all: os-rebuild hm-switch
 
 hm-switch:
 	home-manager switch -b backup --flake .#hienphamduc@nixos
-	hyprctl reload
-	pkill waybar && waybar &
-	pkill hyprpaper && hyprpaper &
 
 os-rebuild:
 	sudo nixos-rebuild switch --flake .#$(HOST)
