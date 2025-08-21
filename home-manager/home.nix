@@ -13,7 +13,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "25.05"; # Please read the comment before changing.
 
   nixpkgs.config.allowUnfree = true;
 
@@ -40,7 +40,15 @@
     brave
     # flatpak
     # gnome.gnome-software
+    logseq
+
+    # Editor
     vscode
+    code-cursor
+
+    # AI-assisted Programming
+    claude-code
+    opencode
 
     sqlite
 
@@ -89,7 +97,7 @@
     wofi
 
     # File Manager
-    dolphin
+    kdePackages.dolphin
     yazi
 
     # Status Bar
@@ -112,8 +120,6 @@
     # starship
     # line editor for bash
     # blesh
-
-    # logseq # does not available for aarch64-linux
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
