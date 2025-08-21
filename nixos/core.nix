@@ -173,6 +173,11 @@
   ];
 
   virtualisation.docker.enable = true;
+  # linux/amd64 docker image support:
+  # docker run --privileged --rm tonistiigi/binfmt --install amd64
+  # or: docker run --privileged --rm tonistiigi/binfmt --install all
+  # uninstall: docker run --privileged --rm tonistiigi/binfmt --uninstall amd64
+  # or: /usr/bin/env bash -c "docker run --privileged --rm tonistiigi/binfmt --uninstall qemu-*"
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
