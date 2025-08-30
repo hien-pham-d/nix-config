@@ -32,6 +32,7 @@
     "org/gnome/desktop/wm/keybindings" = {
       close = ["<Super>c"];
       toggle-fullscreen = ["<Super><Shift>f"];
+      toggle-maximized = ["<Super><Shift>m"];
 
       switch-to-workspace-1 = ["<Super>1"];
       move-to-workspace-1 = ["<Super><Shift>1"];
@@ -67,6 +68,9 @@
     eslint
     docker-compose
     yq
+
+    go
+    gopls
 
     shellcheck
 
