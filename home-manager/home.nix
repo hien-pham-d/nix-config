@@ -17,6 +17,33 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # gnome
+  dconf.settings = {
+    "org/gnome/desktop/peripherals/mouse" = {
+      natural-scroll = true;
+    };
+    "org/gnome/desktop/peripherals/touchpad" = {
+      natural-scroll = true;
+    };
+    "org/gnome/mutter/keybindings" = {
+      toggle-tiled-left = ["<Super><Shift>h"];
+      toggle-tiled-right = ["<Super><Shift>l"];
+    };
+    "org/gnome/desktop/wm/keybindings" = {
+      close = ["<Super>c"];
+      toggle-fullscreen = ["<Super><Shift>f"];
+
+      switch-to-workspace-1 = ["<Super>1"];
+      move-to-workspace-1 = ["<Super><Shift>1"];
+      switch-to-workspace-2 = ["<Super>2"];
+      move-to-workspace-2 = ["<Super><Shift>2"];
+      switch-to-workspace-3 = ["<Super>3"];
+      move-to-workspace-3 = ["<Super><Shift>3"];
+      switch-to-workspace-4 = ["<Super>4"];
+      move-to-workspace-4 = ["<Super><Shift>4"];
+    };
+  };
+
   home.packages = with pkgs; [
     emacs
     vim
@@ -33,9 +60,15 @@
     openssh
 
     nodejs_22
-    shellcheck
-
+    yarn
+    prisma-engines
     nodePackages.prettier
+    typescript-language-server
+    eslint
+    docker-compose
+    yq
+
+    shellcheck
 
     brave
     # flatpak
@@ -52,11 +85,22 @@
 
     sqlite
 
+    # TUIs
+    lazygit
+    lazydocker
+
+    # API Client
+    postman
+
+    # DB Client
+    dbeaver-bin
+
     # nerdfonts
 
     # terminal
     wezterm
     ghostty
+    btop
 
     fastfetch
 
@@ -86,7 +130,6 @@
     #i3
     rofi
     polybar
-    picom
 
     # hyprland
 
@@ -146,7 +189,6 @@
     ".config/i3/config".source = ./dotfiles/i3/config;
     ".config/ghostty/config".source = ./dotfiles/ghostty/config;
     ".config/polybar/config.ini".source = ./dotfiles/polybar/config.ini;
-    ".config/picom/picom.conf".source = ./dotfiles/picom/picom.conf;
 
     ".config/waybar/config.jsonc".source = ./dotfiles/waybar/config.jsonc;
     ".config/waybar/style.css".source = ./dotfiles/waybar/style.css;
@@ -202,6 +244,12 @@
 
         export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
         export NIX_SHELL_PRESERVE_PROMPT="1";
+
+        export PRISMA_QUERY_ENGINE_LIBRARY="${pkgs.prisma-engines}/lib/libquery_engine.node";
+        export PRISMA_QUERY_ENGINE_BINARY="${pkgs.prisma-engines}/bin/query-engine";
+        export PRISMA_SCHEMA_ENGINE_BINARY="${pkgs.prisma-engines}/bin/schema-engine";
+        export PRISMA_FMT_BINARY="${pkgs.prisma-engines}/bin/prisma-fmt";
+
       '';
 
       oh-my-zsh = {
