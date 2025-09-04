@@ -388,6 +388,18 @@
   :init
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :bind (
+         :map treemacs-mode-map
+         ("q" . treemacs-kill-buffer)
+         ("h" . treemacs-COLLAPSE-action)
+         ("l" . treemacs-RET-action)
+         ("j" . treemacs-next-line)
+         ("k" . treemacs-previous-line)
+         ("?" . evil-search-backward)
+         ("/" . evil-search-forward)
+         ("n" . evil-search-next)
+         ("N" . evil-search-previous)
+         )
   :config
   (progn
 	  (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
@@ -439,7 +451,7 @@
 	        treemacs-user-mode-line-format           nil
 	        treemacs-user-header-line-format         nil
 	        treemacs-wide-toggle-width               70
-	        treemacs-width                           35
+	        treemacs-width                           70
 	        treemacs-width-increment                 1
 	        treemacs-width-is-initially-locked       t
 	        treemacs-workspace-switch-cleanup        nil)
@@ -452,11 +464,10 @@
     (treemacs-project-follow-mode t)
 	  (treemacs-filewatch-mode t)
 	  (treemacs-fringe-indicator-mode 'always)
-    ))
+    )
 
-(use-package treemacs-evil
-  :after (treemacs evil)
-  :ensure t)
+  (add-hook 'treemacs-mode-hook #'turn-off-evil-mode)
+  )
 
 (use-package treemacs-projectile
   :after (treemacs projectile)

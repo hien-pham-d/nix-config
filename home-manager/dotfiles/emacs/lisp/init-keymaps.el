@@ -137,7 +137,7 @@ of the form (KEY COMMAND DESC)."
                            ("F" consult-fd "file-in-project")
                            ("t" consult-line "text-in-file")
                            ("b" consult-buffer "buffer")
-                           ("s" consult-imenu "symbol-in-file")
+                           ("s" consult-outline "symbol-in-file")
                            ("S" xref-find-apropos "symbol-in-project")
                            )))
 
