@@ -775,7 +775,8 @@
   (setq direnv-always-show-summary nil)
   (setq direnv-show-paths-in-summary t)
   :config
-  (direnv-mode))
+  ;; (direnv-mode)
+  )
 
 (use-package nix-mode)
 

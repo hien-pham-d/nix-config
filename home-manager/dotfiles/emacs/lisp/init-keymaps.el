@@ -89,6 +89,7 @@ of the form (KEY COMMAND DESC)."
 (keymap-set global-map "M-;" #'consult-line)
 ;; grep
 (keymap-set global-map "M-/" #'consult-line)
+(keymap-set global-map "M-SPC" #'consult-line)
 ;; symbols
 (keymap-set global-map "M-8" #'consult-outline)
 ;; prev-hunk
