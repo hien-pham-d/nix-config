@@ -65,29 +65,36 @@ of the form (KEY COMMAND DESC)."
 ;; DONE: switch to buffer (C-M-SPC)
 
 ;; per-workspace level (C-previx)
-;; DONE: switch to bookmark (C-;)
+;; bookmarks
 (keymap-set global-map "C-;" #'harpoon-toggle-file)
-;; DONE: switch to last buffer (C-')
+;; last buffer
 (keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
-;; DONE: switch to buffer (C-SPC)
+;; symbols
+(keymap-set global-map "C-8" #'xref-find-apropos)
+;; buffers
 (keymap-set global-map "C-SPC" #'consult-buffer)
+;; fd
 (keymap-set global-map "C-]" #'consult-fd)
-;; DONE: term (C-,)
-(keymap-set global-map "C-," #'projectile-run-vterm)
-;; DONE: git (C-.)
+;; projects
+(keymap-set global-map "C-\\" #'project-switch-project)
+;; explorer
+(keymap-set global-map "C-," #'treemacs)
+;; git
 (keymap-set global-map "C-." #'me/magit-status)
-;; DONE: explorer (C-/)
-(keymap-set global-map "C-/" #'treemacs)
+;; ripgrep
+(keymap-set global-map "C-/" #'consult-ripgrep)
 
 ;; per-buffer level (M-prefix)
-;; grep (M-;)
+;; TODO: bookmarks
 (keymap-set global-map "M-;" #'consult-line)
-;; prev-hunk (M-[)
+;; grep
+(keymap-set global-map "M-/" #'consult-line)
+;; symbols
+(keymap-set global-map "M-8" #'consult-outline)
+;; prev-hunk
 (keymap-set global-map "M-[" #'diff-hl-previous-hunk)
-;; next-hunk (M-])
+;; next-hunk
 (keymap-set global-map "M-]" #'diff-hl-next-hunk)
-
-(keymap-set global-map "M-SPC" #'consult-line)
 
 (setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 
