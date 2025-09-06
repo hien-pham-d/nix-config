@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+nix-shell -p git --run './pull_and_build'
