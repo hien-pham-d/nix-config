@@ -120,6 +120,12 @@
   (keymap-set corfu-map "RET" #'newline)
   )
 
+(use-package corfu-terminal
+  :straight (:type git :host codeberg :repo "akib/emacs-corfu-terminal")
+  :after corfu
+  :config
+  (corfu-terminal-mode +1))
+
 ;; Emacs minibuffer configurations.
 (use-package emacs
   :custom
@@ -194,6 +200,7 @@
   (keymap-set global-map "C-u" 'evil-scroll-up)
   (keymap-set global-map "C-d" 'evil-scroll-down)
   (keymap-set evil-insert-state-map "C-b" 'completion-at-point)
+  (keymap-set evil-insert-state-map "M-[" 'evil-normal-state) ;; terminal Emacs receives C-[ as M-[
   ;; unset some conflicting keybindings.
   (keymap-unset evil-insert-state-map "C-k")
   (keymap-unset evil-insert-state-map "C-e")
@@ -743,6 +750,7 @@
   (keymap-unset vterm-mode-map "M-4")
 
   (keymap-unset vterm-mode-map "C-SPC")
+  (keymap-unset vterm-mode-map "C-@")
 
   ;; ensure some default behaviors of the terminal
   (keymap-set vterm-mode-map "C-u" #'vterm--self-insert)

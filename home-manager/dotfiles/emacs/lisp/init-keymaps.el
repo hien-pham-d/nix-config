@@ -68,11 +68,14 @@ of the form (KEY COMMAND DESC)."
 ;; bookmarks
 (keymap-set global-map "C-;" #'harpoon-toggle-file)
 ;; last buffer
+;; TODO: does not work in insert mode
 (keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
 ;; symbols
+;; FIXME: does not work
 (keymap-set global-map "C-8" #'xref-find-apropos)
 ;; buffers
 (keymap-set global-map "C-SPC" #'consult-buffer)
+(keymap-set global-map "C-@" #'consult-buffer) ;; Terminal Emacs recieves C-SPC as C-@
 ;; fd
 (keymap-set global-map "C-]" #'consult-fd)
 ;; projects
@@ -83,6 +86,7 @@ of the form (KEY COMMAND DESC)."
 (keymap-set global-map "C-." #'me/magit-status)
 ;; ripgrep
 (keymap-set global-map "C-/" #'consult-ripgrep)
+(keymap-set global-map "C-_" #'consult-ripgrep) ;; Terminal Emacs recieves C-/ as C-_
 
 ;; per-buffer level (M-prefix)
 ;; TODO: bookmarks
@@ -91,11 +95,12 @@ of the form (KEY COMMAND DESC)."
 (keymap-set global-map "M-/" #'consult-line)
 (keymap-set global-map "M-SPC" #'consult-line)
 ;; symbols
+;; FIXME: does not work
 (keymap-set global-map "M-8" #'consult-outline)
 ;; prev-hunk
-(keymap-set global-map "M-[" #'diff-hl-previous-hunk)
+(keymap-set global-map "M-," #'diff-hl-previous-hunk)
 ;; next-hunk
-(keymap-set global-map "M-]" #'diff-hl-next-hunk)
+(keymap-set global-map "M-." #'diff-hl-next-hunk)
 
 (setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 

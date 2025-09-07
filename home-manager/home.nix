@@ -166,6 +166,8 @@
     # key custom
     keyd
 
+    wl-clipboard
+
     # wip: dependencies for bash cfg
     # shell prompt configuration
     # starship
