@@ -225,6 +225,10 @@
   (keymap-unset evil-insert-state-map "C-b")
   )
 
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1))
+
 (use-package key-chord
   :config
   (setq key-chord-two-keys-delay 0.3)

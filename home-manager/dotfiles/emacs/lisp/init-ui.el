@@ -4,6 +4,7 @@
 
 ;; fontsize
 (set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil :height 120)
 ;; (set-face-attribute 'default nil :family "Hack Nerd Font" :height 140 :weight 'normal)
 
 (with-eval-after-load 'hl-line
