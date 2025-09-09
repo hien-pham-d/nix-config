@@ -1,7 +1,1 @@
 window-decoration = none
-
-keybind = esc:[I=none
-
-keybind = ctrl+,=unbind
-
-keybind = ctrl+\'=unbind
