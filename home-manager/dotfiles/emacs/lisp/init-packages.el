@@ -722,6 +722,7 @@
   :config
   (add-hook 'vterm-mode-hook
             (lambda ()
+              (turn-off-evil-mode)
               (setq-local truncate-lines t)
               (visual-line-mode -1)
               ;; (setq-local evil-insert-state-cursor 'box)
