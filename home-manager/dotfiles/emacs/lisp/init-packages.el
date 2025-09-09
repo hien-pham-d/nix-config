@@ -756,6 +756,8 @@
   (keymap-unset vterm-mode-map "C-SPC")
   (keymap-unset vterm-mode-map "C-@")
 
+  (keymap-unset vterm-mode-map "C-\\")
+
   ;; ensure some default behaviors of the terminal
   (keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
   (keymap-set vterm-mode-map "C-r" #'vterm--self-insert)
