@@ -207,7 +207,6 @@
     ".config/hypr/hyprpaper.conf".source = ./dotfiles/hyprland/hyprpaper.conf;
     ".config/hypr/wallpapers/fedora36-1-cut.png".source = ./dotfiles/hyprland/wallpapers/fedora36-1-cut.png;
     ".config/hypr/hyprlock.conf".source = ./dotfiles/hyprland/hyprlock.conf;
-
   };
 
   home.sessionVariables = {
@@ -324,6 +323,11 @@
     copyq = {
       enable = true;
     };
+
+    emacs = {
+      enable = true;
+      startWithUserSession = "graphical";
+    };
   };
 
   systemd.user.services = {
@@ -340,6 +344,24 @@
       };
       Install = {
         WantedBy = [ "graphical-session.target" ];
+      };
+    };
+
+    emacsclient = {
+      Unit = {
+        Description = "Launch emacsclient GUI after emacs daemon";
+
+        # after specifies the order in which units are started or stopped.
+        # the current unit will be started after the units listed in after.
+        After = [ "emacs.service" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.emacs}/bin/emacsclient -c";
+        Restart = "no";
+      };
+      Install = {
+        # wantedBy declares this unit as a dependency target to start when enabling another unit.
+        WantedBy = [ "emacs.service" ];
       };
     };
   };
