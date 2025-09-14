@@ -21,8 +21,10 @@
 (setq-default mode-line-format
               '(" "
                 (:eval (evil-mode-line-format))
-                (:eval (propertize (project-mode-line-format) 'face '(:foreground "#90cc93" :weight bold)))
-                " | "
+                (:eval (let ((proj (project-current)))
+                         (if proj
+                             (propertize (format "%s | " (project-mode-line-format)) 'face '(:foreground "#90cc93" :weight bold))
+                           "")))
                 (:eval (propertize (my/mode-line-repo-relative-path) 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
                 (:eval (propertize " [%*] " 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
 
@@ -30,8 +32,12 @@
 
                 "C:%c "
                 "| %P "
-                "| " (:eval (propertize (format "⎇ %s " (my/mode-line-git-branch)) 'face '(:foreground "#90cc93" :weight bold)))
-                "| " (:eval (format-time-string "%a %d - %H:%M")) " "
+                (:eval (let ((branch (my/mode-line-git-branch)))
+                         (if (not (string-empty-p branch))
+                             (format "| %s" (propertize (format "⎇ %s " branch) 'face '(:foreground "#90cc93" :weight bold)))
+                           "")))
+                "| " (:eval (format-time-string "%a %d - %H:%M"))
+                "  "
                 ))
 (display-time-mode t)
 

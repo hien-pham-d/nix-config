@@ -26,10 +26,12 @@
   (or (magit-get-current-branch) ""))
 
 (setq mode-line-format
-      '(" "
+      '(""
         (:eval (evil-mode-line-format))
-        (:eval (propertize (project-mode-line-format) 'face '(:foreground "#90cc93" :weight bold)))
-        " | "
+        (:eval (let ((proj (project-current)))
+                 (if proj
+                     (propertize (format "%s | " (project-mode-line-format)) 'face '(:foreground "#90cc93" :weight bold))
+                   "")))
         (:eval (propertize (my/mode-line-repo-relative-path) 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
         (:eval (propertize " [%*] " 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
 
@@ -39,9 +41,10 @@
         "| %P "
         (:eval (let ((branch (my/mode-line-git-branch)))
                  (if (not (string-empty-p branch))
-                     (propertize (format "| ⎇ %s " branch) 'face '(:foreground "#90cc93" :weight bold))
+                     (format "| %s" (propertize (format "⎇ %s " branch) 'face '(:foreground "#90cc93" :weight bold)))
                    "")))
-        "| " (:eval (format-time-string "%a %d - %H:%M")) " "
+        "| " (:eval (format-time-string "%a %d - %H:%M"))
+        "  "
         ))
 (display-time-mode t)
 ;;
