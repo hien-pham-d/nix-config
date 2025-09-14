@@ -27,36 +27,17 @@
 (setq mode-line-format
       '(" "
         (:eval (evil-mode-line-format))
-        (:eval (project-mode-line-format))
-        " > "
-        (:eval (my/mode-line-repo-relative-path))
-        " [%*] "
-        ;; TODO: right side
-        " [git:"
-        (:eval (my/mode-line-git-branch))
-        "] "
-        " C:%c %P"
+        (:eval (propertize (project-mode-line-format) 'face '(:foreground "#90cc93" :weight bold)))
+        " | "
+        (:eval (propertize (my/mode-line-repo-relative-path) 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
+        (:eval (propertize " [%*] " 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
+        mode-line-format-right-align ;; this is the separator
+        (:eval (propertize (format " ⎇ %s " (my/mode-line-git-branch)) 'face '(:foreground "#90cc93" :weight bold)))
+        "| C:%c "
+        "| %P "
+        "| " (:eval (format-time-string "%a %d - %H:%M")) " "
         ))
-(setq-default mode-line-format
-              '(" "
-                (:eval (evil-mode-line-format))
-                (:eval (project-mode-line-format))
-                " > "
-                (:eval (my/mode-line-repo-relative-path))
-                " [%*] "
-                ;; TODO: right side
-                " [git:"
-                (:eval (my/mode-line-git-branch))
-                "] "
-                " C:%c %p"
-                ))
-
-(setq mode-line-format-right-align
-      '(""
-        )
-      )
-(force-mode-line-update t)
-
+(display-time-mode t)
 ;;
 (use-package helix
   :config
