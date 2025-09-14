@@ -197,10 +197,13 @@
 (use-package evil
   :config
   (evil-mode 1)
-  (keymap-set global-map "C-u" 'evil-scroll-up)
-  (keymap-set global-map "C-d" 'evil-scroll-down)
+  (keymap-set evil-normal-state-map "C-u" #'evil-scroll-up)
+  (keymap-set evil-visual-state-map "C-u" #'evil-scroll-up)
+  (keymap-set evil-normal-state-map "C-d" #'evil-scroll-down)
+  (keymap-set evil-visual-state-map "C-d" #'evil-scroll-down)
   (keymap-set evil-insert-state-map "C-b" 'completion-at-point)
   (keymap-set evil-insert-state-map "M-[" 'evil-normal-state) ;; terminal Emacs receives C-[ as M-[
+
   ;; unset some conflicting keybindings.
   (keymap-unset evil-insert-state-map "C-k")
   (keymap-unset evil-insert-state-map "C-e")
@@ -214,6 +217,10 @@
   (keymap-unset evil-insert-state-map "C-n")
   (keymap-unset evil-insert-state-map "C-p")
 
+  ;; conflict to eat
+  (keymap-unset evil-insert-state-map "C-q")
+  (keymap-unset evil-insert-state-map "C-u")
+
   (keymap-unset evil-normal-state-map "C-.")
   (keymap-unset evil-insert-state-map "C-.")
 
@@ -223,6 +230,14 @@
 
   ;; tmux prefix binding
   (keymap-unset evil-insert-state-map "C-b")
+
+  (evil-define-key '(normal visual) global-map (kbd "g d") #'xref-find-definitions)
+  (evil-define-key '(normal visual) global-map (kbd "g t") #'eglot-find-typeDefinition)
+  (evil-define-key '(normal visual) global-map (kbd "g r") #'xref-find-references)
+  (evil-define-key '(normal visual) global-map (kbd "g i") #'eglot-find-implementation)
+
+  (evil-define-key '(normal visual) global-map (kbd "C-i") #'evil-jump-forward)
+  (evil-define-key '(normal visual) global-map (kbd "C-o") #'evil-jump-backward)
   )
 
 (use-package evil-surround
@@ -627,57 +642,43 @@
     (evil-define-key '(normal visual) harpoon-mode-map "q" #'me/kill-this-buffer))
   )
 
-(use-package vterm
+(use-package eat
+  :straight (
+             :type git :host codeberg :repo "akib/emacs-eat"
+             :files ("*.el" ("term" "term/*.el") "*.texi"
+                     "*.ti" ("terminfo/e" "terminfo/e/*")
+                     ("terminfo/65" "terminfo/65/*")
+                     ("integration" "integration/*")
+                     (:exclude ".dir-locals.el" "*-tests.el")))
+  :after evil
   :config
-  (add-hook 'vterm-mode-hook
-            (lambda ()
-              (setq-local truncate-lines t)
-              (visual-line-mode -1)
-              ;; (setq-local evil-insert-state-cursor 'box)
-              (setq-local evil-insert-state-cursor 'bar)
-              ;; (setq mode-line-format default-mode-line-format)
-              ;; (vterm-reset-cursor-point)  ;; Refresh terminal display
-              ;; (vterm-clear-scrollback)    ;; Clear and re-render
-              ))
-  (setq vterm-keymap-exceptions nil)
   ;; allow window nagivation through C-<h,j,k,l>
-  (keymap-unset vterm-mode-map "C-h")
-  (keymap-unset vterm-mode-map "C-j")
-  (keymap-unset vterm-mode-map "C-k")
-  (keymap-unset vterm-mode-map "C-l")
+  (keymap-unset eat-semi-char-mode-map "C-h")
+  (keymap-unset eat-semi-char-mode-map "C-j")
+  (keymap-unset eat-semi-char-mode-map "C-k")
+  (keymap-unset eat-semi-char-mode-map "C-l")
 
   ;; global keys
-  (keymap-unset vterm-mode-map "C-'")
-  (keymap-unset vterm-mode-map "C-]")
-  (keymap-unset vterm-mode-map "M-b")
-  (keymap-unset vterm-mode-map "M-r")
-  (keymap-unset vterm-mode-map "M-s")
-  (keymap-unset vterm-mode-map "M-&")
-  (keymap-unset vterm-mode-map "M-1")
-  (keymap-unset vterm-mode-map "M-2")
-  (keymap-unset vterm-mode-map "M-3")
-  (keymap-unset vterm-mode-map "M-4")
+  (keymap-unset eat-semi-char-mode-map "C-'")
+  (keymap-unset eat-semi-char-mode-map "C-]")
+  (keymap-unset eat-semi-char-mode-map "C--")
+  (keymap-unset eat-semi-char-mode-map "C-\\")
 
-  (keymap-unset vterm-mode-map "C-SPC")
-  (keymap-unset vterm-mode-map "C-@")
+  (keymap-unset eat-semi-char-mode-map "M-b")
+  (keymap-unset eat-semi-char-mode-map "M-/")
+  (keymap-unset eat-semi-char-mode-map "M-x")
+  (keymap-unset eat-semi-char-mode-map "M-r")
+  (keymap-unset eat-semi-char-mode-map "M-s")
+  (keymap-unset eat-semi-char-mode-map "M-&")
+  (keymap-unset eat-semi-char-mode-map "M-1")
+  (keymap-unset eat-semi-char-mode-map "M-2")
+  (keymap-unset eat-semi-char-mode-map "M-3")
+  (keymap-unset eat-semi-char-mode-map "M-4")
 
-  (keymap-unset vterm-mode-map "C-\\")
+  (keymap-unset eat-semi-char-mode-map "C-SPC")
+  (keymap-unset eat-semi-char-mode-map "C-@")
 
-  ;; ensure some default behaviors of the terminal
-  (keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
-  (keymap-set vterm-mode-map "C-r" #'vterm--self-insert)
-  (keymap-set vterm-mode-map "C-w" #'vterm--self-insert)
-
-  ;; switch exwm workspace
-  (keymap-unset vterm-mode-map "M-1")
-  (keymap-unset vterm-mode-map "M-2")
-  (keymap-unset vterm-mode-map "M-3")
-  (keymap-unset vterm-mode-map "M-4")
-
-  (keymap-unset vterm-mode-map "M-,")
-  (keymap-unset vterm-mode-map "M-.")
-  (keymap-unset vterm-mode-map "M-/")
-  (keymap-unset vterm-mode-map "M-;")
+  (keymap-set eat-semi-char-mode-map "C-u" #'eat-self-input)
 
   )
 

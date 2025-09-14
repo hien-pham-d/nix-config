@@ -8,14 +8,59 @@
 
 ;; playground
 
-(use-package eat
-  :straight (
-             :type git :host codeberg :repo "akib/emacs-eat"
-             :files ("*.el" ("term" "term/*.el") "*.texi"
-                     "*.ti" ("terminfo/e" "terminfo/e/*")
-                     ("terminfo/65" "terminfo/65/*")
-                     ("integration" "integration/*")
-                     (:exclude ".dir-locals.el" "*-tests.el"))))
+(use-package vterm
+  :config
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (setq-local truncate-lines t)
+              (visual-line-mode -1)
+              ;; (setq-local evil-insert-state-cursor 'box)
+              (setq-local evil-insert-state-cursor 'bar)
+              ;; (setq mode-line-format default-mode-line-format)
+              ;; (vterm-reset-cursor-point)  ;; Refresh terminal display
+              ;; (vterm-clear-scrollback)    ;; Clear and re-render
+              ))
+  (setq vterm-keymap-exceptions nil)
+  ;; allow window nagivation through C-<h,j,k,l>
+  (keymap-unset vterm-mode-map "C-h")
+  (keymap-unset vterm-mode-map "C-j")
+  (keymap-unset vterm-mode-map "C-k")
+  (keymap-unset vterm-mode-map "C-l")
+
+  ;; global keys
+  (keymap-unset vterm-mode-map "C-'")
+  (keymap-unset vterm-mode-map "C-]")
+  (keymap-unset vterm-mode-map "M-b")
+  (keymap-unset vterm-mode-map "M-r")
+  (keymap-unset vterm-mode-map "M-s")
+  (keymap-unset vterm-mode-map "M-&")
+  (keymap-unset vterm-mode-map "M-1")
+  (keymap-unset vterm-mode-map "M-2")
+  (keymap-unset vterm-mode-map "M-3")
+  (keymap-unset vterm-mode-map "M-4")
+
+  (keymap-unset vterm-mode-map "C-SPC")
+  (keymap-unset vterm-mode-map "C-@")
+
+  (keymap-unset vterm-mode-map "C-\\")
+
+  ;; ensure some default behaviors of the terminal
+  (keymap-set vterm-mode-map "C-u" #'vterm--self-insert)
+  (keymap-set vterm-mode-map "C-r" #'vterm--self-insert)
+  (keymap-set vterm-mode-map "C-w" #'vterm--self-insert)
+
+  ;; switch exwm workspace
+  (keymap-unset vterm-mode-map "M-1")
+  (keymap-unset vterm-mode-map "M-2")
+  (keymap-unset vterm-mode-map "M-3")
+  (keymap-unset vterm-mode-map "M-4")
+
+  (keymap-unset vterm-mode-map "M-,")
+  (keymap-unset vterm-mode-map "M-.")
+  (keymap-unset vterm-mode-map "M-/")
+  (keymap-unset vterm-mode-map "M-;")
+
+  )
 
 (defun my-shared-status ()
   "Return the buffer name of the currently selected window."

@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 
+: "${HOST:?HOST must be set.}"
+
 export REPO_PATH=$HOME/workspace/repos/nix-config
 
 mkdir -p $REPO_PATH
 git clone https://github.com/hien-pham-d/nix-config.git $REPO_PATH
 
 # generate hardware-configuration.nix
-nixos-generate-config --show-hardware-config > $REPO_PATH/nixos/hosts/personal-laptop-vm/hardware-configuration.nix
+nixos-generate-config --show-hardware-config > $REPO_PATH/nixos/hosts/${HOST}/hardware-configuration.nix
 
 # build and switch
 # nixos
 export NIX_CONFIG="experimental-features = nix-command flakes"
-sudo nixos-rebuild switch --flake .#${HOST:-"personal-laptop-vm"}
+sudo nixos-rebuild switch --flake .#${HOST}
 # home-manager
 nix run home-manager/release-25.05 -- init --switch
 make -C $REPO_PATH hm-switch

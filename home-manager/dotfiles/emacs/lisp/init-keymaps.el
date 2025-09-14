@@ -87,7 +87,7 @@ of the form (KEY COMMAND DESC)."
 ;; ripgrep
 (keymap-set global-map "C--" #'consult-ripgrep)
 ;; terminal
-(keymap-set global-map "C-/" #'projectile-run-vterm)
+(keymap-set global-map "C-/" #'eat-project)
 
 ;; per-buffer level (M-prefix)
 ;; TODO: bookmarks
@@ -109,19 +109,6 @@ of the form (KEY COMMAND DESC)."
 ;;   ;; make "SPC" available in magit-status-mode-map
 ;;   (keymap-set magit-status-mode-map "SPC" me-master-map)
 ;;   )
-
-(with-eval-after-load 'evil
-  ;; make "SPC" available in global-map in normal and visual mode.
-  ;; (evil-define-key '(normal visual) global-map (kbd "SPC") me-master-map)
-
-  (evil-define-key '(normal visual) global-map (kbd "g d") #'xref-find-definitions)
-  (evil-define-key '(normal visual) global-map (kbd "g t") #'eglot-find-typeDefinition)
-  (evil-define-key '(normal visual) global-map (kbd "g r") #'xref-find-references)
-  (evil-define-key '(normal visual) global-map (kbd "g i") #'eglot-find-implementation)
-
-  (evil-define-key '(normal visual) global-map (kbd "C-i") #'evil-jump-forward)
-  (evil-define-key '(normal visual) global-map (kbd "C-o") #'evil-jump-backward)
-  )
 
 ;; Quick-Access
 (me/keymap-set-with-desc me-master-map "/" 'consult-line "text-in-file")

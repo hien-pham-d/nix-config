@@ -1,4 +1,0 @@
-Read the `design-docs/main.org` file for an overview of the project.
-Then read the `design-docs/commands/exec-plan.org` file to execute the plan I described there.
-
-After you have done that, please give me a brief summary of your solution.

@@ -76,6 +76,7 @@
     yq
     gh
     tokei
+    tree
 
     go
     gopls
