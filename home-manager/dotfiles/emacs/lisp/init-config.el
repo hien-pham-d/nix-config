@@ -25,12 +25,15 @@
                 " | "
                 (:eval (propertize (my/mode-line-repo-relative-path) 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
                 (:eval (propertize " [%*] " 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
+
                 mode-line-format-right-align ;; this is the separator
-                (:eval (propertize (format " ⎇ %s " (my/mode-line-git-branch)) 'face '(:foreground "#90cc93" :weight bold)))
-                "| C:%c "
+
+                "C:%c "
                 "| %P "
+                "| " (:eval (propertize (format "⎇ %s " (my/mode-line-git-branch)) 'face '(:foreground "#90cc93" :weight bold)))
                 "| " (:eval (format-time-string "%a %d - %H:%M")) " "
                 ))
 (display-time-mode t)
+
 
 (provide 'init-config)

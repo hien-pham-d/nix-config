@@ -40,6 +40,18 @@ of the form (KEY COMMAND DESC)."
   (split-window-below)
   (windmove-down))
 
+(defun me/copy-file-path ()
+  "Copy the file path to clipboard - relative if in project, full otherwise."
+  (interactive)
+  (if buffer-file-name
+      (let* ((proj (project-current))
+             (path (if proj
+                       (file-relative-name buffer-file-name (project-root proj))
+                     buffer-file-name)))
+        (kill-new path)
+        (message "Copied: %s" path))
+    (message "Buffer is not visiting a file")))
+
 ;; Change prefix key for help commands.
 ;; We're going to use the "C-h" for windmove-left.
 (keymap-unset global-map "C-h")
@@ -226,6 +238,7 @@ of the form (KEY COMMAND DESC)."
       (me/gen-sub-keymap me-master-map "f" "file"
                          '(
                            ("q" me/kill-this-buffer "quit")
+                           ("y" me/copy-file-path "copy-path")
                            )))
 
 (setq me-quickfix-map

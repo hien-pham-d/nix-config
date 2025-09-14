@@ -4,5 +4,5 @@
 (require 'init-editor)
 (require 'init-ui)
 (require 'init-packages)
-(require 'init-keymaps)
 (require 'init-config)
+(require 'init-keymaps)
