@@ -65,7 +65,19 @@
         modules = [
           ./home-manager/home.nix
           {
-            nixpkgs.overlays = [ claude-code.overlays.default ];
+            nixpkgs.overlays = [
+              claude-code.overlays.default
+              (final: prev: let
+                nodejs_20_10_pkgs = import (builtins.fetchTarball {
+                  url = "https://github.com/NixOS/nixpkgs/archive/2392daed231374d0d1c857cd7a75edd89e084513.tar.gz";
+                  sha256 = "0qfqia0mcbaxa7zy9djnk5dzhs69pi0k6plgmf1innj8j38kkp0k";
+                }) { system = final.system; };
+              in {
+                nodejs = nodejs_20_10_pkgs.elmPackages.nodejs;
+                yarn = nodejs_20_10_pkgs.yarn;
+                prisma-engines = nodejs_20_10_pkgs.prisma-engines;
+              })
+            ];
           }
         ];
       };

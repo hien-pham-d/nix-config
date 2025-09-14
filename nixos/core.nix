@@ -168,6 +168,7 @@
     openssl
   ];
 
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
   virtualisation.docker.enable = true;
   # linux/amd64 docker image support:
   # docker run --privileged --rm tonistiigi/binfmt --install amd64

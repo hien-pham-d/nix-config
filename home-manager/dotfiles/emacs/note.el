@@ -8,6 +8,15 @@
 
 ;; playground
 
+(use-package eat
+  :straight (
+             :type git :host codeberg :repo "akib/emacs-eat"
+             :files ("*.el" ("term" "term/*.el") "*.texi"
+                     "*.ti" ("terminfo/e" "terminfo/e/*")
+                     ("terminfo/65" "terminfo/65/*")
+                     ("integration" "integration/*")
+                     (:exclude ".dir-locals.el" "*-tests.el"))))
+
 (defun my-shared-status ()
   "Return the buffer name of the currently selected window."
   (buffer-name (window-buffer (selected-window))))

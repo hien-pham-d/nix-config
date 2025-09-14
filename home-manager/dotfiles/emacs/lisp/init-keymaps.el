@@ -68,7 +68,7 @@ of the form (KEY COMMAND DESC)."
 ;; bookmarks
 (keymap-set global-map "C-;" #'harpoon-toggle-file)
 ;; last buffer
-;; TODO: does not work in insert mode
+;; TODO: does not work in insert mode in terminal emacs
 (keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
 ;; symbols
 ;; FIXME: does not work
@@ -85,8 +85,9 @@ of the form (KEY COMMAND DESC)."
 ;; git
 (keymap-set global-map "C-." #'me/magit-status)
 ;; ripgrep
-(keymap-set global-map "C-/" #'consult-ripgrep)
-(keymap-set global-map "C-_" #'consult-ripgrep) ;; Terminal Emacs recieves C-/ as C-_
+(keymap-set global-map "C--" #'consult-ripgrep)
+;; terminal
+(keymap-set global-map "C-/" #'projectile-run-vterm)
 
 ;; per-buffer level (M-prefix)
 ;; TODO: bookmarks

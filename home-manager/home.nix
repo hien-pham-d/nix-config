@@ -65,7 +65,8 @@
     openssh
 
     # Development
-    nodejs_22
+    # nodejs_22
+    nodejs
     yarn
     prisma-engines
     nodePackages.prettier
@@ -84,7 +85,7 @@
     brave
     # flatpak
     # gnome.gnome-software
-    logseq
+    # logseq
 
     # Editor
     vscode
@@ -250,7 +251,7 @@
         tmuxs = "$HOME/.local/scripts/tmux/tmux-sessionizer";
       };
 
-      initExtra = ''
+      initContent = ''
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
         [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
@@ -281,30 +282,6 @@
       enableZshIntegration = true;
       nix-direnv.enable = true;
     };
-
-    # wip
-    # bash = {
-    #   enable = true;
-    #   shellAliases = {
-    #     ls = "ls --color=auto";
-    #     v = "nvim";
-    #     gau = "git add -u";
-    #     gaa = "git add -A";
-    #     gb = "git branch";
-    #     gci = "git commit";
-    #     gpl = "git pull origin $(git branch --show-current)";
-    #     gps = "git push origin $(git branch --show-current)";
-    #     gsw = "git switch";
-    #     gl = "git log --oneline --graph";
-    #     glh = "git log --pretty=oneline --graph";
-    #     gs = "git status";
-    #   };
-    #   initExtra = ''
-    #     export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
-    #     # eval "$(starship init bash)"
-    #     source ${pkgs.blesh}/share/blesh/ble.sh
-    #   '';
-    # };
 
     tmux = {
       enable = true;
