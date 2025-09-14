@@ -7,7 +7,62 @@
 (treesit-auto-install-all)
 
 ;; playground
+;; mode-line simplification
 
+(require 'project)
+(require 'magit)
+
+(defun my/mode-line-repo-relative-path ()
+  "Return the file path relative to the current project root."
+  (if-let* ((proj (project-current))
+            (root (project-root proj))
+            (file buffer-file-name))
+      (file-relative-name file root)
+    (buffer-name)))
+
+(defun my/mode-line-git-branch ()
+  "Return current Git branch from Magit, or empty string."
+  (or (magit-get-current-branch) ""))
+
+(setq mode-line-format
+      '(" "
+        (:eval (evil-mode-line-format))
+        (:eval (project-mode-line-format))
+        " > "
+        (:eval (my/mode-line-repo-relative-path))
+        " [%*] "
+        ;; TODO: right side
+        " [git:"
+        (:eval (my/mode-line-git-branch))
+        "] "
+        " C:%c %P"
+        ))
+(setq-default mode-line-format
+              '(" "
+                (:eval (evil-mode-line-format))
+                (:eval (project-mode-line-format))
+                " > "
+                (:eval (my/mode-line-repo-relative-path))
+                " [%*] "
+                ;; TODO: right side
+                " [git:"
+                (:eval (my/mode-line-git-branch))
+                "] "
+                " C:%c %p"
+                ))
+
+(setq mode-line-format-right-align
+      '(""
+        )
+      )
+(force-mode-line-update t)
+
+;;
+(use-package helix
+  :config
+  (helix-mode))
+
+;; achirved
 (use-package vterm
   :config
   (add-hook 'vterm-mode-hook
@@ -79,10 +134,6 @@
 (global-tab-line-mode 1)
 (global-tab-line-mode nil)
 
-;; Enable tab-bar mode for the current frame
-(use-package helix
-  :config
-  (helix-mode))
 
 ;; (use-package copilot
 ;;   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))

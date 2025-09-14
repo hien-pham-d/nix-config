@@ -516,6 +516,7 @@
 
 ;; modeline
 (use-package doom-modeline
+  :disabled
   :ensure t
   :init
   (setq doom-modeline-support-imenu t)
