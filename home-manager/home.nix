@@ -332,10 +332,10 @@ bind -n C-\   if-shell  "$is_vim"  "send-keys C-\\"  "select-pane -l"
 # bind -n C-\   if-shell  "$is_emacs"  "send-keys C-\\"  "select-pane -l"
 
 # for running tmux inside Emacs vterm
-# bind h select-pane -L
-# bind j select-pane -D
-# bind k select-pane -U
-# bind l select-pane -R
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
 
 set -g mouse on
 # set vi mode for copy mode
