@@ -23,7 +23,7 @@
                 (:eval (evil-mode-line-format))
                 (:eval (let ((proj (project-current)))
                          (if proj
-                             (propertize (format "%s | " (project-mode-line-format)) 'face '(:foreground "#90cc93" :weight bold))
+                             (format "%s | " (propertize (project-mode-line-format) 'face '(:foreground "#90cc93" :weight bold)))
                            "")))
                 (:eval (propertize (my/mode-line-repo-relative-path) 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
                 (:eval (propertize " [%*] " 'face (if (buffer-modified-p) '(:foreground "#e3a07d") nil)))
