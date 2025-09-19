@@ -77,11 +77,18 @@
     gh
     tokei
     tree
+    tldr
 
     go
     gopls
+    go-tools
 
     shellcheck
+
+    postgresql
+
+    # file watcher automation
+    entr
 
     brave
     # flatpak

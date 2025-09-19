@@ -8,8 +8,16 @@
 
 ;; playground
 
-;; mode-line simplification
+(keymap-set global-map "C-8" #'compile)
 
+(setq grep-command "rg --no-heading --line-number ")
+(setq grep-template "rg --no-heading --line-number <R> <F>")
+
+(use-package cheat-sh
+  :straight (:host github :repo "davep/cheat-sh.el" :commit "4d4fd085a82f5a0e8e40506dbe9de982b785ccd1")
+  )
+
+;; mode-line simplification
 (require 'project)
 (require 'magit)
 
