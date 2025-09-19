@@ -8,8 +8,6 @@
 
 ;; playground
 
-(keymap-set global-map "C-8" #'compile)
-
 (setq grep-command "rg --no-heading --line-number ")
 (setq grep-template "rg --no-heading --line-number <R> <F>")
 

@@ -84,7 +84,9 @@ of the form (KEY COMMAND DESC)."
 (keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
 ;; symbols
 ;; FIXME: does not work
-(keymap-set global-map "C-8" #'xref-find-apropos)
+(keymap-set global-map "C-7" #'xref-find-apropos)
+;; compile
+(keymap-set global-map "C-8" #'compile)
 ;; buffers
 (keymap-set global-map "C-SPC" #'consult-buffer)
 (keymap-set global-map "C-@" #'consult-buffer) ;; Terminal Emacs recieves C-SPC as C-@
