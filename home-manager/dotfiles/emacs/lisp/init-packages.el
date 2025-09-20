@@ -675,6 +675,10 @@
   (keymap-unset eat-semi-char-mode-map "M-2")
   (keymap-unset eat-semi-char-mode-map "M-3")
   (keymap-unset eat-semi-char-mode-map "M-4")
+  (keymap-unset eat-semi-char-mode-map "M-h")
+  (keymap-unset eat-semi-char-mode-map "M-j")
+  (keymap-unset eat-semi-char-mode-map "M-k")
+  (keymap-unset eat-semi-char-mode-map "M-l")
 
   (keymap-unset eat-semi-char-mode-map "C-SPC")
   (keymap-unset eat-semi-char-mode-map "C-@")

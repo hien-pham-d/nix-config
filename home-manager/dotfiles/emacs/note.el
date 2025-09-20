@@ -8,6 +8,8 @@
 
 ;; playground
 
+(use-package rg)
+
 (setq grep-command "rg --no-heading --line-number ")
 (setq grep-template "rg --no-heading --line-number <R> <F>")
 
