@@ -30,8 +30,8 @@
   ;; enable noninteractive shell to reduce load time
   ;; (setq exec-path-from-shell-arguments nil)
   ;; select env var to load
-  ;; (dolist (var '("PATH"))
-  ;;   (add-to-list 'exec-path-from-shell-variables var))
+  (dolist (var '("PATH" "PRISMA_QUERY_ENGINE_LIBRARY" "PRISMA_QUERY_ENGINE_BINARY" "PRISMA_SCHEMA_ENGINE_BINARY" "PRISMA_FMT_BINARY"))
+    (add-to-list 'exec-path-from-shell-variables var))
   ;; init
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
@@ -545,6 +545,16 @@
 (with-eval-after-load 'eglot
   (add-hook 'go-ts-mode-hook 'eglot-ensure)
   (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
+  (add-hook 'sql-mode-hook #'eglot-ensure)
+  (add-hook 'sh-mode #'eglot-ensure)
+  (add-hook 'bash-ts-mode #'eglot-ensure)
+
+  (add-to-list 'eglot-server-programs
+               '(sql-mode . ("sqls")))
+
+  (add-to-list 'eglot-server-programs
+               '((sh-mode bash-ts-mode)  . ("bash-language-server" "start")))
+
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq eldoc-documentation-strategy #'eldoc-documentation-default)

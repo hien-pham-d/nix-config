@@ -67,6 +67,12 @@
     # Development
     # nodejs_22
     nodejs
+    jdk
+    postgresql_jdbc # todo: consider remove
+
+    # project automation for Clojure, ejc-sql Emacs use it
+    leiningen # todo: consider remove
+
     yarn
     prisma-engines
     nodePackages.prettier
@@ -86,6 +92,12 @@
     shellcheck
 
     postgresql
+    # language servers
+    sqls
+    bash-language-server
+
+    # formatter
+    shfmt
 
     # file watcher automation
     entr

@@ -39,7 +39,7 @@
         (run-with-timer 0.1 nil (lambda () (invert-face 'mode-line)))))
 
 (setq-default tab-width 2)
-(setq-default indent-tabs-mode t)
+(setq-default indent-tabs-mode nil)
 (setq-default evil-shift-width 2)
 
 (setq-default whitespace-style '(face tabs tab-mark spaces space-mark trailing newline newline-mark))

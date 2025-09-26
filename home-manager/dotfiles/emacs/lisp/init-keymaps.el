@@ -52,6 +52,8 @@ of the form (KEY COMMAND DESC)."
         (message "Copied: %s" path))
     (message "Buffer is not visiting a file")))
 
+(require 'bash-output-mode)
+
 ;; Change prefix key for help commands.
 ;; We're going to use the "C-h" for windmove-left.
 (keymap-unset global-map "C-h")

@@ -8,6 +8,25 @@
 
 ;; playground
 
+(use-package ejc-sql)
+
+(setq compilation-error-regexp-alist-alist
+      (append
+       '((go-test . ("^[[:space:]]*\$$[_a-zA-Z./][_a-zA-Z0-9./]*\$$:\$$[0-9]+\$$:.*$" 1 2))
+         (go-panic . ("^[[:space:]]*\$$[_a-zA-Z./][_a-zA-Z0-9./]*\$$:\$$[0-9]+\$$[[:space:]].*$" 1 2)))
+       compilation-error-regexp-alist-alist))
+
+(add-to-list 'compilation-error-regexp-alist 'go-test t)
+(add-to-list 'compilation-error-regexp-alist 'go-panic t)
+
+;;
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(go-test-error
+               "^\\(?:[[:space:]]*\\)?\\(\\(?:[[:alnum:]_.\\-/]+\\.go\\)\\):\\([0-9]+\\):"
+               1 2 nil 1))
+(add-to-list 'compilation-error-regexp-alist 'go-test-error)
+;;
+
 (use-package rg)
 
 (setq grep-command "rg --no-heading --line-number ")
