@@ -70,6 +70,7 @@
 ;; fullscreen
 ;; (toggle-frame-maximized)
 (add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(add-to-list 'default-frame-alist '(undecorated . t))
 
 (add-hook 'window-setup-hook (lambda()
                                (message "Startup completed in %s." (emacs-init-time))
