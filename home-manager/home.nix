@@ -427,7 +427,7 @@ setw -g window-status-bell-style 'fg=yellow bg=red bold'
 set -g message-style 'fg=black bg=green'
 
 # statusbar
-set -g status-position top
+set -g status-position bottom
 set -g status-justify left
 set -g status-style fg=white,bg=black
 
