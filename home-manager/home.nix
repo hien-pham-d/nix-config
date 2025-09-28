@@ -19,6 +19,10 @@
 
   # gnome
   dconf.settings = {
+    "org/gnome/desktop/background" = {
+      "picture-uri" = "file:///home/hienphamduc/workspace/repos/nix-config/home-manager/dotfiles/hyprland/wallpapers/fedora36-1-cut.png";
+      "picture-uri-dark" = "file:///home/hienphamduc/workspace/repos/nix-config/home-manager/dotfiles/hyprland/wallpapers/fedora36-1-cut.png";
+    };
     "org/gnome/desktop/peripherals/mouse" = {
       natural-scroll = true;
     };
@@ -35,7 +39,9 @@
       toggle-fullscreen = ["<Super><Shift>f"];
       toggle-maximized = ["<Super><Shift>m"];
 
-      switch-windows = ["<Super>d"];
+      # switch-windows = ["<Super>d"];
+      cycle-windows = ["<Super>d"];
+      cycle-windows-backward = ["<Super><Shift>d"];
       activate-window-menu = [];
 
       switch-to-workspace-1 = ["<Super>1"];
@@ -46,7 +52,17 @@
       move-to-workspace-3 = ["<Super><Shift>3"];
       switch-to-workspace-4 = ["<Super>4"];
       move-to-workspace-4 = ["<Super><Shift>4"];
+
     };
+
+    "org/gnome/shell/keybindings" = {
+      # disable keybindings to switch to apps pinned in the dash bar
+      switch-to-application-1 = [];
+      switch-to-application-2 = [];
+      switch-to-application-3 = [];
+      switch-to-application-4 = [];
+    };
+
   };
 
   home.packages = with pkgs; [
