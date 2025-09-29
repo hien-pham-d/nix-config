@@ -39,9 +39,9 @@
       toggle-fullscreen = ["<Super><Shift>f"];
       toggle-maximized = ["<Super><Shift>m"];
 
-      # switch-windows = ["<Super>d"];
-      cycle-windows = ["<Super>d"];
-      cycle-windows-backward = ["<Super><Shift>d"];
+      switch-windows = ["<Super>d"];
+      cycle-windows = ["<Super>j"];
+      cycle-windows-backward = ["<Super>k"];
       activate-window-menu = [];
 
       switch-to-workspace-1 = ["<Super>1"];
@@ -86,6 +86,13 @@
     jdk
     postgresql_jdbc # todo: consider remove
 
+    # Python
+    python313
+    python313Packages.pip
+    virtualenv
+    icu
+    pkg-config
+
     # project automation for Clojure, ejc-sql Emacs use it
     leiningen # todo: consider remove
 
@@ -100,6 +107,7 @@
     tokei
     tree
     tldr
+    cht-sh
 
     go
     gopls
