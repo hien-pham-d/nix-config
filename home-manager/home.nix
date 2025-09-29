@@ -309,6 +309,7 @@
         export PRISMA_SCHEMA_ENGINE_BINARY="${pkgs.prisma-engines}/bin/schema-engine";
         export PRISMA_FMT_BINARY="${pkgs.prisma-engines}/bin/prisma-fmt";
 
+        export PKG_CONFIG_PATH="${pkgs.icu}/lib/pkgconfig:$PKG_CONFIG_PATH"
       '';
 
       oh-my-zsh = {
