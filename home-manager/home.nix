@@ -29,6 +29,12 @@
     "org/gnome/desktop/peripherals/touchpad" = {
       natural-scroll = true;
     };
+    "org/gnome/mutter" = {
+      "overlay-key" = "";
+    };
+    "org/gnome/shell/keybindings" = {
+      "toggle-overview" = [];
+    };
     "org/gnome/mutter/keybindings" = {
       toggle-tiled-left = ["<Super><Shift>h"];
       toggle-tiled-right = ["<Super><Shift>l"];
