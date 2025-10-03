@@ -21,8 +21,8 @@ of the form (KEY COMMAND DESC)."
 (defun me/magit-status()
   (interactive)
   ;; (magit-status-quick)
-  (magit-status-here)
-  ;; (magit-status)
+  ;; (magit-status-here)
+  (magit-status)
   )
 
 (defun me/save-buffer()
@@ -132,6 +132,10 @@ of the form (KEY COMMAND DESC)."
 (me/keymap-set-with-desc me-master-map "M-x" 'execute-extended-command "execute-cmd")
 (me/keymap-set-with-desc me-master-map "C-h" help-map "help")
 
+(me/keymap-set-with-desc me-master-map "z t" 'evil-scroll-line-to-top "scroll-line-to-top")
+(me/keymap-set-with-desc me-master-map "z z" 'evil-scroll-line-to-center "scroll-line-to-center")
+(me/keymap-set-with-desc me-master-map "z b" 'evil-scroll-line-to-bottom "scroll-line-to-bottom")
+
 (setq me-help-map
       (me/gen-sub-keymap me-master-map "h" "help"
                          '(
@@ -154,7 +158,7 @@ of the form (KEY COMMAND DESC)."
                            ("F" consult-fd "file-in-project")
                            ("t" consult-line "text-in-file")
                            ("b" consult-buffer "buffer")
-                           ("s" consult-outline "symbol-in-file")
+                           ("s" consult-imenu "symbol-in-file")
                            ("S" xref-find-apropos "symbol-in-project")
                            )))
 

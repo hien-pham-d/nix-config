@@ -1,15 +1,15 @@
 ;; background color
-(set-background-color "#1e1e2e")
-(set-face-attribute 'line-number nil :background "#1e1e2e")
+;; (set-background-color "#1e1e2e")
+;; (set-face-attribute 'line-number nil :background "#1e1e2e")
 
 ;; fontsize
 (set-face-attribute 'default nil :height 140)
 (set-face-attribute 'default nil :height 120)
 ;; (set-face-attribute 'default nil :family "Hack Nerd Font" :height 140 :weight 'normal)
 
-(with-eval-after-load 'hl-line
-  (set-face-attribute 'hl-line nil :background "#2a2b3c")
-  )
+;; (with-eval-after-load 'hl-line
+;;   (set-face-attribute 'hl-line nil :background "#2a2b3c")
+;;   )
 
 ;; hide some UI components
 (tool-bar-mode -1)

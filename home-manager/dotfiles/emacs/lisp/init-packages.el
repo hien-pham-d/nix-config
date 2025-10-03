@@ -333,6 +333,7 @@
   (keymap-set magit-status-mode-map "s" 'magit-stage)
   (keymap-set magit-status-mode-map "u" 'magit-unstage)
   (keymap-set magit-status-mode-map "x" 'magit-discard)
+
   ;; overwrite evil bindings
   (evil-define-key '(normal visual) magit-status-mode-map "s" 'magit-stage)
   (evil-define-key '(normal visual) magit-status-mode-map "u" 'magit-unstage)
