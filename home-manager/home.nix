@@ -33,7 +33,7 @@
       "overlay-key" = "";
     };
     "org/gnome/shell/keybindings" = {
-      "toggle-overview" = [];
+      "toggle-overview" = ["<Super>d"];
     };
     "org/gnome/mutter/keybindings" = {
       toggle-tiled-left = ["<Super><Shift>h"];

@@ -2,57 +2,48 @@
   description = "Your new nix config";
 
   inputs = {
-    # nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    claude-code.url = "github:sadjow/claude-code-nix?ref=1bcd0973b255ae8d77a003a79d195fb83461972d";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # home-manager
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    claude-code.url = "github:sadjow/claude-code-nix?ref=1bcd0973b255ae8d77a003a79d195fb83461972d";
+
   };
 
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     claude-code,
     home-manager,
     ...
   } @ inputs: let
     inherit (self) outputs;
+
+    opencodeOverlay = final: prev: {
+      opencode = nixpkgs-unstable.legacyPackages.${final.system}.opencode;
+    };
+
+    commonOverlays = [
+      claude-code.overlays.default
+      opencodeOverlay
+    ];
+
+    mkNixosHost = hostname: nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs outputs;};
+      modules = [
+        ./nixos/hosts/${hostname}
+        { nixpkgs.overlays = commonOverlays; }
+      ];
+    };
   in {
 
-    # To rebuild, run: 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      personal-laptop-vm = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./nixos/hosts/personal-laptop-vm
-          {
-            nixpkgs.overlays = [ claude-code.overlays.default ];
-          }
-        ];
-      };
-
-      personal-workstation = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./nixos/hosts/personal-workstation
-          {
-            nixpkgs.overlays = [ claude-code.overlays.default ];
-          }
-        ];
-      };
-
-      work-laptop-vm = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./nixos/hosts/work-laptop-vm
-          {
-            nixpkgs.overlays = [ claude-code.overlays.default ];
-          }
-        ];
-      };
-
+      personal-laptop-vm = mkNixosHost "personal-laptop-vm";
+      personal-workstation = mkNixosHost "personal-workstation";
+      work-laptop-vm = mkNixosHost "work-laptop-vm";
     };
 
     # Standalone home-manager configuration entrypoint
@@ -67,6 +58,7 @@
           {
             nixpkgs.overlays = [
               claude-code.overlays.default
+              opencodeOverlay
               (final: prev: let
                 nodejs_20_10_pkgs = import (builtins.fetchTarball {
                   url = "https://github.com/NixOS/nixpkgs/archive/2392daed231374d0d1c857cd7a75edd89e084513.tar.gz";
