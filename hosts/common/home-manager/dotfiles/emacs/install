@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+# TODO: install emacs
+# install_emacs() { }
+
+arrange_files() {
+	ln -s -f ~/workspace/repos/nix-config/home-manager/dotfiles/emacs/early-init.el ~/.emacs.d/early-init.el
+	ln -s -f ~/workspace/repos/nix-config/home-manager/dotfiles/emacs/init.el ~/.emacs.d/init.el
+	ln -s -f ~/workspace/repos/nix-config/home-manager/dotfiles/emacs/lisp ~/.emacs.d/lisp
+}
+
+# install_emacs
+arrange_files

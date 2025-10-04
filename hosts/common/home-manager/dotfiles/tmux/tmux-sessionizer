@@ -1,0 +1,40 @@
+#!/usr/bin/env zsh
+
+# Copy from: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+#
+basedir=$HOME/workspace/repos
+
+if [[ $# -eq 1 ]]; then
+	selected=$1
+else
+	selected=$(find $basedir -mindepth 1 -maxdepth 1 -type d | sed 's|.*/\([^/]*\)$|\1|' | fzf)
+fi
+
+mkdir -p $HOME/.local/logs/
+echo "selected=$selected." >> $HOME/.local/logs/tmux.log
+
+if [[ -z $selected ]]; then
+	exit 0
+fi
+
+tmux_running=$(pgrep tmux)
+full_path=$basedir/$selected
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+  echo "Detected no running tmux. Creating a new session with name $selected at path $full_path." >> $HOME/.local/logs/tmux.log
+	tmux new-session -s $selected -c $full_path
+	exit 0
+fi
+echo "Detected tmux running." >> $HOME/.local/logs/tmux.log
+
+if ! tmux has-session -t=$selected 2> /dev/null; then
+  echo "Creating a new session with name $selected at path $full_path." >> $HOME/.local/logs/tmux.log
+	tmux new-session -ds $selected -c $full_path
+fi
+
+echo "Switch to an existing session with name $selected." >> $HOME/.local/logs/tmux.log
+if [[ -z $TMUX ]]; then
+  tmux attach -t $selected
+else
+  tmux switch-client -t $selected
+fi

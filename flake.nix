@@ -55,7 +55,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./home-manager/home.nix
+          ./home-manager/hosts/${hostname}
           {
             nixpkgs.overlays = commonOverlays ++ extraOverlays;
           }
