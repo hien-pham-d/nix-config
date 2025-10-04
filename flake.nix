@@ -34,28 +34,17 @@
     mkNixosHost = hostname: nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs outputs;};
       modules = [
-        ./nixos/hosts/${hostname}
+        ./hosts/${hostname}/nixos
         { nixpkgs.overlays = commonOverlays; }
       ];
     };
 
-    nodejs20Overlay = final: prev: let
-      nodejs_20_10_pkgs = import (builtins.fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/2392daed231374d0d1c857cd7a75edd89e084513.tar.gz";
-        sha256 = "0qfqia0mcbaxa7zy9djnk5dzhs69pi0k6plgmf1innj8j38kkp0k";
-      }) { system = final.system; };
-    in {
-      nodejs = nodejs_20_10_pkgs.elmPackages.nodejs;
-      yarn = nodejs_20_10_pkgs.yarn;
-      prisma-engines = nodejs_20_10_pkgs.prisma-engines;
-    };
-
-    mkHomeConfig = {username, hostname, system, extraOverlays ? []}: 
+    mkHomeConfig = {username, hostname, system, extraOverlays ? []}:
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./home-manager/hosts/${hostname}
+          ./hosts/${hostname}/home-manager
           {
             nixpkgs.overlays = commonOverlays ++ extraOverlays;
           }
@@ -93,7 +82,18 @@
         username = "hienphamduc";
         hostname = "work-laptop-vm";
         system = "aarch64-linux";
-        extraOverlays = [ nodejs20Overlay ];
+        extraOverlays = [ 
+          (final: prev: let
+            nodejs_20_10_pkgs = import (builtins.fetchTarball {
+              url = "https://github.com/NixOS/nixpkgs/archive/2392daed231374d0d1c857cd7a75edd89e084513.tar.gz";
+              sha256 = "0qfqia0mcbaxa7zy9djnk5dzhs69pi0k6plgmf1innj8j38kkp0k";
+            }) { system = final.system; };
+          in {
+            nodejs = nodejs_20_10_pkgs.elmPackages.nodejs;
+            yarn = nodejs_20_10_pkgs.yarn;
+            prisma-engines = nodejs_20_10_pkgs.prisma-engines;
+          })
+        ];
       };
     };
   };

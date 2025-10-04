@@ -1,6 +1,7 @@
 # default target must be the first target in this file.
-# default: rebuild-all
 .PHONY: test
+
+default: rebuild-all
 
 test:
 	nix flake check --no-build
