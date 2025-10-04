@@ -11,7 +11,7 @@ loop:
 rebuild-all: os-rebuild hm-switch
 
 hm-switch:
-	home-manager switch -b backup --flake .#hienphamduc@nixos
+	home-manager switch -b backup --flake .#hienphamduc@$${HOST:?}
 
 os-rebuild:
 	sudo nixos-rebuild switch --flake .#$${HOST:?}

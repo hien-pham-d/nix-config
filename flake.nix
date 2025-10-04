@@ -38,6 +38,29 @@
         { nixpkgs.overlays = commonOverlays; }
       ];
     };
+
+    nodejs20Overlay = final: prev: let
+      nodejs_20_10_pkgs = import (builtins.fetchTarball {
+        url = "https://github.com/NixOS/nixpkgs/archive/2392daed231374d0d1c857cd7a75edd89e084513.tar.gz";
+        sha256 = "0qfqia0mcbaxa7zy9djnk5dzhs69pi0k6plgmf1innj8j38kkp0k";
+      }) { system = final.system; };
+    in {
+      nodejs = nodejs_20_10_pkgs.elmPackages.nodejs;
+      yarn = nodejs_20_10_pkgs.yarn;
+      prisma-engines = nodejs_20_10_pkgs.prisma-engines;
+    };
+
+    mkHomeConfig = {username, hostname, system, extraOverlays ? []}: 
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./home-manager/home.nix
+          {
+            nixpkgs.overlays = commonOverlays ++ extraOverlays;
+          }
+        ];
+      };
   in {
 
     nixosConfigurations = {
@@ -46,32 +69,31 @@
       work-laptop-vm = mkNixosHost "work-laptop-vm";
     };
 
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
     home-manager.backupFileExtension = "backup";
     homeConfigurations = {
-      "hienphamduc@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."aarch64-linux";
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          ./home-manager/home.nix
-          {
-            nixpkgs.overlays = [
-              claude-code.overlays.default
-              opencodeOverlay
-              (final: prev: let
-                nodejs_20_10_pkgs = import (builtins.fetchTarball {
-                  url = "https://github.com/NixOS/nixpkgs/archive/2392daed231374d0d1c857cd7a75edd89e084513.tar.gz";
-                  sha256 = "0qfqia0mcbaxa7zy9djnk5dzhs69pi0k6plgmf1innj8j38kkp0k";
-                }) { system = final.system; };
-              in {
-                nodejs = nodejs_20_10_pkgs.elmPackages.nodejs;
-                yarn = nodejs_20_10_pkgs.yarn;
-                prisma-engines = nodejs_20_10_pkgs.prisma-engines;
-              })
-            ];
-          }
-        ];
+      "hienphamduc@nixos" = mkHomeConfig {
+        username = "hienphamduc";
+        hostname = "nixos";
+        system = "aarch64-linux";
+      };
+
+      "hienphamduc@personal-laptop-vm" = mkHomeConfig {
+        username = "hienphamduc";
+        hostname = "personal-laptop-vm";
+        system = "aarch64-linux";
+      };
+
+      "hienphamduc@personal-workstation" = mkHomeConfig {
+        username = "hienphamduc";
+        hostname = "personal-workstation";
+        system = "x86_64-linux";
+      };
+
+      "hienphamduc@work-laptop-vm" = mkHomeConfig {
+        username = "hienphamduc";
+        hostname = "work-laptop-vm";
+        system = "aarch64-linux";
+        extraOverlays = [ nodejs20Overlay ];
       };
     };
   };
