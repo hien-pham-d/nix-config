@@ -20,8 +20,8 @@
   # gnome
   dconf.settings = {
     "org/gnome/desktop/background" = {
-      "picture-uri" = "file:///home/hienphamduc/workspace/repos/nix-config/home-manager/dotfiles/hyprland/wallpapers/fedora36-1-cut.png";
-      "picture-uri-dark" = "file:///home/hienphamduc/workspace/repos/nix-config/home-manager/dotfiles/hyprland/wallpapers/fedora36-1-cut.png";
+      "picture-uri" = "file:///home/hienphamduc/workspace/repos/nix-config/hosts/common/home-manager/dotfiles/hyprland/wallpapers/fedora36-1-cut.png";
+      "picture-uri-dark" = "file:///home/hienphamduc/workspace/repos/nix-config/hosts/common/home-manager/dotfiles/hyprland/wallpapers/fedora36-1-cut.png";
     };
     "org/gnome/desktop/peripherals/mouse" = {
       natural-scroll = true;
@@ -467,9 +467,9 @@ set -g status-left "#[bold]#[fg=green]|#{session_name}| "
 # is 10.
 set -g status-left-length 80
 
-MYNAME=hienpd
+# MYNAME=hienpd
 # time format : https://linux.die.net/man/3/strftime
-set -g status-right "#{prefix_highlight} $MYNAME | %R | %F "
+set -g status-right "#{prefix_highlight} %a %d - %H:%M "
 # set -g status-right-style 'fg=white bg=black'
 set -g status-right-length 50
 
