@@ -32,11 +32,11 @@
 
                 "C:%c "
                 "| %P "
-                (:eval (let ((branch (my/mode-line-git-branch)))
-                         (if (not (string-empty-p branch))
-                             (format "| %s" (propertize (format "⎇ %s " branch) 'face '(:foreground "#90cc93" :weight bold)))
-                           "")))
-                "| " (:eval (format-time-string "%a %d - %H:%M"))
+                ;; (:eval (let ((branch (my/mode-line-git-branch)))
+                ;;          (if (not (string-empty-p branch))
+                ;;              (format "| %s" (propertize (format "⎇ %s " branch) 'face '(:foreground "#90cc93" :weight bold)))
+                ;;            "")))
+                ;; "| " (:eval (format-time-string "%a %d - %H:%M"))
                 "  "
                 ))
 (display-time-mode t)
