@@ -648,6 +648,7 @@
   )
 
 (use-package keycast
+  :disabled
   :straight (:host github :repo "tarsius/keycast" :branch "main")
   ;; :config
   ;; (keycast-mode-line-mode)

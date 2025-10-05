@@ -32,6 +32,11 @@
 ;; This automatically set world-wrap = t.
 (global-visual-line-mode)
 
+;; scroll
+(setq-default scroll-margin 0)
+(setq-default scroll-step 0)
+(setq-default scroll-conservatively 101) ;; never recenter
+
 ;; flash the mode-line instead of ring a bell when unexpected actions occur
 (setq ring-bell-function
       (lambda ()
