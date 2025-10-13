@@ -544,13 +544,17 @@
   )
 
 ;; linter
-(with-eval-after-load 'flymake
+(use-package flymake
+  :straight nil
+  :after (evil)
+  :config
   ;; (setq-default
   ;;  flycheck-disabled-checkers
   ;;  (append (default-value 'flycheck-disabled-checkers)
   ;;          '(emacs-lisp emacs-lisp-checkdoc emacs-lisp-package sh-shellcheck)))
   (add-hook 'prog-mode-hook 'flymake-mode)
-
+  (evil-define-key '(normal) flymake-mode-map (kbd "] e") #'flymake-goto-next-error)
+  (evil-define-key '(normal) flymake-mode-map (kbd "[ e") #'flymake-goto-prev-error)
   )
 
 ;; lsp client
