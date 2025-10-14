@@ -732,6 +732,9 @@
 
 (use-package nix-mode)
 
+(use-package scala-ts-mode
+  :mode "\\.scala\\'")
+
 (use-package treesit-auto
   :config
   ;; prompt to install a new parser when unavailable

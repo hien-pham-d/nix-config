@@ -89,6 +89,7 @@
     # Development
     # nodejs_22
     nodejs
+
     jdk
     postgresql_jdbc # todo: consider remove
 
@@ -101,6 +102,11 @@
 
     # project automation for Clojure, ejc-sql Emacs use it
     leiningen # todo: consider remove
+
+    # scala
+    scala-cli
+    scalafmt
+    sbt
 
     yarn
     prisma-engines
