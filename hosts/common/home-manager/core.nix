@@ -31,6 +31,7 @@
     };
     "org/gnome/mutter" = {
       "overlay-key" = "";
+      "dynamic-workspaces" = false;
     };
     "org/gnome/shell/keybindings" = {
       "toggle-overview" = ["<Super>d"];
