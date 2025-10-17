@@ -109,6 +109,8 @@
     scalafmt
     sbt
 
+    google-cloud-sdk
+
     yarn
     prisma-engines
     nodePackages.prettier
