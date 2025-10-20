@@ -91,7 +91,10 @@
     # nodejs_22
     nodejs
 
+    # Java
     jdk
+    google-java-format
+
     postgresql_jdbc # todo: consider remove
 
     # Python

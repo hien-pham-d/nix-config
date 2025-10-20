@@ -733,7 +733,20 @@
 (use-package nix-mode)
 
 (use-package scala-ts-mode
-  :mode "\\.scala\\'")
+  :after (apheleia)
+  :mode "\\.scala\\'"
+  :config
+  ;; formatter
+  (setf (alist-get 'scalafmt apheleia-formatters)
+        '("scalafmt"
+          "--stdin"
+          (apheleia-formatters-locate-file "--config" ".scalafmt.conf")
+          (when buffer-file-name
+            (list "--assume-filename"
+                  (apheleia-formatters-local-buffer-file-name buffer-file-name)))))
+  (setf (alist-get 'scala-ts-mode apheleia-mode-alist)
+        '(scalafmt))
+  )
 
 (use-package treesit-auto
   :config
@@ -753,5 +766,8 @@
 (use-package markdown-mode
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "multimarkdown"))
+
+(add-to-list 'auto-mode-alist '("loop\\.log\\'" . compilation-mode))
+
 
 (provide 'init-packages)
