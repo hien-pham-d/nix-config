@@ -11,7 +11,7 @@ mkdir -p $REPO_PATH
 nix-shell -p git --run "git clone https://github.com/hien-pham-d/nix-config.git $REPO_PATH"
 
 # generate hardware-configuration.nix
-nixos-generate-config --show-hardware-config > $REPO_PATH/hosts/${HOST}/hardware-configuration.nix
+nixos-generate-config --show-hardware-config > $REPO_PATH/hosts/${HOST}/nixos/hardware-configuration.nix
 
 # build and switch
 # nixos
