@@ -16,7 +16,7 @@ nixos-generate-config --show-hardware-config > $REPO_PATH/hosts/${HOST}/hardware
 # build and switch
 # nixos
 export NIX_CONFIG="experimental-features = nix-command flakes"
-nix-shell -p git --run "sudo nixos-rebuild switch --flake .#${HOST}"
+nix-shell -p git --run "cd $REPO_PATH && sudo nixos-rebuild switch --flake .#${HOST}"
 # home-manager
 nix run home-manager/release-25.05 -- init --switch
 make -C $REPO_PATH hm-switch
