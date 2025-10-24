@@ -1,5 +1,5 @@
 ;; disable because there is an issue when using completions from copilot
-;; (electric-pair-mode 1) ;; Did not use smartparens because it does not auto-indent on newline
+(electric-pair-mode 1) ;; Did not use smartparens because it does not auto-indent on newline
 (electric-indent-mode t) ;; It behaves weird in some cases that make a very large indentation when pressing '.' chacracter in a method call.
 
 ;; Improve performance when handling long lines files
