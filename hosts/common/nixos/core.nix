@@ -154,6 +154,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     spice-vdagent
+    open-vm-tools
     emacs
     vim
     git
@@ -167,6 +168,8 @@
     gnumake
     openssl
   ];
+
+  virtualisation.vmware.guest.enable = true;
 
   virtualisation.docker.enable = true;
   # linux/amd64 docker image support:
