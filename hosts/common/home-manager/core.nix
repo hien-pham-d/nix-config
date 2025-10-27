@@ -70,6 +70,10 @@
       switch-to-application-4 = [];
     };
 
+    "org/gnome/desktop/screensaver" = {
+      lock-enabled = false;
+    };
+
   };
 
   home.packages = with pkgs; [
