@@ -505,7 +505,10 @@
     (evil-define-key '(normal) dired-mode-map "l" 'dired-find-file)
     (evil-define-key '(normal) dired-mode-map "n" 'evil-search-next)
     (evil-define-key '(normal) dired-mode-map "N" 'evil-search-previous)
-    ))
+    )
+  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+
+  )
 
 (use-package treemacs-projectile
   :after (treemacs projectile)
