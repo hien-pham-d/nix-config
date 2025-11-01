@@ -4,28 +4,26 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+  imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/49749fce-a2e5-46a0-90e9-b3dfdf07a978";
+    { device = "/dev/disk/by-uuid/c71d48de-0cef-4b2b-ac1f-7e69530aeb45";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/999C-C596";
+    { device = "/dev/disk/by-uuid/0DC6-5176";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/d0677d92-01f0-43d5-b6c8-22eb99b26faf";
+    { device = "/dev/disk/by-uuid/d8578e4d-3b06-4d72-9090-5d251e50d0bb";
       fsType = "ext4";
     };
 
@@ -36,7 +34,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s7.useDHCP = lib.mkDefault true;
+  # networking.interfaces.ens160.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }
