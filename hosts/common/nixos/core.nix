@@ -116,7 +116,7 @@
         extraConfig = ''
           [main]
           capslock = layer(control)
-          leftalt = layer(control)
+          # leftalt = layer(control)
         '';
       };
     };

@@ -1,3 +1,9 @@
+;;; package: --- config ui for Emacs
+;;; Commentary:
+
+;;; Code:
+(load-theme 'modus-vivendi :no-confirm)
+
 ;; background color
 ;; (set-background-color "#1e1e2e")
 ;; (set-face-attribute 'line-number nil :background "#1e1e2e")
@@ -80,5 +86,4 @@
 (add-hook 'window-setup-hook (lambda()
                                (message "Startup completed in %s." (emacs-init-time))
                                ))
-
 (provide 'init-ui)

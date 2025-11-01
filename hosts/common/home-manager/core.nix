@@ -23,6 +23,9 @@
       "picture-uri" = "file:///home/hienphamduc/workspace/repos/nix-config/hosts/common/home-manager/dotfiles/hyprland/wallpapers/fedora36-1-cut.png";
       "picture-uri-dark" = "file:///home/hienphamduc/workspace/repos/nix-config/hosts/common/home-manager/dotfiles/hyprland/wallpapers/fedora36-1-cut.png";
     };
+    "org/gnome/desktop/interface" = {
+        enable-animations = false;
+    };
     "org/gnome/desktop/peripherals/mouse" = {
       natural-scroll = true;
     };
