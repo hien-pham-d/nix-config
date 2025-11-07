@@ -48,9 +48,7 @@ of the form (KEY COMMAND DESC)."
              (path (if proj
                        (file-relative-name buffer-file-name (project-root proj))
                      buffer-file-name)))
-        ;; (kill-new path)
-        (when (fboundp 'gui-set-selection)
-          (gui-set-selection 'CLIPBOARD path))
+        (kill-new path)
         (message "Copied: %s" path))
     (message "Buffer is not visiting a file")))
 
