@@ -60,10 +60,10 @@ of the form (KEY COMMAND DESC)."
 
 (me/keymap-set-with-desc global-map "C-s" 'me/save-buffer "save-buffer")
 
-(me/keymap-set-with-desc global-map "C-h" 'windmove-left "windmove-left")
-(me/keymap-set-with-desc global-map "C-j" 'windmove-down "windmove-down")
-(me/keymap-set-with-desc global-map "C-k" 'windmove-up "windmove-up")
-(me/keymap-set-with-desc global-map "C-l" 'windmove-right "windmove-right")
+;;(me/keymap-set-with-desc global-map "C-h" 'windmove-left "windmove-left")
+;;(me/keymap-set-with-desc global-map "C-j" 'windmove-down "windmove-down")
+;;(me/keymap-set-with-desc global-map "C-k" 'windmove-up "windmove-up")
+;;(me/keymap-set-with-desc global-map "C-l" 'windmove-right "windmove-right")
 
 ;; harpoon
 (me/keymap-set-with-desc global-map "M-h" #'harpoon-go-to-1 "goto-1")

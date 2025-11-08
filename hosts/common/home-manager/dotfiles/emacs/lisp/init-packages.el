@@ -769,7 +769,19 @@
 
 (add-to-list 'auto-mode-alist '("loop\\.log\\'" . compilation-mode))
 
-(use-package clipetty
-  :hook (after-init . global-clipetty-mode))
+;; (use-package clipetty
+;;   :hook (after-init . global-clipetty-mode))
+
+(use-package xclip
+  :config
+  (setq xclip-program "wl-copy")
+  (setq xclip-select-enable-clipboard t)
+  (setq xclip-mode t)
+  (setq xclip-method (quote wl-copy))
+  )
+
+(use-package tmux-pane
+  :config
+  (tmux-pane-mode))
 
 (provide 'init-packages)

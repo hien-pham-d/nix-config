@@ -385,22 +385,28 @@ set-option -g default-shell /run/current-system/sw/bin/zsh
 # for regular system
 # set-option -g default-shell /bin/zsh
 
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+version_pat='s/^tmux[^0-9]*([.0-9]+).*/\1/p'
+is_vim_emacs='echo "#{pane_current_command}" | \
+    grep -iqE "((^|\/)g?(view|n?vim?x?)(diff)?$)|emacs"'
+# enable in root key table
+bind-key -n C-h if-shell "$is_vim_emacs" "send-keys C-h" "select-pane -L"
+bind-key -n C-j if-shell "$is_vim_emacs" "send-keys C-j" "select-pane -D"
+bind-key -n C-k if-shell "$is_vim_emacs" "send-keys C-k" "select-pane -U"
+bind-key -n C-l if-shell "$is_vim_emacs" "send-keys C-l" "select-pane -R"
 
-is_emacs='tmux display-message -p "#{pane_current_command}" | grep -q emacs'
+tmux_version="$(tmux -V | sed -En "$version_pat")"
+setenv -g tmux_version "$tmux_version"
 
-bind -n C-h  if-shell  "$is_vim"  "send-keys C-h"  "select-pane -L"
-bind -n C-j   if-shell  "$is_vim"  "send-keys C-j"   "select-pane -D"
-bind -n C-k  if-shell  "$is_vim"  "send-keys C-k"  "select-pane -U"
-bind -n C-l   if-shell  "$is_vim"  "send-keys C-l"   "select-pane -R"
-bind -n C-\   if-shell  "$is_vim"  "send-keys C-\\"  "select-pane -l"
+if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+  "bind-key -n 'C-\\' if-shell \"$is_vim_emacs\" 'send-keys C-\\'  'select-pane -l'"
+if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+  "bind-key -n 'C-\\' if-shell \"$is_vim_emacs\" 'send-keys C-\\\\'  'select-pane -l'"
 
-# bind -n C-h  if-shell  "$is_emacs"  "send-keys C-h"  "select-pane -L"
-# bind -n C-j   if-shell  "$is_emacs"  "send-keys C-j"   "select-pane -D"
-# bind -n C-k  if-shell  "$is_emacs"  "send-keys C-k"  "select-pane -U"
-# bind -n C-l   if-shell  "$is_emacs"  "send-keys C-l"   "select-pane -R"
-# bind -n C-\   if-shell  "$is_emacs"  "send-keys C-\\"  "select-pane -l"
+bind-key -T copy-mode-vi 'C-h' if-shell "$is_vim_emacs" "send-keys C-h" "select-pane -L"
+bind-key -T copy-mode-vi 'C-j' if-shell "$is_vim_emacs" "send-keys C-j" "select-pane -D"
+bind-key -T copy-mode-vi 'C-k' if-shell "$is_vim_emacs" "send-keys C-k" "select-pane -U"
+bind-key -T copy-mode-vi 'C-l' if-shell "$is_vim_emacs" "send-keys C-l" "select-pane -R"
+bind-key -T copy-mode-vi 'C-\' if-shell "$is_vim_emacs" "send-keys C-\\\\" "select-pane -l"
 
 # for running tmux inside Emacs vterm
 bind -r C-h select-pane -L
