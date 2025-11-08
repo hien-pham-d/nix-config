@@ -769,10 +769,18 @@
 
 (add-to-list 'auto-mode-alist '("loop\\.log\\'" . compilation-mode))
 
-;; (use-package clipetty
-;;   :hook (after-init . global-clipetty-mode))
+;; Clipboard
+;; cut
+(use-package clipetty
+  ;; :disabled
+  :hook (after-init . global-clipetty-mode))
+
+;; paste
+(setq interprogram-paste-function (lambda ()
+                                    (shell-command-to-string "wl-paste")))
 
 (use-package xclip
+  :disabled
   :config
   (setq xclip-program "wl-copy")
   (setq xclip-select-enable-clipboard t)

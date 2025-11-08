@@ -17,6 +17,9 @@
 
 (setq make-backup-files nil)
 
+(when (not (display-graphic-p))
+  (xterm-mouse-mode t))
+
 ;; (when (string= (getenv "XDG_SESSION_TYPE") "wayland")
 ;;   (setq wl-copy-process nil)
 ;;   (defun wl-copy (text)

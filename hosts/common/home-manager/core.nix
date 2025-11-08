@@ -378,7 +378,8 @@ bind C-Space send-prefix
 
 # Set to use 256 colors
 # set -g default-terminal "screen-256color"
-set-option -ga terminal-overrides ',xterm-256color:Tc' # to support WezTerm with True color
+set -g default-terminal "tmux-256color"
+# set-option -ga terminal-overrides ',xterm-256color:Tc' # to support WezTerm with True color
 
 # for Nix system
 set-option -g default-shell /run/current-system/sw/bin/zsh
