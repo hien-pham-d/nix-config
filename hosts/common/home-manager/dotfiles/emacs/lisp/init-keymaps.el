@@ -54,6 +54,8 @@ of the form (KEY COMMAND DESC)."
 
 (require 'bash-output-mode)
 
+(setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
+
 ;; Change prefix key for help commands.
 ;; We're going to use the "C-h" for windmove-left.
 (keymap-unset global-map "C-h")
@@ -80,30 +82,29 @@ of the form (KEY COMMAND DESC)."
 
 ;; per-workspace level (C-previx)
 ;; bookmarks
-(keymap-set global-map "C-;" #'harpoon-toggle-file)
+(keymap-set me-master-map ";" #'harpoon-toggle-file)
 ;; last buffer
 ;; TODO: does not work in insert mode in terminal emacs
-(keymap-set global-map "C-'" #'evil-switch-to-windows-last-buffer)
+(keymap-set me-master-map "'" #'evil-switch-to-windows-last-buffer)
 ;; symbols
 ;; FIXME: does not work
 (keymap-set global-map "C-7" #'xref-find-apropos)
 ;; compile
 (keymap-set global-map "C-8" #'compile)
 ;; buffers
-(keymap-set global-map "C-SPC" #'consult-buffer)
-(keymap-set global-map "C-@" #'consult-buffer) ;; Terminal Emacs recieves C-SPC as C-@
+(keymap-set me-master-map "SPC" #'consult-buffer)
 ;; fd
-(keymap-set global-map "C-]" #'consult-fd)
+(keymap-set me-master-map "]" #'consult-fd)
 ;; projects
-(keymap-set global-map "C-\\" #'project-switch-project)
+(keymap-set me-master-map "\\" #'project-switch-project)
 ;; explorer
-(keymap-set global-map "C-," #'treemacs)
+(keymap-set me-master-map "," #'treemacs)
 ;; git
-(keymap-set global-map "C-." #'me/magit-status)
+(keymap-set me-master-map "." #'me/magit-status)
 ;; ripgrep
-(keymap-set global-map "C--" #'consult-ripgrep)
+(keymap-set me-master-map "-" #'consult-ripgrep)
 ;; terminal
-(keymap-set global-map "C-/" #'eat-project)
+(keymap-set me-master-map "/" #'eat-project)
 
 ;; per-buffer level (M-prefix)
 ;; TODO: bookmarks
@@ -119,7 +120,6 @@ of the form (KEY COMMAND DESC)."
 ;; next-hunk
 (keymap-set global-map "M-." #'diff-hl-next-hunk)
 
-(setq me-master-map (me/gen-sub-keymap global-map "C-c" ""))
 
 ;; (with-eval-after-load 'magit
 ;;   ;; make "SPC" available in magit-status-mode-map
