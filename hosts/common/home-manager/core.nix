@@ -363,15 +363,16 @@
           extraConfig = ''
             set -g @resurrect-save 'S'
             set -g @resurrect-restore 'R'
+            set -g @resurrect-processes ':all:'
           '';
         }
         prefix-highlight
       ];
       extraConfig = ''
 # unbind default prefix and set it to <C-Space>
-# unbind C-b
-# set -g prefix C-Space
-# bind C-Space send-prefix
+unbind C-b
+set -g prefix C-Space
+bind C-Space send-prefix
 
 # Terminal colors
 
@@ -402,17 +403,17 @@ bind -n C-\   if-shell  "$is_vim"  "send-keys C-\\"  "select-pane -l"
 # bind -n C-\   if-shell  "$is_emacs"  "send-keys C-\\"  "select-pane -l"
 
 # for running tmux inside Emacs vterm
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+bind -r C-h select-pane -L
+bind -r C-j select-pane -D
+bind -r C-k select-pane -U
+bind -r C-l select-pane -R
 
 set -g mouse on
 # set vi mode for copy mode
 setw -g mode-keys vi
 # more settings to make copy-mode more vim-like
-unbind p
-bind p paste-buffer
+# unbind p
+# bind p paste-buffer
 
 # Default keybinding to get into copy mode is prefix+[.
 bind -Tcopy-mode-vi v send-keys -X begin-selection
@@ -430,27 +431,27 @@ bind -Tcopy-mode-vi y send-keys -X copy-selection-and-cancel
 # Hold Shilft and use mouse to select text -> Still hold shift and use mouse right clict to select Copy option.
 
 # Reload config
-bind r source-file ~/.tmux.conf \; display "Config reloeaded"
+bind r source-file ~/.config/tmux/tmux.conf \; display "Config reloeaded"
 
 # resize-pane
-bind m resize-pane -Z # fullscreen
-bind > resize-pane -R 12
-bind < resize-pane -L 12
-bind + resize-pane -U 12
-bind - resize-pane -D 12
+bind -n C-m resize-pane -Z # fullscreen
+bind -r > resize-pane -R 12
+bind -r < resize-pane -L 12
+bind -r + resize-pane -U 12
+bind -r - resize-pane -D 12
 
-bind i split-window -v -c '#{pane_current_path}'
+bind x split-window -v -c '#{pane_current_path}'
 bind v split-window -h -c '#{pane_current_path}'
 
-bind x kill-pane
+bind k kill-pane
 
-bind -r p run-shell "tmux neww $HOME/.local/scripts/tmux/tmux-sessionizer"
+bind C-p run-shell "tmux neww $HOME/.local/scripts/tmux/tmux-sessionizer"
 
 # switch to the last session
-bind s switch-client -l
+bind C-s switch-client -l
 
 # switch to the last window
-bind w last-window
+bind C-w last-window
 
 # Start windows and panes at 1, not 0
 set -g base-index 1
@@ -464,8 +465,10 @@ setw -g mode-style 'fg=black bg=white'
 set -g pane-border-style bg=default,fg=black
 set -g pane-active-border-style bg=default,fg=red
 ## set inactive/active window styles
-set -g window-style fg=default,bg=#292a3b
-set -g window-active-style fg=default,bg=#1e1e2e
+# set -g window-style fg=default,bg=#292a3b # catppucin
+# set -g window-active-style fg=default,bg=#1e1e2e # catppucin
+set -g window-style fg=default,bg=black
+set -g window-active-style fg=default,bg=black
 
 ## window
 setw -g window-status-style 'fg=white bg=black'
