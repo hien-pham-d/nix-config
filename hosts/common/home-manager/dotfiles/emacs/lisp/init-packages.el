@@ -191,6 +191,7 @@
   (marginalia-mode))
 
 (use-package catppuccin-theme
+  :disabled
   :config
   (load-theme 'catppuccin :no-confirm))
 
@@ -772,5 +773,7 @@
 
 (add-to-list 'auto-mode-alist '("loop\\.log\\'" . compilation-mode))
 
+(use-package clipetty
+  :hook (after-init . global-clipetty-mode))
 
 (provide 'init-packages)

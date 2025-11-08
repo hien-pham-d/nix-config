@@ -307,6 +307,7 @@
       shellAliases = {
         ls = "ls --color=auto";
         v = "nvim";
+        e = "emacsclient -nw";
         gau = "git add -u";
         gaa = "git add -A";
         gb = "git branch";
