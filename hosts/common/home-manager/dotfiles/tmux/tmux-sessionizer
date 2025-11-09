@@ -3,11 +3,12 @@
 # Copy from: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 #
 basedir=$HOME/workspace/repos
+second_brain_programming=$HOME/workspace/repos/second-brain/para/resources/programming
 
 if [[ $# -eq 1 ]]; then
 	selected=$1
 else
-	selected=$(find $basedir -mindepth 1 -maxdepth 1 -type d | sed 's|.*/\([^/]*\)$|\1|' | fzf)
+	selected=$(find $basedir $second_brain_programming -mindepth 1 -maxdepth 1 -type d | sed 's|.*/\([^/]*\)$|\1|' | fzf)
 fi
 
 mkdir -p $HOME/.local/logs/
