@@ -780,12 +780,12 @@
   :hook (after-init . global-clipetty-mode))
 
 ;; paste
-(when (not (display-graphic-p)
-           (setq interprogram-paste-function (lambda ()
-                                               (string-trim (shell-command-to-string "wl-paste -n | tr -d '\r'"))
-                                               ;; (shell-command-to-string "wl-paste")
-                                               ))
-           ))
+(when (not (display-graphic-p))
+  (setq interprogram-paste-function (lambda ()
+                                      (string-trim (shell-command-to-string "wl-paste -n | tr -d '\r'"))
+                                      ;; (shell-command-to-string "wl-paste")
+                                      ))
+  )
 
 (use-package xclip
   :disabled
