@@ -393,13 +393,13 @@ bind-key -n C-h if-shell "$is_vim_emacs" "send-keys C-h" "select-pane -L"
 bind-key -n C-j if-shell "$is_vim_emacs" "send-keys C-j" "select-pane -D"
 bind-key -n C-k if-shell "$is_vim_emacs" "send-keys C-k" "select-pane -U"
 bind-key -n C-l if-shell "$is_vim_emacs" "send-keys C-l" "select-pane -R"
-bind-key -n C-\ if-shell "$is_vim_emacs" "send-keys C-\\\\" "select-pane -l"
+# bind-key -n C-\ if-shell "$is_vim_emacs" "send-keys C-\\\\" "select-pane -l"
 
 bind-key -T copy-mode-vi 'C-h' if-shell "$is_vim_emacs" "send-keys C-h" "select-pane -L"
 bind-key -T copy-mode-vi 'C-j' if-shell "$is_vim_emacs" "send-keys C-j" "select-pane -D"
 bind-key -T copy-mode-vi 'C-k' if-shell "$is_vim_emacs" "send-keys C-k" "select-pane -U"
 bind-key -T copy-mode-vi 'C-l' if-shell "$is_vim_emacs" "send-keys C-l" "select-pane -R"
-bind-key -T copy-mode-vi 'C-\' if-shell "$is_vim_emacs" "send-keys C-\\\\" "select-pane -l"
+# bind-key -T copy-mode-vi 'C-\' if-shell "$is_vim_emacs" "send-keys C-\\\\" "select-pane -l"
 
 # for running tmux inside Emacs vterm
 bind -r C-h select-pane -L
