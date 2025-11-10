@@ -1,41 +1,44 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Copy from: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 #
-basedir=$HOME/workspace/repos
-second_brain_programming=$HOME/workspace/repos/second-brain/para/resources/programming
+search_dirs=(
+    "$HOME/workspace"
+    "$HOME/workspace/second-brain/para/resources/programming"
+)
 
 if [[ $# -eq 1 ]]; then
-	selected=$1
+    selected_fullpath=$1
 else
-	selected=$(find $basedir $second_brain_programming -mindepth 1 -maxdepth 1 -type d | sed 's|.*/\([^/]*\)$|\1|' | fzf)
+    selected_fullpath=$(find "${search_dirs[@]}" -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
+selected=$(echo "$selected_fullpath" | sed 's|.*/\([^/]*\)$|\1|')
+
 mkdir -p $HOME/.local/logs/
-echo "selected=$selected." >> $HOME/.local/logs/tmux.log
+echo "selected_fullpath=$selected_fullpath. selected=$selected." >$HOME/.local/logs/tmux.log
 
 if [[ -z $selected ]]; then
-	exit 0
+    exit 0
 fi
 
 tmux_running=$(pgrep tmux)
-full_path=$basedir/$selected
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-  echo "Detected no running tmux. Creating a new session with name $selected at path $full_path." >> $HOME/.local/logs/tmux.log
-	tmux new-session -s $selected -c $full_path
-	exit 0
+    echo "Detected no running tmux. Creating a new session with name $selected at path $selected_fullpath." >>$HOME/.local/logs/tmux.log
+    tmux new-session -s $selected -c $selected_fullpath
+    exit 0
 fi
-echo "Detected tmux running." >> $HOME/.local/logs/tmux.log
+echo "Detected tmux running." >>$HOME/.local/logs/tmux.log
 
-if ! tmux has-session -t=$selected 2> /dev/null; then
-  echo "Creating a new session with name $selected at path $full_path." >> $HOME/.local/logs/tmux.log
-	tmux new-session -ds $selected -c $full_path
+if ! tmux has-session -t=$selected 2>/dev/null; then
+    echo "Creating a new session with name $selected at path $selected_fullpath." >>$HOME/.local/logs/tmux.log
+    tmux new-session -ds $selected -c $selected_fullpath
 fi
 
-echo "Switch to an existing session with name $selected." >> $HOME/.local/logs/tmux.log
+echo "Switch to an existing session with name $selected." >>$HOME/.local/logs/tmux.log
 if [[ -z $TMUX ]]; then
-  tmux attach -t $selected
+    tmux attach -t $selected
 else
-  tmux switch-client -t $selected
+    tmux switch-client -t $selected
 fi
