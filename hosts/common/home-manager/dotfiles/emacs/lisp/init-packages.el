@@ -757,11 +757,15 @@
   (global-treesit-auto-mode))
 
 (use-package diff-hl
+  :after (evil)
   :config
   (global-diff-hl-mode)
   (diff-hl-flydiff-mode)
   (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (evil-define-key '(normal) global-map (kbd "] h") #'diff-hl-next-hunk)
+  (evil-define-key '(normal) global-map (kbd "[ h") #'diff-hl-previous-hunk)
+  )
 
 (use-package markdown-mode
   :mode ("README\\.md\\'" . gfm-mode)
@@ -769,18 +773,23 @@
 
 (add-to-list 'auto-mode-alist '("loop\\.log\\'" . compilation-mode))
 
-;; Clipboard
+;; TUI Clipboard
 ;; cut
 (use-package clipetty
-  ;; :disabled
+  :if (not (display-graphic-p))
   :hook (after-init . global-clipetty-mode))
 
 ;; paste
-(setq interprogram-paste-function (lambda ()
-                                    (shell-command-to-string "wl-paste")))
+(when (not (display-graphic-p)
+           (setq interprogram-paste-function (lambda ()
+                                               (string-trim (shell-command-to-string "wl-paste -n | tr -d '\r'"))
+                                               ;; (shell-command-to-string "wl-paste")
+                                               ))
+           ))
 
 (use-package xclip
   :disabled
+  :if (not (display-graphic-p))
   :config
   (setq xclip-program "wl-copy")
   (setq xclip-select-enable-clipboard t)

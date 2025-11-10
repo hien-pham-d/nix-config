@@ -82,53 +82,42 @@ of the form (KEY COMMAND DESC)."
 
 ;; per-workspace level (C-previx)
 ;; bookmarks
-(keymap-set me-master-map ";" #'harpoon-toggle-file)
+(me/keymap-set-with-desc me-master-map ";" #'harpoon-toggle-file "harpoon")
 ;; last buffer
 ;; TODO: does not work in insert mode in terminal emacs
-(keymap-set me-master-map "'" #'evil-switch-to-windows-last-buffer)
+(me/keymap-set-with-desc me-master-map "'" #'evil-switch-to-windows-last-buffer "last-buf")
 ;; symbols
 ;; FIXME: does not work
-(keymap-set global-map "C-7" #'xref-find-apropos)
+;; (keymap-set global-map "C-7" #'xref-find-apropos)
 ;; compile
-(keymap-set global-map "C-8" #'compile)
+;; (keymap-set global-map "C-8" #'compile)
 ;; buffers
-(keymap-set me-master-map "SPC" #'consult-buffer)
+(me/keymap-set-with-desc me-master-map "SPC" #'consult-buffer "find-buf")
 ;; fd
-(keymap-set me-master-map "]" #'consult-fd)
+(me/keymap-set-with-desc me-master-map "]" #'consult-fd "find-file-in-project")
 ;; projects
-(keymap-set me-master-map "\\" #'project-switch-project)
+(me/keymap-set-with-desc me-master-map "\\" #'project-switch-project "find-project")
 ;; explorer
-(keymap-set me-master-map "," #'treemacs)
+(me/keymap-set-with-desc me-master-map "," #'treemacs "file-explorer")
 ;; git
-(keymap-set me-master-map "." #'me/magit-status)
+(me/keymap-set-with-desc me-master-map "." #'me/magit-status "git-status")
 ;; ripgrep
-(keymap-set me-master-map "-" #'consult-ripgrep)
+(keymap-set me-master-map "/" #'consult-ripgrep)
 ;; terminal
-(keymap-set me-master-map "/" #'eat-project)
+(me/keymap-set-with-desc me-master-map "^" #'eat-project "terminal")
 
 ;; per-buffer level (M-prefix)
 ;; TODO: bookmarks
-(keymap-set global-map "M-;" #'consult-line)
+;; (keymap-set global-map "M-;" #'consult-line)
 ;; grep
 (keymap-set global-map "M-/" #'consult-line)
 ;; (keymap-set global-map "M-SPC" #'consult-line)
 ;; symbols
-;; FIXME: does not work
-(keymap-set global-map "M-8" #'consult-outline)
-;; prev-hunk
-(keymap-set global-map "M-," #'diff-hl-previous-hunk)
-;; next-hunk
-(keymap-set global-map "M-." #'diff-hl-next-hunk)
-
-
-;; (with-eval-after-load 'magit
-;;   ;; make "SPC" available in magit-status-mode-map
-;;   (keymap-set magit-status-mode-map "SPC" me-master-map)
-;;   )
+(keymap-set global-map "M-;" #'consult-outline)
+;; prev-hunk -> map to [ h in diff-hl package conf
+;; next-hunk -> map to ] h in diff-hl package conf
 
 ;; Quick-Access
-(me/keymap-set-with-desc me-master-map "/" 'consult-line "text-in-file")
-(me/keymap-set-with-desc me-master-map "SPC" 'project-switch-to-buffer "active-file-in-project")
 (me/keymap-set-with-desc me-master-map "M-x" 'execute-extended-command "execute-cmd")
 (me/keymap-set-with-desc me-master-map "C-h" help-map "help")
 
