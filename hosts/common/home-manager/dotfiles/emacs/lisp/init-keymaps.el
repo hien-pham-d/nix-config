@@ -204,6 +204,7 @@ of the form (KEY COMMAND DESC)."
                            (":" eval-expression "eval-expression")
                            ("q" save-buffers-kill-emacs "quit")
                            ("c" tab-bar-close-tab "tab-close")
+                           ("p" me/paste-from-clipboard "clipboard-paste")
                            )))
 
 (setq me-edit-map
