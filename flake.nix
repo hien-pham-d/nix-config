@@ -82,16 +82,21 @@
         username = "hienphamduc";
         hostname = "work-laptop-vm";
         system = "aarch64-linux";
-        extraOverlays = [ 
+        extraOverlays = [
           (final: prev: let
             nodejs_20_10_pkgs = import (builtins.fetchTarball {
               url = "https://github.com/NixOS/nixpkgs/archive/2392daed231374d0d1c857cd7a75edd89e084513.tar.gz";
               sha256 = "0qfqia0mcbaxa7zy9djnk5dzhs69pi0k6plgmf1innj8j38kkp0k";
             }) { system = final.system; };
+            prisma_nixpkgs = import (builtins.fetchTarball {
+              url = "https://github.com/NixOS/nixpkgs/archive/59133ee770406f605d61698bc4f1a89efcf461d5.tar.gz";
+              # calculate the sha256 by exec: `nix-prefetch-url --unpack ${url:?}`
+              sha256 = "0v4bjwfr2zpxdk9s8ncphchr3x52q3v5yvv9wdsp2bnqnh8mpyh1";
+            }) { system = final.system; };
           in {
             nodejs = nodejs_20_10_pkgs.elmPackages.nodejs;
             yarn = nodejs_20_10_pkgs.yarn;
-            prisma-engines = nodejs_20_10_pkgs.prisma-engines;
+            prisma-engines = prisma_nixpkgs.prisma-engines;
           })
         ];
       };

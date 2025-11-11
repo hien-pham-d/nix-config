@@ -20,7 +20,7 @@
 
 (setq-default mode-line-format
               '(" "
-                (:eval (evil-mode-line-format))
+                ;; (:eval (evil-mode-line-format))
                 (:eval (let ((proj (project-current)))
                          (if proj
                              (format "%s | " (propertize (project-mode-line-format) 'face '(:foreground "#90cc93" :weight bold)))

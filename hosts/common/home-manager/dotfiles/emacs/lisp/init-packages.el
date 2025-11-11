@@ -801,6 +801,10 @@
   :config
   (evil-terminal-cursor-changer-activate))
 
+(use-package kkp
+  :config
+  (global-kkp-mode t))
+
 (use-package xclip
   :disabled
   :if (not (display-graphic-p))
