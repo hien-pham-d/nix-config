@@ -4,6 +4,7 @@
 #
 search_dirs=(
     "$HOME/workspace"
+    "$HOME/workspace/repos"
     "$HOME/workspace/second-brain/para/resources/programming"
 )
 
