@@ -512,6 +512,8 @@ set -g status-right-length 50
 # set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 
 set -g set-clipboard on
+# to make clipetty in tty emacs works:
+set -g allow-passthrough on
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 # run -b '~/.tmux/plugins/tpm/tpm'

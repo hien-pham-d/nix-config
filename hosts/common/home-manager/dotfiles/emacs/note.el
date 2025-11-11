@@ -8,6 +8,7 @@
 
 ;; playground
 
+(use-package simpleclip)
 
 (use-package ejc-sql)
 

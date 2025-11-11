@@ -780,12 +780,21 @@
   :hook (after-init . global-clipetty-mode))
 
 ;; paste
-(when (not (display-graphic-p))
-  (setq interprogram-paste-function (lambda ()
-                                      (string-trim (shell-command-to-string "wl-paste -n | tr -d '\r'"))
-                                      ;; (shell-command-to-string "wl-paste")
-                                      ))
-  )
+;;(when (not (display-graphic-p))
+;;  (setq interprogram-paste-function (lambda ()
+;;                                      (string-trim (shell-command-to-string "wl-paste -n | tr -d '\r'"))
+;;                                      ;; (shell-command-to-string "wl-paste")
+;;                                      ))
+;;  )
+
+;; only use simpleclip-paste command for pasting system clipboard.
+;; the simpleclip-copy command is freezed in my machine.
+(use-package simpleclip)
+
+(use-package evil-terminal-cursor-changer
+  :if (not (display-graphic-p))
+  :config
+  (evil-terminal-cursor-changer-activate))
 
 (use-package xclip
   :disabled
