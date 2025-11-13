@@ -66,6 +66,7 @@ of the form (KEY COMMAND DESC)."
 ;;(me/keymap-set-with-desc global-map "C-j" 'windmove-down "windmove-down")
 ;;(me/keymap-set-with-desc global-map "C-k" 'windmove-up "windmove-up")
 ;;(me/keymap-set-with-desc global-map "C-l" 'windmove-right "windmove-right")
+(require 'me-tmux-pane)
 
 ;; harpoon
 (me/keymap-set-with-desc global-map "M-h" #'harpoon-go-to-1 "goto-1")
@@ -116,6 +117,7 @@ of the form (KEY COMMAND DESC)."
 (keymap-set global-map "M-;" #'consult-outline)
 ;; prev-hunk -> map to [ h in diff-hl package conf
 ;; next-hunk -> map to ] h in diff-hl package conf
+(keymap-set global-map "M-i" #'completion-at-point)
 
 ;; Quick-Access
 (me/keymap-set-with-desc me-master-map "M-x" 'execute-extended-command "execute-cmd")
@@ -272,12 +274,6 @@ of the form (KEY COMMAND DESC)."
                            ("L" org-store-link "store-link")
                            ("l" org-insert-link "insert-link")
                            )))
-
-;; lisp-interaction-mode
-(add-hook 'lisp-interaction-mode-hook
-          (lambda()
-            (keymap-set lisp-interaction-mode-map "C-j" 'windmove-down)
-            ))
 
 ;; (with-eval-after-load 'message
 ;;   (keymap-set messages-buffer-mode-map "SPC" me-master-map)

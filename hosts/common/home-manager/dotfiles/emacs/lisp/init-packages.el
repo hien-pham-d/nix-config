@@ -72,9 +72,9 @@
   ;; Optional customizations
   :custom
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                 ;; Enable auto completion
-  (corfu-auto-prefix 1)          ;; Minimum length of prefix for auto completion
-  (corfu-auto-delay 0.0)
+  (corfu-auto nil)                 ;; Enable auto completion
+  (corfu-auto-prefix 2)          ;; Minimum length of prefix for auto completion
+  (corfu-auto-delay 0.2)
   (corfu-popupinfo-delay 0.25)
   (corfu-separator ?\s)          ;; Orderless field separator
   (corfu-quit-at-boundary 'separator)
@@ -100,14 +100,14 @@
   (corfu-history-mode)
   (corfu-popupinfo-mode)
   :config
-  (defun corfu-enable-in-minibuffer ()
-    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
-    (when (where-is-internal #'completion-at-point (list (current-local-map)))
-      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
-      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
-                  corfu-popupinfo-delay nil)
-      (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+  ;; (defun corfu-enable-in-minibuffer ()
+  ;;   "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+  ;;   (when (where-is-internal #'completion-at-point (list (current-local-map)))
+  ;;     ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
+  ;;     (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
+  ;;                 corfu-popupinfo-delay nil)
+  ;;     (corfu-mode 1)))
+  ;; (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
   ;; (add-hook 'eshell-mode-hook (lambda ()
   ;;                               (setq-local corfu-auto nil)
   ;;                               (corfu-mode)))
@@ -294,6 +294,10 @@
                                "--glob !.git"
                                "--glob !node_modules"
                                "--null --line-buffered --color=never --max-columns=1000 --path-separator /   --smart-case --no-heading --with-filename --line-number --search-zip"))
+  ;; the below config moves completion ui to minibuffer.
+  ;; But I would prefer using corfu because of the limitation when integrating with lsp completion. The lsp completion relies on the input at point in order to generate refined candidates.
+  ;; (setq completion-in-region-function #'consult-completion-in-region)
+
   ;; Configure other variables and modes in the :config section,
   ;; after lazily loading the package.
   :config
@@ -816,6 +820,7 @@
   )
 
 (use-package tmux-pane
+  :disabled
   :config
   (tmux-pane-mode))
 

@@ -377,9 +377,12 @@ bind C-Space send-prefix
 # Terminal colors
 
 # Set to use 256 colors
-# set -g default-terminal "screen-256color"
-set -g default-terminal "tmux-256color"
+set -g default-terminal "screen-256color"
+# set -g default-terminal "tmux-256color"
 # set-option -ga terminal-overrides ',xterm-256color:Tc' # to support WezTerm with True color
+# set-option -as terminal-features ",xterm-kitty:RGB"
+# set-option -ga terminal-overrides ",xterm-kitty:Tc"
+set-option -ga terminal-overrides ",screen-256color:Tc"
 
 # for Nix system
 set-option -g default-shell /run/current-system/sw/bin/zsh
@@ -434,10 +437,13 @@ bind r source-file ~/.config/tmux/tmux.conf \; display "Config reloeaded"
 
 # resize-pane
 bind -n C-m resize-pane -Z # fullscreen
-bind -r > resize-pane -R 12
-bind -r < resize-pane -L 12
-bind -r + resize-pane -U 12
-bind -r - resize-pane -D 12
+
+bind C-r switch-client -T resize
+bind -T resize > resize-pane -R 12 \; switch-client -T resize
+bind -T resize < resize-pane -L 12 \; switch-client -T resize
+bind -T resize + resize-pane -U 12 \; switch-client -T resize
+bind -T resize _ resize-pane -D 12 \; switch-client -T resize
+bind -T resize C-c switch-client -T root
 
 bind x split-window -v -c '#{pane_current_path}'
 bind v split-window -h -c '#{pane_current_path}'
@@ -530,43 +536,44 @@ set -g allow-passthrough on
 
     emacs = {
       enable = true;
-      startWithUserSession = "graphical";
+      # startWithUserSession = "graphical";
+      startWithUserSession = true;
     };
   };
 
   systemd.user.services = {
-    spice-vdagent = {
-      Unit = {
-        Description = "Spice guest session agent";
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
-        ConditionVirtual = "vm";
-      };
-      Service = {
-        ExecStart = "${pkgs.spice-vdagent}/bin/spice-vdagent -x";
-        Restart = "on-failure";
-      };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
+    # spice-vdagent = {
+    #   Unit = {
+    #     Description = "Spice guest session agent";
+    #     After = [ "graphical-session-pre.target" ];
+    #     PartOf = [ "graphical-session.target" ];
+    #     ConditionVirtual = "vm";
+    #   };
+    #   Service = {
+    #     ExecStart = "${pkgs.spice-vdagent}/bin/spice-vdagent -x";
+    #     Restart = "on-failure";
+    #   };
+    #   Install = {
+    #     WantedBy = [ "graphical-session.target" ];
+    #   };
+    # };
 
-    emacsclient = {
-      Unit = {
-        Description = "Launch emacsclient GUI after emacs daemon";
+    # emacsclient = {
+    #   Unit = {
+    #     Description = "Launch emacsclient GUI after emacs daemon";
 
-        # after specifies the order in which units are started or stopped.
-        # the current unit will be started after the units listed in after.
-        After = [ "emacs.service" ];
-      };
-      Service = {
-        ExecStart = "${pkgs.emacs}/bin/emacsclient -c";
-        Restart = "no";
-      };
-      Install = {
-        # wantedBy declares this unit as a dependency target to start when enabling another unit.
-        WantedBy = [ "emacs.service" ];
-      };
-    };
+    #     # after specifies the order in which units are started or stopped.
+    #     # the current unit will be started after the units listed in after.
+    #     After = [ "emacs.service" ];
+    #   };
+    #   Service = {
+    #     ExecStart = "${pkgs.emacs}/bin/emacsclient -c";
+    #     Restart = "no";
+    #   };
+    #   Install = {
+    #     # wantedBy declares this unit as a dependency target to start when enabling another unit.
+    #     WantedBy = [ "emacs.service" ];
+    #   };
+    # };
   };
 }
