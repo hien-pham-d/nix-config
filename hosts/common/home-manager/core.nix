@@ -163,6 +163,7 @@
     # AI-assisted Programming
     claude-code
     opencode
+    claude-code-acp
 
     sqlite
 

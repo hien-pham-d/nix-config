@@ -26,9 +26,14 @@
       opencode = nixpkgs-unstable.legacyPackages.${final.system}.opencode;
     };
 
+    claudeCodeAcpOverlay = final: prev: {
+      claude-code-acp = final.callPackage ./packages/claude-code-acp { };
+    };
+
     commonOverlays = [
       claude-code.overlays.default
       opencodeOverlay
+      claudeCodeAcpOverlay
     ];
 
     mkNixosHost = hostname: nixpkgs.lib.nixosSystem {
