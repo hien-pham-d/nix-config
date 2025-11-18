@@ -237,8 +237,9 @@ of the form (KEY COMMAND DESC)."
 (setq me-file-map
       (me/gen-sub-keymap me-master-map "f" "file"
                          '(
-                           ("q" me/kill-this-buffer "quit")
+                           ("k" me/kill-this-buffer "kill")
                            ("y" me/copy-file-path "copy-path")
+                           ("p" dired-jump "explorer-at-point")
                            )))
 
 (setq me-quickfix-map

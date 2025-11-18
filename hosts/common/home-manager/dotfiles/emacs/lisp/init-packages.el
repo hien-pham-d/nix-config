@@ -504,8 +504,11 @@
 ;; dired is built-in to Emacs, no need to download it
 (use-package dired
   :straight nil
+  :after (evil)
   :config
   (with-eval-after-load 'evil
+    (evil-define-key '(normal) dired-mode-map "j" 'dired-next-line)
+    (evil-define-key '(normal) dired-mode-map "k" 'dired-previous-line)
     (evil-define-key '(normal) dired-mode-map "h" 'dired-up-directory)
     (evil-define-key '(normal) dired-mode-map "l" 'dired-find-file)
     (evil-define-key '(normal) dired-mode-map "n" 'evil-search-next)
