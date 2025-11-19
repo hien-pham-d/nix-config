@@ -674,7 +674,9 @@
   :straight (:host github :repo "otavioschwanck/harpoon.el" :branch "master")
   :config
   (with-eval-after-load 'evil
-    (evil-define-key '(normal visual) harpoon-mode-map "q" #'me/kill-this-buffer))
+    (evil-define-key '(normal visual) harpoon-mode-map "q" #'me/kill-this-buffer)
+    (evil-define-key '(normal visual) harpoon-mode-map (kbd "RET") #'harpoon-find-file)
+    )
   )
 
 (use-package eat
