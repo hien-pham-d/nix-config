@@ -93,6 +93,7 @@
     gnumake
     openssl
     openssh
+    codesearch
 
     # Development
     # nodejs_22
@@ -197,6 +198,8 @@
     zsh-syntax-highlighting
     zsh-powerlevel10k
     zsh-autocomplete
+
+    bazel_7
 
     htop
 
@@ -445,6 +448,11 @@ bind -T resize < resize-pane -L 12 \; switch-client -T resize
 bind -T resize + resize-pane -U 12 \; switch-client -T resize
 bind -T resize _ resize-pane -D 12 \; switch-client -T resize
 bind -T resize C-c switch-client -T root
+
+# swap-pane
+bind p switch-client -T swap-pane
+bind -T swap-pane j swap-pane -D \; switch-client -T swap-pane
+bind -T swap-pane k swap-pane -U \; switch-client -T swap-pane
 
 bind x split-window -v -c '#{pane_current_path}'
 bind v split-window -h -c '#{pane_current_path}'

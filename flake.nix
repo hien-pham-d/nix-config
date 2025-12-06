@@ -30,10 +30,20 @@
       claude-code-acp = final.callPackage ./packages/claude-code-acp { };
     };
 
+    bazelOverlay = final: prev: let
+      bazel_nixpkgs = import (builtins.fetchTarball {
+        url = "https://github.com/NixOS/nixpkgs/archive/1c1c9b3f5ec0421eaa0f22746295466ee6a8d48f.tar.gz";
+        sha256 = "0szvq1swpzyjmyyw929ngxy1khdnd9ba96qds2bm6l6kg4iq3cq0";
+      }) { system = final.system; };
+    in {
+      bazel_7 = bazel_nixpkgs.bazel_7;
+    };
+
     commonOverlays = [
       claude-code.overlays.default
       opencodeOverlay
       claudeCodeAcpOverlay
+      bazelOverlay
     ];
 
     mkNixosHost = hostname: nixpkgs.lib.nixosSystem {
