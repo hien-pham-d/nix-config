@@ -119,6 +119,7 @@
     scala-cli
     scalafmt
     sbt
+    metals
 
     google-cloud-sdk
 

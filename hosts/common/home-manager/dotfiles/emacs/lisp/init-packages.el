@@ -571,12 +571,16 @@
   (add-hook 'sql-mode-hook #'eglot-ensure)
   (add-hook 'sh-mode #'eglot-ensure)
   (add-hook 'bash-ts-mode #'eglot-ensure)
+  (add-hook 'scala-ts-mode-hook #'eglot-ensure)
 
   (add-to-list 'eglot-server-programs
                '(sql-mode . ("sqls")))
 
   (add-to-list 'eglot-server-programs
                '((sh-mode bash-ts-mode)  . ("bash-language-server" "start")))
+
+  (add-to-list 'eglot-server-programs
+               '((scala-ts-mode scala-mode) . ("metals" :initializationOptions (:isHttpEnabled "true"))))
 
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
@@ -755,6 +759,10 @@
                   (apheleia-formatters-local-buffer-file-name buffer-file-name)))))
   (setf (alist-get 'scala-ts-mode apheleia-mode-alist)
         '(scalafmt))
+  (add-hook 'scala-ts-mode-hook
+            (lambda()
+              (set (make-local-variable 'electric-indent-chars) '(10)) ;; only newline
+              ))
   )
 
 (use-package treesit-auto
