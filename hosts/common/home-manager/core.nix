@@ -416,6 +416,9 @@ bind -r C-k select-pane -U
 bind -r C-l select-pane -R
 
 set -g mouse on
+# resolve emacs tui issue with evil-mode: in insert mode, when switch application, the cursor position move to the previous line.
+set -g focus-events off
+
 # set vi mode for copy mode
 setw -g mode-keys vi
 # more settings to make copy-mode more vim-like
