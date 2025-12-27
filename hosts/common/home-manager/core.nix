@@ -485,7 +485,7 @@ set -g pane-active-border-style bg=default,fg=red
 ## set inactive/active window styles
 # set -g window-style fg=default,bg=#292a3b # catppucin
 # set -g window-active-style fg=default,bg=#1e1e2e # catppucin
-set -g window-style fg=default,bg=black
+set -g window-style fg=default,bg=#4b4b4b
 set -g window-active-style fg=default,bg=black
 
 ## window
