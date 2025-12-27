@@ -8,9 +8,10 @@
 
 ;; playground
 
-;; Ignore focus in/out events in terminal
-(define-key input-decode-map "\e[I" [ignore])
-(define-key input-decode-map "\e[O" [ignore])
+(use-package agent-shell
+  :straight (:host github :repo "xenodium/agent-shell" :commit "d699fd679e32fb38ea307e592d5ecdf04b0f8437"))
+
+(use-package simpleclip)
 
 (define-key evil-insert-state-map (kbd "<f28>") 'ignore)
 (define-key evil-insert-state-map (kbd "<f29>") 'ignore)

@@ -559,7 +559,15 @@
   ;;  flycheck-disabled-checkers
   ;;  (append (default-value 'flycheck-disabled-checkers)
   ;;          '(emacs-lisp emacs-lisp-checkdoc emacs-lisp-package sh-shellcheck)))
-  (add-hook 'prog-mode-hook 'flymake-mode)
+
+  ;; (add-hook 'prog-mode-hook 'flymake-mode)
+  (add-hook 'go-ts-mode-hook 'flymake-mode)
+  (add-hook 'typescript-ts-mode-hook 'flymake-mode)
+  (add-hook 'sh-mode 'flymake-mode)
+  (add-hook 'sql-mode-hook 'flymake-mode)
+  (add-hook 'bash-ts-mode 'flymake-mode)
+  (add-hook 'scala-ts-mode-hook 'flymake-mode)
+
   (evil-define-key '(normal) flymake-mode-map (kbd "] e") #'flymake-goto-next-error)
   (evil-define-key '(normal) flymake-mode-map (kbd "[ e") #'flymake-goto-prev-error)
   )
