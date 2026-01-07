@@ -20,12 +20,14 @@ FILES=()
 # Statistics
 total_files=0
 files_changed=0
-total_lines_changed=0
-declare -A per_file_stats
+total_lines_added=0
+total_lines_removed=0
+declare -A per_file_stats_added
+declare -A per_file_stats_removed
 files_to_change=()
 
 show_help() {
-  cat <<EOF
+    cat <<EOF
 Usage: perl-diff [OPTIONS] PATTERN REPLACEMENT [FILES...]
 
 Preview and apply perl regex replacements with colored side-by-side diff.
@@ -42,13 +44,13 @@ Arguments:
 Examples:
   # Basic find and replace
   rg -l 'oldFunction' --type js | xargs perl-diff 'oldFunction' 'newFunction'
-  
+
   # Using capture groups
   rg -l 'function' --type js | xargs perl-diff 'function (\w+)' 'const \$1 ='
-  
+
   # Multi-line mode
   perl-diff -m 'start.*end' 'replaced' file.txt
-  
+
   # Direct file specification
   perl-diff 'old' 'new' file1.txt file2.txt
 
@@ -65,177 +67,179 @@ EOF
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
-  case $1 in
-    -m|--multiline)
-      MULTILINE=true
-      shift
-      ;;
-    -h|--help)
-      show_help
-      exit 0
-      ;;
+    case $1 in
+    -m | --multiline)
+        MULTILINE=true
+        shift
+        ;;
+    -h | --help)
+        show_help
+        exit 0
+        ;;
     -*)
-      echo "Error: Unknown option: $1" >&2
-      echo "Use -h or --help for usage information." >&2
-      exit 1
-      ;;
+        echo "Error: Unknown option: $1" >&2
+        echo "Use -h or --help for usage information." >&2
+        exit 1
+        ;;
     *)
-      if [ -z "$PATTERN" ]; then
-        PATTERN="$1"
-      elif [ -z "$REPLACEMENT" ]; then
-        REPLACEMENT="$1"
-      else
-        FILES+=("$1")
-      fi
-      shift
-      ;;
-  esac
+        if [ -z "$PATTERN" ]; then
+            PATTERN="$1"
+        elif [ -z "$REPLACEMENT" ]; then
+            REPLACEMENT="$1"
+        else
+            FILES+=("$1")
+        fi
+        shift
+        ;;
+    esac
 done
 
 # Validate inputs
 if [ -z "$PATTERN" ] || [ -z "$REPLACEMENT" ]; then
-  echo "Error: PATTERN and REPLACEMENT are required." >&2
-  echo "Use -h or --help for usage information." >&2
-  exit 1
+    echo "Error: PATTERN and REPLACEMENT are required." >&2
+    echo "Use -h or --help for usage information." >&2
+    exit 1
 fi
 
 if [ ${#FILES[@]} -eq 0 ]; then
-  echo "Error: At least one file must be provided." >&2
-  echo "Use -h or --help for usage information." >&2
-  exit 1
+    echo "Error: At least one file must be provided." >&2
+    echo "Use -h or --help for usage information." >&2
+    exit 1
 fi
 
 # Function to apply perl substitution
 apply_perl_substitution() {
-  local file="$1"
-  if [ "$MULTILINE" = true ]; then
-    perl -0777 -pe "s/$PATTERN/$REPLACEMENT/gs" "$file"
-  else
-    perl -pe "s/$PATTERN/$REPLACEMENT/g" "$file"
-  fi
+    local file="$1"
+    if [ "$MULTILINE" = true ]; then
+        perl -0777 -pe "s/$PATTERN/$REPLACEMENT/gs" "$file"
+    else
+        perl -pe "s/$PATTERN/$REPLACEMENT/g" "$file"
+    fi
 }
 
 # Function to generate preview output
 generate_preview_output() {
-  for file in "${files_to_change[@]}"; do
-    # Display file header
+    for file in "${files_to_change[@]}"; do
+        # Display file header
+        echo ""
+        echo -e "${YELLOW}=== $file ===${NC}"
+
+        # Generate modified content
+        local modified_content
+        modified_content=$(apply_perl_substitution "$file")
+
+        # Display colored unified diff
+        diff --color=always -u "$file" <(echo "$modified_content") || true
+    done
+
+    # Display summary statistics
     echo ""
-    echo -e "${YELLOW}=== $file ===${NC}"
-    
-    # Generate modified content
-    local modified_content
-    modified_content=$(apply_perl_substitution "$file")
-    
-    # Display colored unified diff
-    diff --color=always -u "$file" <(echo "$modified_content") || true
-  done
-  
-  # Display summary statistics
-  echo ""
-  echo "==================================="
-  echo -e "${YELLOW}Total Summary:${NC}"
-  echo "  Files processed: $total_files"
-  echo "  Files changed: $files_changed"
-  echo "  Total lines changed: $total_lines_changed"
-  echo ""
-  echo "  Per-file breakdown:"
-  for file in "${files_to_change[@]}"; do
-    echo "    $file: ${per_file_stats[$file]} line(s) changed"
-  done
-  echo "==================================="
-  echo ""
+    echo "==================================="
+    echo -e "${YELLOW}Total Summary:${NC}"
+    echo "  Files processed: $total_files"
+    echo "  Files changed: $files_changed"
+    echo -e "  ${GREEN}+${total_lines_added}${NC} ${RED}-${total_lines_removed}${NC}"
+    echo ""
+    echo "  Per-file breakdown:"
+    for file in "${files_to_change[@]}"; do
+        local added=${per_file_stats_added[$file]}
+        local removed=${per_file_stats_removed[$file]}
+        echo -e "    $file: ${GREEN}+${added}${NC} ${RED}-${removed}${NC}"
+    done
+    echo "==================================="
+    echo ""
 }
 
 # Process each file
 for file in "${FILES[@]}"; do
-  # Check file exists and is readable
-  if [ ! -f "$file" ]; then
-    echo -e "${RED}Error: File not found: $file${NC}" >&2
-    exit 2
-  fi
-  
-  if [ ! -r "$file" ]; then
-    echo -e "${RED}Error: File not readable: $file${NC}" >&2
-    exit 2
-  fi
-  
-  total_files=$((total_files + 1))
-  
-  # Generate modified content
-  modified_content=$(apply_perl_substitution "$file")
-  
-  # Check if there are any changes
-  if diff -q "$file" <(echo "$modified_content") > /dev/null 2>&1; then
-    # No changes in this file
-    continue
-  fi
-  
-  # File has changes
-  files_changed=$((files_changed + 1))
-  files_to_change+=("$file")
-  
-  # Calculate statistics for this file
-  diff_output=$(diff -u "$file" <(echo "$modified_content") || true)
-  lines_added=$(echo "$diff_output" | grep -c '^+[^+]' || true)
-  lines_removed=$(echo "$diff_output" | grep -c '^-[^-]' || true)
-  lines_changed=$((lines_added + lines_removed))
-  
-  # Ensure we have numeric values
-  lines_added=${lines_added:-0}
-  lines_removed=${lines_removed:-0}
-  lines_changed=${lines_changed:-0}
-  
-  # Store statistics
-  per_file_stats["$file"]="$lines_changed"
-  total_lines_changed=$((total_lines_changed + lines_changed))
+    # Check file exists and is readable
+    if [ ! -f "$file" ]; then
+        echo -e "${RED}Error: File not found: $file${NC}" >&2
+        exit 2
+    fi
+
+    if [ ! -r "$file" ]; then
+        echo -e "${RED}Error: File not readable: $file${NC}" >&2
+        exit 2
+    fi
+
+    total_files=$((total_files + 1))
+
+    # Generate modified content
+    modified_content=$(apply_perl_substitution "$file")
+
+    # Check if there are any changes
+    if diff -q "$file" <(echo "$modified_content") >/dev/null 2>&1; then
+        # No changes in this file
+        continue
+    fi
+
+    # File has changes
+    files_changed=$((files_changed + 1))
+    files_to_change+=("$file")
+
+    # Calculate statistics for this file
+    diff_output=$(diff -u "$file" <(echo "$modified_content") || true)
+    lines_added=$(echo "$diff_output" | grep -c '^+[^+]' || true)
+    lines_removed=$(echo "$diff_output" | grep -c '^-[^-]' || true)
+
+    # Ensure we have numeric values
+    lines_added=${lines_added:-0}
+    lines_removed=${lines_removed:-0}
+
+    # Store statistics
+    per_file_stats_added["$file"]="$lines_added"
+    per_file_stats_removed["$file"]="$lines_removed"
+    total_lines_added=$((total_lines_added + lines_added))
+    total_lines_removed=$((total_lines_removed + lines_removed))
 done
 
 # Check if any changes were found
 if [ $files_changed -eq 0 ]; then
-  echo -e "${GREEN}No changes found.${NC}"
-  exit 0
+    echo -e "${GREEN}No changes found.${NC}"
+    exit 0
 fi
 
 # Display preview through pager if in terminal
 if [ -t 1 ]; then
-  # stdout is a terminal - use pager
-  if command -v less >/dev/null 2>&1; then
-    generate_preview_output | less -RFX
-  else
-    # Fallback if less not available
-    generate_preview_output
-  fi
+    # stdout is a terminal - use pager
+    if command -v less >/dev/null 2>&1; then
+        generate_preview_output | less -RFX
+    else
+        # Fallback if less not available
+        generate_preview_output
+    fi
 else
-  # stdout is not a terminal (piped/redirected) - print directly
-  generate_preview_output
+    # stdout is not a terminal (piped/redirected) - print directly
+    generate_preview_output
 fi
 
 # Interactive confirmation prompt
-read -p "Apply these changes? [y/N]: " -r response < /dev/tty
+read -p "Apply these changes? [y/N]: " -r response </dev/tty
 case "$response" in
-  [yY])
+[yY])
     # Apply changes
     echo ""
     for file in "${files_to_change[@]}"; do
-      if [ "$MULTILINE" = true ]; then
-        perl -i.bak -0777 -pe "s/$PATTERN/$REPLACEMENT/gs" "$file"
-      else
-        perl -i.bak -pe "s/$PATTERN/$REPLACEMENT/g" "$file"
-      fi
-      
-      if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓${NC} Applied changes to $file (backup: ${file}.bak)"
-      else
-        echo -e "${RED}Error: Failed to apply changes to $file${NC}" >&2
-        exit 2
-      fi
+        if [ "$MULTILINE" = true ]; then
+            perl -i.bak -0777 -pe "s/$PATTERN/$REPLACEMENT/gs" "$file"
+        else
+            perl -i.bak -pe "s/$PATTERN/$REPLACEMENT/g" "$file"
+        fi
+
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}✓${NC} Applied changes to $file (backup: ${file}.bak)"
+        else
+            echo -e "${RED}Error: Failed to apply changes to $file${NC}" >&2
+            exit 2
+        fi
     done
-    
+
     echo ""
     echo -e "${GREEN}Done! Changed $files_changed file(s).${NC}"
     exit 0
     ;;
-  *)
+*)
     echo -e "${YELLOW}No changes applied.${NC}"
     exit 0
     ;;
