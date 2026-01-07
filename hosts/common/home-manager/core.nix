@@ -336,6 +336,8 @@
 
         source ${pkgs.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
+        export PATH="$HOME/.local/scripts:$PATH"
+        
         export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
         export NIX_SHELL_PRESERVE_PROMPT="1";
 
