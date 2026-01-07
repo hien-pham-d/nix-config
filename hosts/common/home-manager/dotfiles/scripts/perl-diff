@@ -164,12 +164,6 @@ for file in "${FILES[@]}"; do
   # Store statistics
   per_file_stats["$file"]="$lines_changed"
   total_lines_changed=$((total_lines_changed + lines_changed))
-  
-  # Display per-file statistics
-  echo ""
-  echo "Statistics:"
-  echo "  Lines changed: $lines_changed"
-  echo ""
 done
 
 # Check if any changes were found
