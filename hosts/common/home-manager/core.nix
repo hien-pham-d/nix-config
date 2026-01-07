@@ -287,6 +287,7 @@
     ".config/hypr/hyprlock.conf".source = ./dotfiles/hyprland/hyprlock.conf;
 
     ".local/scripts/tmux/tmux-sessionizer".source = ./dotfiles/tmux/tmux-sessionizer;
+    ".local/scripts/perl-diff".source = ./dotfiles/scripts/perl-diff;
   };
 
   home.sessionVariables = {
@@ -326,6 +327,7 @@
         gs = "git status";
         tmuxs = "$HOME/.local/scripts/tmux/tmux-sessionizer";
         sg = "ast-grep";
+        perl-diff = "$HOME/.local/scripts/perl-diff";
       };
 
       initContent = ''
