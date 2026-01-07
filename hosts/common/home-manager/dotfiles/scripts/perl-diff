@@ -147,19 +147,19 @@ for file in "${FILES[@]}"; do
   echo ""
   echo -e "${YELLOW}=== $file ===${NC}"
   
-  # Generate and display colored side-by-side diff
-  diff --color=always -y -W 160 "$file" <(echo "$modified_content") || true
+  # Generate and display colored unified diff
+  diff --color=always -u "$file" <(echo "$modified_content") || true
   
   # Calculate statistics for this file
-  diff_output=$(diff -y "$file" <(echo "$modified_content") || true)
-  lines_changed=$(echo "$diff_output" | grep -c '|' || true)
-  lines_added=$(echo "$diff_output" | grep -c '>' || true)
-  lines_removed=$(echo "$diff_output" | grep -c '<' || true)
+  diff_output=$(diff -u "$file" <(echo "$modified_content") || true)
+  lines_added=$(echo "$diff_output" | grep -c '^+[^+]' || true)
+  lines_removed=$(echo "$diff_output" | grep -c '^-[^-]' || true)
+  lines_changed=$((lines_added + lines_removed))
   
-  # Ensure we have numeric values (grep -c returns 0 if no match)
-  lines_changed=${lines_changed:-0}
+  # Ensure we have numeric values
   lines_added=${lines_added:-0}
   lines_removed=${lines_removed:-0}
+  lines_changed=${lines_changed:-0}
   
   # Store statistics
   per_file_stats["$file"]="$lines_changed"
@@ -169,8 +169,6 @@ for file in "${FILES[@]}"; do
   echo ""
   echo "Statistics:"
   echo "  Lines changed: $lines_changed"
-  echo "  Lines added: $lines_added"
-  echo "  Lines removed: $lines_removed"
   echo ""
 done
 
