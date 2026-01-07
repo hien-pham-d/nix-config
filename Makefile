@@ -17,6 +17,10 @@ hm-switch:
 os-rebuild:
 	sudo nixos-rebuild switch --flake .#$${HOST:?}
 
+# fix opencode outdate issues
+update-nixpkgs-unstable:
+	nix flake update nixpkgs-unstable
+
 # delete both inactive nixos and home-manager generations
 # update the boot loader
 tidy:
