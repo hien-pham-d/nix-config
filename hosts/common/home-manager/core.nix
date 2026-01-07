@@ -86,6 +86,7 @@
     git
     ripgrep
     fd
+    ast-grep
     wget
     curl
     rsync
@@ -324,6 +325,7 @@
         glh = "git log --pretty=oneline --graph";
         gs = "git status";
         tmuxs = "$HOME/.local/scripts/tmux/tmux-sessionizer";
+        sg = "ast-grep";
       };
 
       initContent = ''
