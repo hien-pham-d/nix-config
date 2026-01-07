@@ -115,6 +115,37 @@ apply_perl_substitution() {
   fi
 }
 
+# Function to generate preview output
+generate_preview_output() {
+  for file in "${files_to_change[@]}"; do
+    # Display file header
+    echo ""
+    echo -e "${YELLOW}=== $file ===${NC}"
+    
+    # Generate modified content
+    local modified_content
+    modified_content=$(apply_perl_substitution "$file")
+    
+    # Display colored unified diff
+    diff --color=always -u "$file" <(echo "$modified_content") || true
+  done
+  
+  # Display summary statistics
+  echo ""
+  echo "==================================="
+  echo -e "${YELLOW}Total Summary:${NC}"
+  echo "  Files processed: $total_files"
+  echo "  Files changed: $files_changed"
+  echo "  Total lines changed: $total_lines_changed"
+  echo ""
+  echo "  Per-file breakdown:"
+  for file in "${files_to_change[@]}"; do
+    echo "    $file: ${per_file_stats[$file]} line(s) changed"
+  done
+  echo "==================================="
+  echo ""
+}
+
 # Process each file
 for file in "${FILES[@]}"; do
   # Check file exists and is readable
@@ -143,13 +174,6 @@ for file in "${FILES[@]}"; do
   files_changed=$((files_changed + 1))
   files_to_change+=("$file")
   
-  # Display file header
-  echo ""
-  echo -e "${YELLOW}=== $file ===${NC}"
-  
-  # Generate and display colored unified diff
-  diff --color=always -u "$file" <(echo "$modified_content") || true
-  
   # Calculate statistics for this file
   diff_output=$(diff -u "$file" <(echo "$modified_content") || true)
   lines_added=$(echo "$diff_output" | grep -c '^+[^+]' || true)
@@ -172,20 +196,19 @@ if [ $files_changed -eq 0 ]; then
   exit 0
 fi
 
-# Display summary statistics
-echo ""
-echo "==================================="
-echo -e "${YELLOW}Total Summary:${NC}"
-echo "  Files processed: $total_files"
-echo "  Files changed: $files_changed"
-echo "  Total lines changed: $total_lines_changed"
-echo ""
-echo "  Per-file breakdown:"
-for file in "${files_to_change[@]}"; do
-  echo "    $file: ${per_file_stats[$file]} line(s) changed"
-done
-echo "==================================="
-echo ""
+# Display preview through pager if in terminal
+if [ -t 1 ]; then
+  # stdout is a terminal - use pager
+  if command -v less >/dev/null 2>&1; then
+    generate_preview_output | less -RFX
+  else
+    # Fallback if less not available
+    generate_preview_output
+  fi
+else
+  # stdout is not a terminal (piped/redirected) - print directly
+  generate_preview_output
+fi
 
 # Interactive confirmation prompt
 read -p "Apply these changes? [y/N]: " -r response < /dev/tty
