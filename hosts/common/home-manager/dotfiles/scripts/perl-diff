@@ -188,7 +188,7 @@ echo "==================================="
 echo ""
 
 # Interactive confirmation prompt
-read -p "Apply these changes? [y/N]: " -r response
+read -p "Apply these changes? [y/N]: " -r response < /dev/tty
 case "$response" in
   [yY])
     # Apply changes
