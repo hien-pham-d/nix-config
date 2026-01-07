@@ -8,6 +8,8 @@
 
 ;; playground
 
+(set-face-attribute 'consult-preview-line nil :background "#3a3a5c")
+
 (use-package agent-shell
   :straight (:host github :repo "xenodium/agent-shell" :commit "d699fd679e32fb38ea307e592d5ecdf04b0f8437"))
 

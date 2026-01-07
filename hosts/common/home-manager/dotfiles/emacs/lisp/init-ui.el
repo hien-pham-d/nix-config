@@ -34,6 +34,10 @@
 ;; highlight the current line at the cursor position
 (global-hl-line-mode)
 
+;; Customize consult-line preview background to be different from hl-line
+(with-eval-after-load 'consult
+  (set-face-attribute 'consult-preview-line nil :background "#3a3a5c"))
+
 ;; Recommended way to enable line wrapping.
 ;; This automatically set world-wrap = t.
 (global-visual-line-mode)
