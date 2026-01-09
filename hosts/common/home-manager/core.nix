@@ -451,6 +451,7 @@ bind r source-file ~/.config/tmux/tmux.conf \; display "Config reloeaded"
 
 # resize-pane
 bind -n C-m resize-pane -Z # fullscreen
+bind m resize-pane -Z # also support this binding
 
 bind C-r switch-client -T resize
 bind -T resize > resize-pane -R 12 \; switch-client -T resize
